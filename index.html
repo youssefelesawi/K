@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>For You 💕</title>
+<title>I'm Sorry 💕</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Belgrano&family=Belleza&family=Gloria+Hallelujah&family=Caveat:wght@400;600;700&family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -30,6 +30,86 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
     repeating-linear-gradient(52deg, transparent 0px, transparent 55px, rgba(200,192,184,0.05) 55px, rgba(200,192,184,0.05) 56px);
   background-size: cover, auto, auto, auto, auto;
   background-position: center;
+}
+
+/* ─── LOADING PAGE ─── */
+.loading-page {
+  position: fixed; inset: 0;
+  background: linear-gradient(145deg, #f3eee8 0%, #e8dfd5 100%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  transition: opacity 0.8s ease;
+  opacity: 1;
+  pointer-events: all;
+}
+.loading-page.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loading-heart {
+  font-size: clamp(3rem, 15vw, 5rem);
+  margin-bottom: 1rem;
+  animation: heartBeat 1.2s ease-in-out infinite;
+}
+@keyframes heartBeat {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+.loading-message {
+  font-family: 'Gloria Hallelujah', cursive;
+  font-size: clamp(1.2rem, 5vw, 2rem);
+  color: var(--red);
+  text-align: center;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+  max-width: 600px;
+}
+
+.loading-progress-container {
+  width: min(400px, 80vw);
+  height: 6px;
+  background: rgba(123,24,24,0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(123,24,24,0.2);
+}
+
+.loading-progress-bar {
+  height: 100%;
+  background: var(--red);
+  width: 0%;
+  transition: width 0.3s ease;
+  border-radius: 10px;
+}
+
+.loading-status {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(1rem, 4vw, 1.4rem);
+  color: #666;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.loading-percent {
+  font-family: 'Belleza', sans-serif;
+  font-size: clamp(0.9rem, 3vw, 1.1rem);
+  color: var(--red);
+  letter-spacing: 2px;
+}
+
+.loading-cache-note {
+  font-family: 'Belleza', sans-serif;
+  font-size: clamp(0.7rem, 2.5vw, 0.85rem);
+  color: #aaa;
+  margin-top: 1.5rem;
+  letter-spacing: 1px;
 }
 
 /* ─── PAGES ─── */
@@ -64,7 +144,6 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
   display:block;
   margin:0 auto 0.3rem;
   animation-play-state: paused !important;
-  /* freeze gif at first frame via mix */
 }
 .gif-cry {
   width: clamp(80px,20vw,110px);
@@ -72,7 +151,6 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
   object-fit:contain;
   display:block;
   margin:0 auto 0.8rem;
-  /* no CSS animation — GIF plays internally but no extra CSS motion */
 }
 
 .p1-hello {
@@ -146,12 +224,59 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
   gap:clamp(0.6rem,2vw,1rem);
   width:min(340px,84vw); margin:0 auto;
 }
+
+/* ─── GIFT CARD WITH NUMBER BADGE ─── */
+.gcard-wrap {
+  position: relative;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.gcard-num {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: clamp(22px, 6vw, 28px);
+  height: clamp(22px, 6vw, 28px);
+  background: var(--red);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Gloria Hallelujah', cursive;
+  font-size: clamp(0.5rem, 1.8vw, 0.7rem);
+  font-weight: 700;
+  z-index: 10;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 8px rgba(123,24,24,0.35);
+  pointer-events: none;
+}
+/* Visited (completed) badge style */
+.gcard-wrap.visited .gcard-num {
+  background: #4a7c59;
+}
+.gcard-wrap.visited .gcard {
+  border-color: #4a7c59;
+  background: rgba(240,255,244,0.85);
+}
+/* Checkmark overlay for visited */
+.gcard-wrap.visited::after {
+  content: '✓';
+  position: absolute;
+  bottom: 6px;
+  right: 8px;
+  font-size: clamp(0.7rem, 2.5vw, 0.9rem);
+  color: #4a7c59;
+  font-weight: 700;
+  pointer-events: none;
+}
+
 .gcard {
   background:rgba(255,255,255,0.8);
   border:3.5px solid var(--red); border-radius:18px;
   aspect-ratio:1; display:flex; align-items:center; justify-content:center;
-  cursor:pointer; transition:all 0.25s ease; overflow:hidden;
-  touch-action:manipulation;
+  transition:all 0.25s ease; overflow:hidden;
+  width: 100%;
 }
 .gcard:active { transform:scale(0.94); }
 .gcard:hover  { transform:scale(1.06); box-shadow:0 6px 22px rgba(123,24,24,0.22); background:rgba(255,255,255,0.97); }
@@ -173,7 +298,6 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
   display:flex; flex-direction:column; align-items:center;
 }
 
-/* Scatter area for 4 big polaroids */
 .scatter-zone {
   position:relative;
   width:min(460px,97vw);
@@ -230,7 +354,7 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
 .ret-btn:active { transform:scale(0.96); }
 
 /* ══════════════════════════════════
-   PAGE FLOWER — BIG IMAGE, STAMP LABELS ON EDGES
+   PAGE FLOWER
 ══════════════════════════════════ */
 #pageFlower {
   overflow-y:auto; overflow-x:hidden;
@@ -246,22 +370,18 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
   gap:0.7rem;
 }
 
-/* ─── The flower zone: image fills ~80% width, stamps overlap edges ─── */
 .flower-zone {
   position:relative;
   width:min(380px, 88vw);
   margin:0 auto;
 }
 
-/* The bouquet image — BIG, no border, no frame */
 .bouquet-img {
   width:100%;
   height:auto;
   display:block;
-  /* absolutely no border, no shadow, no radius */
 }
 
-/* ─── STAMP LABELS — NO animation, shifted down 20% ─── */
 .fstamp {
   position:absolute;
   background:rgba(255,255,255,0.93);
@@ -274,29 +394,13 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
   max-width:clamp(105px,28vw,148px);
   box-shadow:0 3px 10px rgba(0,0,0,0.12);
   z-index:5;
-  /* NO animation */
 }
 
-/* st1 & st2 shifted down 20% of image height */
-.fstamp.st1 {
-  top:20%; left:-10px;
-  transform:rotate(-6deg);
-}
-.fstamp.st2 {
-  top:20%; right:-10px;
-  transform:rotate(5deg);
-}
-/* st3 & st4 shifted from 42% down +20% = 62% */
-.fstamp.st3 {
-  top:62%; left:-12px;
-  transform:translateY(-50%) rotate(-4deg);
-}
-.fstamp.st4 {
-  top:62%; right:-12px;
-  transform:translateY(-50%) rotate(4deg);
-}
+.fstamp.st1 { top:20%; left:-10px; transform:rotate(-6deg); }
+.fstamp.st2 { top:20%; right:-10px; transform:rotate(5deg); }
+.fstamp.st3 { top:62%; left:-12px; transform:translateY(-50%) rotate(-4deg); }
+.fstamp.st4 { top:62%; right:-12px; transform:translateY(-50%) rotate(4deg); }
 
-/* Tulips label below image */
 .tulips-label {
   font-family:'Gloria Hallelujah',cursive;
   font-size:clamp(0.95rem,3.5vw,1.4rem);
@@ -308,7 +412,6 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
   color:#888; text-align:center; letter-spacing:1px; margin-top:0.1rem;
 }
 
-/* Bottom section: dashed line + title + return */
 .flower-bottom {
   display:flex; flex-direction:column; align-items:center;
   gap:0.35rem; width:100%; margin-top:0.3rem;
@@ -324,7 +427,7 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
 }
 
 /* ══════════════════════════════════
-   PAGE VIDEO / SONG
+   PAGE VIDEO / YOUTUBE
 ══════════════════════════════════ */
 #pageVideo {
   overflow-y:auto; overflow-x:hidden;
@@ -354,9 +457,8 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
   box-shadow:0 6px 26px rgba(0,0,0,0.25);
   display:flex; align-items:center; justify-content:center;
 }
-.player-box video {
-  width:100%; height:100%; object-fit:contain; background:#111;
-  display:block;
+.player-box iframe {
+  width:100%; height:100%; display:block;
 }
 .song-name {
   font-family:'Belleza',sans-serif;
@@ -370,8 +472,19 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
   padding:0.4rem 1.3rem; border-radius:6px; border:none;
   cursor:pointer; margin-top:0.4rem; transition:all 0.25s;
   touch-action:manipulation;
+  position: relative;
+  overflow: hidden;
 }
 .secret-pill:hover { background:var(--red2); transform:scale(1.04); }
+.secret-pill.clicked::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(255,255,255,0.3);
+  border-radius: 6px;
+  animation: rippleFade 0.4s ease forwards;
+}
+@keyframes rippleFade { from{opacity:1} to{opacity:0} }
+
 .song-section-h {
   font-family:'Gloria Hallelujah',cursive;
   font-size:clamp(1.2rem,4vw,2rem); color:var(--red);
@@ -442,14 +555,246 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
   cursor:pointer; background:none; border:none; z-index:10;
   touch-action:manipulation;
 }
+
+/* ══════════════════════════════════
+   VOICE NOTE NOTIFICATION OVERLAY
+══════════════════════════════════ */
+.voice-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.voice-overlay.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.voice-card {
+  background: #fff;
+  border-radius: 24px;
+  padding: 2rem 1.8rem 1.5rem;
+  max-width: min(360px, 88vw);
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  transform: translateY(30px) scale(0.92);
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+}
+.voice-overlay.show .voice-card {
+  transform: translateY(0) scale(1);
+}
+
+.voice-card-icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 0.6rem;
+  animation: heartPulse 1.2s ease-in-out infinite;
+}
+@keyframes heartPulse {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.18); }
+}
+
+.voice-card-title {
+  font-family: 'Gloria Hallelujah', cursive;
+  font-size: clamp(1rem, 3.5vw, 1.3rem);
+  color: var(--red);
+  margin-bottom: 0.4rem;
+  line-height: 1.4;
+}
+.voice-card-sub {
+  font-family: 'Belleza', sans-serif;
+  font-size: clamp(0.78rem, 2.5vw, 0.92rem);
+  color: #888;
+  letter-spacing: 0.5px;
+  margin-bottom: 1.4rem;
+}
+
+.voice-waveform {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 44px;
+  margin-bottom: 1.2rem;
+}
+.voice-waveform .bar {
+  width: 5px;
+  border-radius: 3px;
+  background: var(--red);
+  opacity: 0.18;
+  transition: height 0.15s ease, opacity 0.15s ease;
+}
+.voice-waveform.playing .bar { opacity: 0.85; }
+
+.voice-waveform .bar:nth-child(1)  { height:14px; }
+.voice-waveform .bar:nth-child(2)  { height:22px; }
+.voice-waveform .bar:nth-child(3)  { height:34px; }
+.voice-waveform .bar:nth-child(4)  { height:26px; }
+.voice-waveform .bar:nth-child(5)  { height:38px; }
+.voice-waveform .bar:nth-child(6)  { height:26px; }
+.voice-waveform .bar:nth-child(7)  { height:34px; }
+.voice-waveform .bar:nth-child(8)  { height:20px; }
+.voice-waveform .bar:nth-child(9)  { height:14px; }
+
+@keyframes waveBounce {
+  0%,100% { transform: scaleY(0.4); }
+  50% { transform: scaleY(1); }
+}
+.voice-waveform.playing .bar:nth-child(1) { animation: waveBounce 0.9s 0.0s ease-in-out infinite; }
+.voice-waveform.playing .bar:nth-child(2) { animation: waveBounce 0.9s 0.1s ease-in-out infinite; }
+.voice-waveform.playing .bar:nth-child(3) { animation: waveBounce 0.9s 0.2s ease-in-out infinite; }
+.voice-waveform.playing .bar:nth-child(4) { animation: waveBounce 0.9s 0.3s ease-in-out infinite; }
+.voice-waveform.playing .bar:nth-child(5) { animation: waveBounce 0.9s 0.4s ease-in-out infinite; }
+.voice-waveform.playing .bar:nth-child(6) { animation: waveBounce 0.9s 0.3s ease-in-out infinite; }
+.voice-waveform.playing .bar:nth-child(7) { animation: waveBounce 0.9s 0.2s ease-in-out infinite; }
+.voice-waveform.playing .bar:nth-child(8) { animation: waveBounce 0.9s 0.1s ease-in-out infinite; }
+.voice-waveform.playing .bar:nth-child(9) { animation: waveBounce 0.9s 0.0s ease-in-out infinite; }
+
+.voice-play-btn {
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  background: var(--red);
+  border: none;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1rem;
+  box-shadow: 0 6px 20px rgba(123,24,24,0.4);
+  transition: all 0.25s ease;
+  touch-action: manipulation;
+  font-size: 1.5rem;
+  color: #fff;
+}
+.voice-play-btn:hover { transform: scale(1.08); box-shadow: 0 8px 28px rgba(123,24,24,0.5); }
+.voice-play-btn:active { transform: scale(0.95); }
+
+.voice-progress-wrap {
+  background: rgba(123,24,24,0.12);
+  border-radius: 4px; height: 5px;
+  width: 85%; margin: 0 auto 0.6rem;
+  overflow: hidden;
+}
+.voice-progress-fill {
+  height: 100%;
+  background: var(--red);
+  border-radius: 4px;
+  width: 0%;
+  transition: width 0.3s linear;
+}
+.voice-time {
+  font-family: 'Belleza', sans-serif;
+  font-size: 0.72rem; color: #aaa; letter-spacing: 1px;
+  margin-bottom: 1.2rem;
+}
+
+.voice-close-btn {
+  font-family: 'Belleza', sans-serif;
+  font-size: clamp(0.65rem, 2.2vw, 0.78rem);
+  letter-spacing: 2.5px; text-transform: uppercase;
+  background: transparent; border: 2px solid rgba(123,24,24,0.3);
+  color: #aaa; border-radius: 50px;
+  padding: 0.4rem 1.4rem; cursor: pointer;
+  transition: all 0.25s; touch-action: manipulation;
+}
+.voice-close-btn:hover { border-color: var(--red); color: var(--red); }
+
+.read-hint-toast {
+  position: fixed;
+  bottom: clamp(1.8rem, 6vw, 3rem);
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  z-index: 600;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.45s cubic-bezier(0.34,1.56,0.64,1);
+}
+.read-hint-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: none;
+}
+.read-hint-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: rgba(255,255,255,0.96);
+  border: 2.5px solid var(--red);
+  border-radius: 50px;
+  padding: 0.6rem 1.3rem 0.6rem 0.9rem;
+  box-shadow: 0 8px 30px rgba(123,24,24,0.22);
+  white-space: nowrap;
+}
+.read-hint-icon {
+  font-size: 1.35rem;
+  animation: bellShake 1.8s ease-in-out infinite;
+  flex-shrink: 0;
+}
+@keyframes bellShake {
+  0%,100% { transform: rotate(0deg); }
+  10%      { transform: rotate(-18deg); }
+  20%      { transform: rotate(18deg); }
+  30%      { transform: rotate(-12deg); }
+  40%      { transform: rotate(12deg); }
+  50%      { transform: rotate(-6deg); }
+  60%      { transform: rotate(6deg); }
+  70%,90%  { transform: rotate(0deg); }
+}
+.read-hint-text {
+  font-family: 'Belleza', sans-serif;
+  font-size: clamp(0.68rem, 2.5vw, 0.82rem);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--red);
+  font-weight: 600;
+}
+.read-hint-arrow {
+  font-size: 1rem;
+  animation: arrowBounce 0.8s ease-in-out infinite alternate;
+  color: var(--red);
+}
+@keyframes arrowBounce {
+  from { transform: translateY(0); }
+  to   { transform: translateY(4px); }
+}
+
+.voice-from-tag {
+  position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+  background: var(--red); color: #fff;
+  font-family: 'Caveat', cursive;
+  font-size: clamp(0.72rem, 2.2vw, 0.88rem);
+  padding: 0.22rem 1rem; border-radius: 20px;
+  white-space: nowrap;
+  box-shadow: 0 3px 10px rgba(123,24,24,0.3);
+}
 </style>
 </head>
 <body>
 
 <div class="bg-paper"></div>
 
+<!-- ══════════ LOADING PAGE ══════════ -->
+<div class="loading-page" id="loadingPage">
+  <div class="loading-heart">❤️</div>
+  <div class="loading-message" id="loadingMessage">Loading your love story...</div>
+  <div class="loading-progress-container">
+    <div class="loading-progress-bar" id="loadingProgress"></div>
+  </div>
+  <div class="loading-status" id="loadingStatus">Preparing memories...</div>
+  <div class="loading-percent" id="loadingPercent">0%</div>
+  <div class="loading-cache-note" id="loadingCacheNote">✨ Caching for faster next time ✨</div>
+</div>
+
 <!-- ══════════ PAGE 1 ══════════ -->
-<div class="page active" id="page1">
+<div class="page" id="page1">
   <div class="wrap">
     <img class="gif-top" src="pics/cat.gif" alt=""
          onerror="this.style.display='none'; this.onerror=null;">
@@ -457,8 +802,8 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
     <div class="p1-love">My Senorita!</div>
     <div class="p1-sub">Are you upset with me?</div>
     <div class="btn-row">
-      <button class="pill pill-fill"  onclick="goTo('pageNo')">YES PLEASE</button>
-      <button class="pill pill-ghost" onclick="goTo('pageGifts')">NO THANKS</button>
+      <button class="pill pill-fill"  onclick="goTo('pageNo')">YES</button>
+      <button class="pill pill-ghost" onclick="goTo('pageGifts')">NO</button>
     </div>
   </div>
 </div>
@@ -481,98 +826,83 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
     <div class="g-sub">I hope you like it, I love you!</div>
     <div class="grid2x2">
 
-      <!-- 1. PHOTOS: polaroid frame - landscape photo with red mountains & sun dot -->
-      <div class="gcard" onclick="goTo('pagePhotos')">
-        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- White polaroid outer frame -->
-          <rect x="11" y="9" width="58" height="62" rx="5" fill="white" stroke="#7B1818" stroke-width="3"/>
-          <!-- Red/dark photo content area -->
-          <rect x="17" y="15" width="46" height="40" rx="2" fill="#9B1C1C"/>
-          <!-- Lighter sky at top -->
-          <rect x="17" y="15" width="46" height="18" rx="2" fill="#c0392b" opacity="0.5"/>
-          <!-- Sun dot top-right -->
-          <circle cx="56" cy="22" r="5" fill="#e8c0c0"/>
-          <!-- Rolling dark hills -->
-          <ellipse cx="28" cy="56" rx="16" ry="8" fill="#7B1818"/>
-          <ellipse cx="52" cy="58" rx="14" ry="7" fill="#7B1818" opacity="0.7"/>
-          <!-- Bottom white label strip -->
-          <rect x="11" y="62" width="58" height="9" rx="0" fill="white"/>
-        </svg>
+      <!-- 1. PHOTOS -->
+      <div class="gcard-wrap" id="wrap1" onclick="visitAndGo('wrap1','pagePhotos')">
+        <div class="gcard-num">1</div>
+        <div class="gcard">
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="11" y="9" width="58" height="62" rx="5" fill="white" stroke="#7B1818" stroke-width="3"/>
+            <rect x="17" y="15" width="46" height="40" rx="2" fill="#9B1C1C"/>
+            <rect x="17" y="15" width="46" height="18" rx="2" fill="#c0392b" opacity="0.5"/>
+            <circle cx="56" cy="22" r="5" fill="#e8c0c0"/>
+            <ellipse cx="28" cy="56" rx="16" ry="8" fill="#7B1818"/>
+            <ellipse cx="52" cy="58" rx="14" ry="7" fill="#7B1818" opacity="0.7"/>
+            <rect x="11" y="62" width="58" height="9" rx="0" fill="white"/>
+          </svg>
+        </div>
       </div>
 
-      <!-- 2. FLOWERS: wrapped bouquet - red/pink cone, pink blooms on top -->
-      <div class="gcard" onclick="goTo('pageFlower')">
-        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Red wrap cone -->
-          <path d="M18 76 L40 44 L62 76 Z" fill="#c0392b"/>
-          <!-- Darker center crease -->
-          <path d="M30 76 L40 52 L50 76 Z" fill="#7B1818" opacity="0.5"/>
-          <!-- Bow knot -->
-          <path d="M34 62 Q26 56 30 50 Q36 54 36 60Z" fill="#e8c0c0" stroke="#7B1818" stroke-width="0.8"/>
-          <path d="M46 62 Q54 56 50 50 Q44 54 44 60Z" fill="#e8c0c0" stroke="#7B1818" stroke-width="0.8"/>
-          <circle cx="40" cy="60" r="3.5" fill="#7B1818"/>
-          <!-- Stems (green) -->
-          <line x1="40" y1="46" x2="40" y2="28" stroke="#4a7c59" stroke-width="2.5" stroke-linecap="round"/>
-          <line x1="32" y1="48" x2="24" y2="24" stroke="#4a7c59" stroke-width="2" stroke-linecap="round"/>
-          <line x1="48" y1="48" x2="56" y2="24" stroke="#4a7c59" stroke-width="2" stroke-linecap="round"/>
-          <!-- Leaves -->
-          <ellipse cx="34" cy="37" rx="6" ry="2.5" transform="rotate(-40 34 37)" fill="#4a7c59"/>
-          <ellipse cx="46" cy="37" rx="6" ry="2.5" transform="rotate(40 46 37)" fill="#4a7c59"/>
-          <!-- CENTER big pink flower -->
-          <circle cx="40" cy="22" r="9" fill="#e8a0b4"/>
-          <circle cx="40" cy="22" r="4.5" fill="#c0392b"/>
-          <!-- LEFT flower -->
-          <circle cx="24" cy="18" r="7" fill="#f4c2c2"/>
-          <circle cx="24" cy="18" r="3.5" fill="#c0392b" opacity="0.7"/>
-          <!-- RIGHT flower -->
-          <circle cx="56" cy="18" r="7" fill="#f4c2c2"/>
-          <circle cx="56" cy="18" r="3.5" fill="#c0392b" opacity="0.7"/>
-          <!-- Extra tiny buds -->
-          <circle cx="32" cy="12" r="4" fill="#fce4ec"/>
-          <circle cx="48" cy="12" r="4" fill="#fce4ec"/>
-        </svg>
+      <!-- 2. FLOWERS -->
+      <div class="gcard-wrap" id="wrap2" onclick="visitAndGo('wrap2','pageFlower')">
+        <div class="gcard-num">2</div>
+        <div class="gcard">
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 76 L40 44 L62 76 Z" fill="#c0392b"/>
+            <path d="M30 76 L40 52 L50 76 Z" fill="#7B1818" opacity="0.5"/>
+            <path d="M34 62 Q26 56 30 50 Q36 54 36 60Z" fill="#e8c0c0" stroke="#7B1818" stroke-width="0.8"/>
+            <path d="M46 62 Q54 56 50 50 Q44 54 44 60Z" fill="#e8c0c0" stroke="#7B1818" stroke-width="0.8"/>
+            <circle cx="40" cy="60" r="3.5" fill="#7B1818"/>
+            <line x1="40" y1="46" x2="40" y2="28" stroke="#4a7c59" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="32" y1="48" x2="24" y2="24" stroke="#4a7c59" stroke-width="2" stroke-linecap="round"/>
+            <line x1="48" y1="48" x2="56" y2="24" stroke="#4a7c59" stroke-width="2" stroke-linecap="round"/>
+            <ellipse cx="34" cy="37" rx="6" ry="2.5" transform="rotate(-40 34 37)" fill="#4a7c59"/>
+            <ellipse cx="46" cy="37" rx="6" ry="2.5" transform="rotate(40 46 37)" fill="#4a7c59"/>
+            <circle cx="40" cy="22" r="9" fill="#e8a0b4"/>
+            <circle cx="40" cy="22" r="4.5" fill="#c0392b"/>
+            <circle cx="24" cy="18" r="7" fill="#f4c2c2"/>
+            <circle cx="24" cy="18" r="3.5" fill="#c0392b" opacity="0.7"/>
+            <circle cx="56" cy="18" r="7" fill="#f4c2c2"/>
+            <circle cx="56" cy="18" r="3.5" fill="#c0392b" opacity="0.7"/>
+            <circle cx="32" cy="12" r="4" fill="#fce4ec"/>
+            <circle cx="48" cy="12" r="4" fill="#fce4ec"/>
+          </svg>
+        </div>
       </div>
 
-      <!-- 3. HEART LOCKS: two heart-shaped padlocks linked together -->
-      <div class="gcard" onclick="goTo('pageVideo')">
-        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Left heart lock body (dark red) -->
-          <path d="M10 55 C-1 44 -1 26 10 26 C16 26 20 31 22 31 C24 31 28 26 34 26 C45 26 45 44 34 55 L22 65 Z" fill="#c0392b"/>
-          <!-- Left shackle arch -->
-          <path d="M8 38 Q8 26 19 26 Q30 26 30 38" stroke="#7B1818" stroke-width="4" fill="none" stroke-linecap="round"/>
-          <!-- Left keyhole -->
-          <circle cx="21" cy="46" r="4" fill="#7B1818"/>
-          <rect x="19.5" y="46" width="3" height="6" rx="1.5" fill="#7B1818"/>
-
-          <!-- Right heart lock body (lighter pink) -->
-          <path d="M34 55 C24 46 24 30 34 30 C39 30 42 34 44 34 C46 34 49 30 54 30 C64 30 64 46 54 55 L44 64 Z" fill="#e8a0b4" stroke="#7B1818" stroke-width="1.5"/>
-          <!-- Right shackle arch -->
-          <path d="M32 41 Q32 30 43 30 Q54 30 54 41" stroke="#7B1818" stroke-width="3" fill="none" stroke-linecap="round"/>
-          <!-- Right keyhole -->
-          <circle cx="43" cy="46" r="3.5" fill="#7B1818" opacity="0.6"/>
-          <rect x="41.7" y="46" width="2.8" height="5" rx="1.4" fill="#7B1818" opacity="0.6"/>
-        </svg>
+      <!-- 3. VIDEO -->
+      <div class="gcard-wrap" id="wrap3" onclick="visitAndGo('wrap3','pageVideo')">
+        <div class="gcard-num">3</div>
+        <div class="gcard">
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 55 C-1 44 -1 26 10 26 C16 26 20 31 22 31 C24 31 28 26 34 26 C45 26 45 44 34 55 L22 65 Z" fill="#c0392b"/>
+            <path d="M8 38 Q8 26 19 26 Q30 26 30 38" stroke="#7B1818" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <circle cx="21" cy="46" r="4" fill="#7B1818"/>
+            <rect x="19.5" y="46" width="3" height="6" rx="1.5" fill="#7B1818"/>
+            <path d="M34 55 C24 46 24 30 34 30 C39 30 42 34 44 34 C46 34 49 30 54 30 C64 30 64 46 54 55 L44 64 Z" fill="#e8a0b4" stroke="#7B1818" stroke-width="1.5"/>
+            <path d="M32 41 Q32 30 43 30 Q54 30 54 41" stroke="#7B1818" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <circle cx="43" cy="46" r="3.5" fill="#7B1818" opacity="0.6"/>
+            <rect x="41.7" y="46" width="2.8" height="5" rx="1.4" fill="#7B1818" opacity="0.6"/>
+          </svg>
+        </div>
       </div>
 
-      <!-- 4. LETTER: open envelope with letter + heart on it -->
-      <div class="gcard" onclick="goTo('pageLetter')">
-        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Letter/paper behind (white, tilted right) -->
-          <g transform="rotate(10 40 40)">
-            <rect x="24" y="14" width="34" height="42" rx="3" fill="#f5d0d0" stroke="#d4a0a0" stroke-width="1.5"/>
-            <!-- lines on right letter -->
-            <line x1="29" y1="26" x2="52" y2="26" stroke="#d4a0a0" stroke-width="1.5"/>
-            <line x1="29" y1="32" x2="50" y2="32" stroke="#d4a0a0" stroke-width="1.5"/>
-          </g>
-          <!-- Main envelope (white, slightly tilted left) -->
-          <g transform="rotate(-6 40 40)">
-            <rect x="16" y="22" width="44" height="36" rx="4" fill="white" stroke="#c0392b" stroke-width="2.5"/>
-            <!-- V fold line -->
-            <path d="M16 22 L38 40 L60 22" stroke="#c0392b" stroke-width="2" fill="none" stroke-linejoin="round"/>
-            <!-- Heart on front -->
-            <path d="M38 50 C37 48 34 48 34 51 C34 51 34 48 31 48 C28 48 28 51 31 54 L34 57 L37 54 C40 51 40 48 38 50Z" fill="#c0392b"/>
-          </g>
-        </svg>
+      <!-- 4. LETTER -->
+      <div class="gcard-wrap" id="wrap4" onclick="visitAndGo('wrap4','pageLetter')">
+        <div class="gcard-num">4</div>
+        <div class="gcard">
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g transform="rotate(10 40 40)">
+              <rect x="24" y="14" width="34" height="42" rx="3" fill="#f5d0d0" stroke="#d4a0a0" stroke-width="1.5"/>
+              <line x1="29" y1="26" x2="52" y2="26" stroke="#d4a0a0" stroke-width="1.5"/>
+              <line x1="29" y1="32" x2="50" y2="32" stroke="#d4a0a0" stroke-width="1.5"/>
+            </g>
+            <g transform="rotate(-6 40 40)">
+              <rect x="16" y="22" width="44" height="36" rx="4" fill="white" stroke="#c0392b" stroke-width="2.5"/>
+              <path d="M16 22 L38 40 L60 22" stroke="#c0392b" stroke-width="2" fill="none" stroke-linejoin="round"/>
+              <path d="M38 50 C37 48 34 48 34 51 C34 51 34 48 31 48 C28 48 28 51 31 54 L34 57 L37 54 C40 51 40 48 38 50Z" fill="#c0392b"/>
+            </g>
+          </svg>
+        </div>
       </div>
 
     </div>
@@ -592,51 +922,44 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
 <!-- ══════════ PAGE FLOWER ══════════ -->
 <div class="page" id="pageFlower">
   <div class="flower-page-inner">
-
-    <!-- Big bouquet image with 4 stamp labels overlapping its edges -->
     <div class="flower-zone">
-
-      <!-- STAMP 1: top-left -->
-      <div class="fstamp st1">You're as beautiful as freshly bloomed flowers</div>
-      <!-- STAMP 2: top-right -->
-      <div class="fstamp st2">Spending time with you is like a surprise bouquet</div>
-
-      <!-- THE BOUQUET IMAGE — BIG, NO FRAME, NO BORDER -->
-      <img class="bouquet-img" src="pics/rose.jpg" alt="Bouquet"
+      <div class="fstamp st1">My heart fears losing you, you</div>
+      <div class="fstamp st2">Mean everything to me</div>
+      <img class="bouquet-img" src="pics/rose.PNG" alt="Bouquet"
            onerror="this.style.minHeight='260px'; this.style.background='linear-gradient(160deg,#fce4ec,#e8a0b4,#c0392b)'; this.onerror=null;">
-
-      <!-- STAMP 3: mid-left -->
-      <div class="fstamp st3">Your presence feels like walking through a garden in bloom</div>
-      <!-- STAMP 4: mid-right -->
-      <div class="fstamp st4">You're as gentle and graceful as petals in the breeze</div>
-
-      <div class="tulips-label">TULIPS</div>
-      <div class="tulips-sub">your favorite flower</div>
+      <div class="fstamp st3">I'm trying my best to change, all for your precious eyes</div>
+      <div class="fstamp st4">Can't imagine life without you</div>
+      <div class="tulips-label">Rose</div>
+      <div class="tulips-sub">My Wifee Fav</div>
     </div>
-
-    <!-- Bottom: dashed + title + return -->
     <div class="flower-bottom">
       <hr class="flower-dashed">
       <div class="flower-page-title">Virtual Flowers</div>
       <button class="ret-btn" onclick="goTo('pageGifts')">RETURN</button>
     </div>
-
   </div>
 </div>
 
-<!-- ══════════ PAGE VIDEO ══════════ -->
+<!-- ══════════ PAGE VIDEO / YOUTUBE ══════════ -->
 <div class="page" id="pageVideo">
   <div class="video-inner">
-    <div class="song-cap">this song reminds me of you (&gt;u&lt;)</div>
+    <div class="song-cap">Short Video</div>
     <div class="player-box">
-      <video controls playsinline preload="metadata">
-        <source src="pics/video.mp4" type="video/mp4">
-      </video>
+      <iframe 
+        id="youtubeVideo"
+        width="100%" 
+        height="100%" 
+        src="https://www.youtube.com/embed/mx9ISasdWb8?autoplay=1&enablejsapi=1&rel=0&modestbranding=1"
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen
+        style="border-radius: 12px;"
+      ></iframe>
     </div>
-    <div class="song-name">The most beautiful thing — for you 💕</div>
-    <button class="secret-pill">secret message: 1:43 — 1:55 🎵</button>
+    <div class="song-name">The most beautiful thing in Life — B7bk 💕</div>
+    <button class="secret-pill" id="secretBtn" onclick="jumpToSecret()">Secret message: 0:38 — 1:15 🎵</button>
     <hr class="dashed-sep" style="width:75%; margin:0.6rem auto;">
-    <div class="song-section-h">Song about you</div>
+    <div class="song-section-h">❤️❤️❤️❤️❤️</div>
     <button class="ret-btn" onclick="goTo('pageGifts')">RETURN</button>
   </div>
 </div>
@@ -646,18 +969,20 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
   <div class="letter-inner">
     <div class="letter-section-h">A Message for You 💌</div>
     <div class="letter-card">
-      <span class="lc-icon">💌</span>
-      <div class="lc-greet">My dearest Senorita,</div>
+      <span class="lc-icon"></span>
+      <div class="lc-greet">My Love Dija,</div>
       <div class="lc-body">
-        Every moment I spend with you is something I hold so close to my heart. I know I'm not always perfect, but please know that everything I do comes from a place of deep love and care for you.
+My beloved Khadija, I am truly sorry for hurting you deeply. I regret my anger, my words, and the pain I caused.
       </div>
       <div class="lc-body">
-        You are my sunshine, my peace, and my home. I never want to see you hurting — especially not because of me. I'm truly sorry.
+Distance and silence often make my heart overthink and fear losing. The thought of losing you fills my heart with endless fear
+I am giving my best to change, only for your precious eyes
       </div>
       <div class="lc-body">
-        You deserve the whole world, and I promise I'll spend every day trying to give it to you. 🌹
+I want a lifetime together, not moments, just with your love. Your love is my addiction; I could never let you go, my first and last love
+... my last 7 minutes
       </div>
-      <div class="lc-sign">Forever yours ✦</div>
+      <div class="lc-sign">Youssef ✦</div>
     </div>
     <hr class="dashed-sep" style="margin-top:0.9rem;">
     <div style="font-family:'Gloria Hallelujah',cursive; font-size:clamp(0.9rem,3vw,1.2rem); color:var(--red); line-height:1.4;">with all my love 💕</div>
@@ -665,12 +990,63 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
   </div>
 </div>
 
-<!-- ══════════ HIDDEN BACKGROUND MUSIC — no controls, no UI ══════════ -->
+<!-- ══════════ BACKGROUND MUSIC ══════════ -->
 <audio id="bgMusic" loop preload="auto" style="display:none!important; position:fixed; width:0; height:0; opacity:0; pointer-events:none;">
   <source src="pics/music.mp3" type="audio/mpeg">
   <source src="pics/music.ogg" type="audio/ogg">
   <source src="pics/music.m4a" type="audio/mp4">
 </audio>
+
+<!-- ══════════ MESSAGE AUDIO (يشتغل عند دخول الرسالة) ══════════ -->
+<audio id="messageAudio" loop preload="auto" style="display:none!important; position:fixed; width:0; height:0; opacity:0; pointer-events:none;">
+  <source src="pics/message.mp3" type="audio/mpeg">
+  <source src="pics/message.ogg" type="audio/ogg">
+  <source src="pics/message.m4a" type="audio/mp4">
+</audio>
+
+<!-- ══════════ VOICE NOTE APOLOGY OVERLAY ══════════ -->
+<div class="voice-overlay" id="voiceOverlay">
+  <div class="voice-card">
+    <div class="voice-from-tag">🎙️ From Youssef, with love</div>
+    <span class="voice-card-icon">💌</span>
+    <div class="voice-card-title">A voice note<br>just for you</div>
+    <div class="voice-card-sub">Recorded from my heart — Press play 🎧</div>
+
+    <!-- Waveform visualizer -->
+    <div class="voice-waveform" id="voiceWave">
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+
+    <!-- Play/Pause button -->
+    <button class="voice-play-btn" id="voicePlayBtn" onclick="toggleVoice()">▶</button>
+
+    <!-- Progress -->
+    <div class="voice-progress-wrap">
+      <div class="voice-progress-fill" id="voiceProgressFill"></div>
+    </div>
+    <div class="voice-time" id="voiceTimeDisplay">0:00 / 0:00</div>
+
+    <button class="voice-close-btn" onclick="closeVoiceOverlay()">Return</button>
+  </div>
+</div>
+
+<!-- Hidden audio for voice note -->
+<audio id="voiceAudio" preload="auto" style="display:none!important;">
+  <source src="pics/voice.mp3" type="audio/mpeg">
+  <source src="pics/voice.m4a" type="audio/mp4">
+  <source src="pics/voice.ogg" type="audio/ogg">
+</audio>
+
+<!-- READ HINT TOAST -->
+<div class="read-hint-toast" id="readHintToast">
+  <div class="read-hint-inner">
+    <span class="read-hint-icon">📜</span>
+    <span class="read-hint-text">After Reading Please Press RETURN</span>
+    <span class="read-hint-arrow">↓</span>
+  </div>
+</div>
 
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
@@ -679,123 +1055,579 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
 </div>
 
 <script>
-/* ══════════════════════════════════
-   BACKGROUND PRELOADER — cache all assets silently
-══════════════════════════════════ */
-(function preloadAll() {
-  // All images to preload
-  const imgs = [
-    'pics/bg_main.jpg','pics/bg_alt.jpg',
-    'pics/cat.gif','pics/cry.gif',
-    'pics/rose.jpg',
-    'pics/1.jpg','pics/2.jpg','pics/3.jpg','pics/4.jpg',
-    'pics/5.jpg','pics/6.jpg','pics/7.jpg','pics/8.jpg',
-    'pics/9.jpg','pics/10.jpg','pics/11.jpg','pics/12.jpg'
-  ];
-  imgs.forEach(src => { const i = new Image(); i.src = src; });
-
-  // Preload video via fetch so it's cached
-  if ('fetch' in window) {
-    fetch('pics/video.mp4', { mode:'no-cors' }).catch(()=>{});
-    fetch('pics/music.mp3', { mode:'no-cors' }).catch(()=>{});
-    fetch('pics/music.m4a', { mode:'no-cors' }).catch(()=>{});
-  }
-
-  // Also use link rel=preload for video/audio
-  ['pics/video.mp4','pics/music.mp3'].forEach(href => {
-    const type = href.endsWith('.mp4') ? 'video' : 'audio';
-    try {
-      const l = document.createElement('link');
-      l.rel = 'preload'; l.as = type; l.href = href;
-      document.head.appendChild(l);
-    } catch(e){}
-  });
-})();
-
-/* ══════════════════════════════════
-   BACKGROUND MUSIC — autoplay, no controls ever
-══════════════════════════════════ */
-const bgMusic = document.getElementById('bgMusic');
-
-function startMusic() {
-  if (!bgMusic) return;
-  bgMusic.volume = 0.55;
-  const p = bgMusic.play();
-  if (p && p.catch) p.catch(()=>{});
-}
-
-// Try immediate autoplay
-startMusic();
-
-// Fallback: start on first user interaction anywhere (mobile needs this)
-let musicStarted = false;
-function onFirstTouch() {
-  if (musicStarted) return;
-  musicStarted = true;
-  startMusic();
-  document.removeEventListener('click',    onFirstTouch);
-  document.removeEventListener('touchstart', onFirstTouch);
-  document.removeEventListener('keydown',  onFirstTouch);
-}
-document.addEventListener('click',     onFirstTouch, { passive:true });
-document.addEventListener('touchstart', onFirstTouch, { passive:true });
-document.addEventListener('keydown',   onFirstTouch, { passive:true });
-
-/* ── Navigation ── */
-function goTo(id) {
-  document.querySelector('.page.active')?.classList.remove('active');
-  document.getElementById(id).classList.add('active');
-  if (id === 'pagePhotos') buildPhotos();
-  const pg = document.getElementById(id);
-  if (pg) pg.scrollTop = 0;
-}
-
-/* ── 4 Big Polaroids ── */
-const photos4 = [
-  { src:'pics/1.jpg', lbl:'photobooth! 📸', rot:-12, zi:4 },
-  { src:'pics/2.jpg', lbl:'grad pic 🎓',    rot:9,   zi:3 },
-  { src:'pics/3.jpg', lbl:'recent! 🌸',     rot:-7,  zi:2 },
-  { src:'pics/4.jpg', lbl:'birthday! 🎉',   rot:11,  zi:1 },
+/* ══ Loading Page Messages ══ */
+const loveMessages = [
+  "Every love story is beautiful, but ours is my favorite... 💕",
+  "I'm counting the seconds until I see your smile... 🥰",
+  "You are the reason I believe in love... 🌹",
+  "My heart beats only for you... ❤️",
+  "Loading your memories, my love... 📸",
+  "You are the most beautiful thing in my life... ✨",
+  "I'm preparing something special just for you... 🎁",
+  "Distance means so little when you mean so much... 🌍",
+  "You are my today and all of my tomorrows... 💫",
+  "I love you more than all the stars in the sky... ⭐",
+  "Your love is my favorite addiction... 💝",
+  "Every moment without you is a moment wasted... ⏳",
+  "You make my world beautiful... 🌈",
+  "I choose you. And I'll choose you every time... 💍",
+  "You're the piece of me I didn't know was missing... 🧩"
 ];
 
+/* ══ File List for Caching ══ */
+const filesToCache = [
+  'pics/bg_main.jpg',
+  'pics/bg_alt.jpg',
+  'pics/cat.gif',
+  'pics/cry.gif',
+  'pics/rose.PNG',
+  'pics/1.jpg',
+  'pics/2.jpg',
+  'pics/3.jpg',
+  'pics/4.jpg',
+  'pics/5.jpg',
+  'pics/6.jpg',
+  'pics/7.jpg',
+  'pics/8.jpg',
+  'pics/9.jpg',
+  'pics/10.jpg',
+  'pics/11.jpg',
+  'pics/12.jpg',
+  'pics/music.mp3',
+  'pics/music.ogg',
+  'pics/music.m4a',
+  'pics/message.mp3',
+  'pics/message.ogg',
+  'pics/message.m4a',
+  'pics/voice.mp3',
+  'pics/voice.m4a',
+  'pics/voice.ogg'
+];
+
+/* ══ Loading Page Elements ══ */
+const loadingPage = document.getElementById('loadingPage');
+const loadingMessage = document.getElementById('loadingMessage');
+const loadingProgress = document.getElementById('loadingProgress');
+const loadingStatus = document.getElementById('loadingStatus');
+const loadingPercent = document.getElementById('loadingPercent');
+const loadingCacheNote = document.getElementById('loadingCacheNote');
+
+let loadedCount = 0;
+let totalFiles = filesToCache.length;
+
+/* ══ Audio Elements ══ */
+const bgMusic = document.getElementById('bgMusic');
+const messageAudio = document.getElementById('messageAudio');
+const voiceAudio = document.getElementById('voiceAudio');
+
+let activeAudio = null; // المتتبع للصوت النشط حالياً
+let fadeInterval = null;
+
+/* ══ FORCE BACKGROUND MUSIC TO PLAY IMMEDIATELY ══ */
+(function initMusic() {
+  if (bgMusic) {
+    bgMusic.volume = 0.55;
+    activeAudio = bgMusic;
+    
+    const playPromise = bgMusic.play();
+    
+    if (playPromise !== undefined) {
+      playPromise.catch(error => {
+        console.log('التشغيل التلقائي مُنع:', error);
+        const playOnInteraction = () => {
+          bgMusic.play().catch(e => console.log('فشل التشغيل بعد التفاعل:', e));
+          document.removeEventListener('click', playOnInteraction);
+          document.removeEventListener('touchstart', playOnInteraction);
+        };
+        document.addEventListener('click', playOnInteraction);
+        document.addEventListener('touchstart', playOnInteraction);
+      });
+    }
+  }
+})();
+
+/* ══ Fade Volume Function ══ */
+function fadeVolume(targetVol, durationMs, audioElement, onDone) {
+  if (!audioElement) { if (onDone) onDone(); return; }
+  
+  if (fadeInterval) clearInterval(fadeInterval);
+  
+  const startVol = audioElement.volume;
+  const diff = targetVol - startVol;
+  const steps = 40;
+  const stepTime = durationMs / steps;
+  let step = 0;
+  
+  fadeInterval = setInterval(() => {
+    step++;
+    audioElement.volume = Math.max(0, Math.min(1, startVol + diff * (step / steps)));
+    if (step >= steps) {
+      clearInterval(fadeInterval);
+      fadeInterval = null;
+      audioElement.volume = targetVol;
+      if (onDone) onDone();
+    }
+  }, stepTime);
+}
+
+/* ══ Switch Audio Function (Fade Out Old → Fade In New) ══ */
+function switchAudio(newAudio, targetVolume = 0.55) {
+  if (!newAudio) return;
+  
+  // إذا كان نفس الصوت النشط، لا تفعل شيء
+  if (activeAudio === newAudio) return;
+  
+  // إيقاف أي fade قيد التشغيل
+  if (fadeInterval) clearInterval(fadeInterval);
+  
+  // Fade out الصوت القديم إذا كان موجود
+  if (activeAudio) {
+    fadeVolume(0, 500, activeAudio, () => {
+      activeAudio.pause();
+      
+      // تشغيل الصوت الجديد
+      newAudio.volume = 0;
+      newAudio.play().catch(e => console.log('تشغيل الصوت الجديد فشل:', e));
+      activeAudio = newAudio;
+      
+      // Fade in الصوت الجديد
+      setTimeout(() => {
+        fadeVolume(targetVolume, 800, newAudio);
+      }, 100);
+    });
+  } else {
+    // لا يوجد صوت نشط، شغل الجديد مباشرة
+    newAudio.volume = 0;
+    newAudio.play().catch(e => console.log('تشغيل الصوت الجديد فشل:', e));
+    activeAudio = newAudio;
+    fadeVolume(targetVolume, 800, newAudio);
+  }
+}
+
+/* ══ Cache Files Function ══ */
+async function cacheFiles() {
+  return new Promise(async (resolve) => {
+    if ('caches' in window) {
+      try {
+        const cache = await caches.open('love-site-cache-v1');
+        const cachedRequests = await cache.keys();
+        const cachedUrls = cachedRequests.map(req => req.url);
+        
+        const filesToFetch = filesToCache.filter(file => {
+          const fullUrl = new URL(file, window.location.origin).href;
+          return !cachedUrls.includes(fullUrl);
+        });
+        
+        totalFiles = filesToCache.length;
+        
+        if (filesToFetch.length === 0) {
+          updateLoadingProgress(100, 'All files already cached! 💕', '100%');
+          loadingCacheNote.textContent = '✨ All files cached - Loading instantly! ✨';
+          setTimeout(resolve, 1000);
+          return;
+        }
+        
+        for (let i = 0; i < filesToFetch.length; i++) {
+          const file = filesToFetch[i];
+          try {
+            const response = await fetch(file, { cache: 'force-cache' });
+            if (response.ok) {
+              await cache.put(file, response);
+            }
+          } catch (e) {
+            console.log('Cache error for', file, e);
+          }
+          
+          loadedCount = cachedUrls.length + i + 1;
+          const percent = Math.min(100, Math.round((loadedCount / totalFiles) * 100));
+          updateLoadingProgress(
+            percent,
+            loveMessages[Math.floor(Math.random() * loveMessages.length)],
+            percent + '%'
+          );
+        }
+        
+        loadingCacheNote.textContent = '✨ Files cached for faster next visit! ✨';
+        setTimeout(resolve, 800);
+        
+      } catch (e) {
+        console.log('Cache API error:', e);
+        simulateLoading(resolve);
+      }
+    } else {
+      simulateLoading(resolve);
+    }
+  });
+}
+
+function simulateLoading(resolve) {
+  let progress = 0;
+  const interval = setInterval(() => {
+    progress += Math.random() * 15;
+    if (progress >= 100) {
+      progress = 100;
+      clearInterval(interval);
+      updateLoadingProgress(100, "I'm ready for you, my love! 💕", '100%');
+      setTimeout(resolve, 800);
+    } else {
+      updateLoadingProgress(
+        progress,
+        loveMessages[Math.floor(Math.random() * loveMessages.length)],
+        Math.floor(progress) + '%'
+      );
+    }
+  }, 300);
+}
+
+function updateLoadingProgress(percent, message, percentText) {
+  loadingProgress.style.width = percent + '%';
+  loadingMessage.textContent = message;
+  loadingPercent.textContent = percentText;
+  
+  if (percent < 30) {
+    loadingStatus.textContent = 'Gathering our memories... 📸';
+  } else if (percent < 60) {
+    loadingStatus.textContent = 'Almost there, my love... 💕';
+  } else if (percent < 90) {
+    loadingStatus.textContent = 'Just a few more seconds... ⏳';
+  } else {
+    loadingStatus.textContent = 'Ready to show you my love! ✨';
+  }
+}
+
+/* ══ Preload and Cache ══ */
+(async function initLoading() {
+  await cacheFiles();
+  
+  loadingPage.classList.add('fade-out');
+  
+  setTimeout(() => {
+    loadingPage.style.display = 'none';
+    document.getElementById('page1').classList.add('active');
+  }, 800);
+})();
+
+/* ══ YouTube Player Variables ══ */
+let youtubePlayer;
+let isYouTubeReady = false;
+
+function loadYouTubeAPI() {
+  if (window.YT) {
+    isYouTubeReady = true;
+    return;
+  }
+  
+  const tag = document.createElement('script');
+  tag.src = 'https://www.youtube.com/iframe_api';
+  const firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+}
+
+window.onYouTubeIframeAPIReady = function() {
+  isYouTubeReady = true;
+  console.log('YouTube API ready');
+  
+  if (document.getElementById('pageVideo').classList.contains('active')) {
+    initializeYouTubePlayer();
+  }
+};
+
+function initializeYouTubePlayer() {
+  if (!isYouTubeReady || !document.getElementById('youtubeVideo')) return;
+  
+  youtubePlayer = new YT.Player('youtubeVideo', {
+    events: {
+      'onReady': onPlayerReady,
+      'onStateChange': onPlayerStateChange
+    }
+  });
+}
+
+function onPlayerReady(event) {
+  console.log('YouTube player ready');
+}
+
+function onPlayerStateChange(event) {
+  if (event.data === 0) {
+    // عند انتهاء الفيديو، نرجع للصوت الخلفي
+    switchAudio(bgMusic, 0.55);
+  }
+}
+
+/* ══ Gift card visit tracking ══ */
+const visited = new Set();
+
+function visitAndGo(wrapId, pageId) {
+  visited.add(wrapId);
+  document.getElementById(wrapId).classList.add('visited');
+  goTo(pageId);
+}
+
+/* ══ Navigation ══ */
+function goTo(id) {
+  const currentPage = document.querySelector('.page.active');
+  const wasOnVideo = currentPage && currentPage.id === 'pageVideo';
+  const wasOnLetter = currentPage && currentPage.id === 'pageLetter';
+
+  if (currentPage) currentPage.classList.remove('active');
+  document.getElementById(id).classList.add('active');
+  
+  if (id === 'pagePhotos') buildPhotos();
+  
+  const pg = document.getElementById(id);
+  if (pg) pg.scrollTop = 0;
+
+  // تبديل الصوت حسب الصفحة
+  if (id === 'pageVideo') {
+    enterVideoPage();
+  } else if (id === 'pageLetter') {
+    // عند دخول صفحة الرسالة، شغل message.mp3
+    switchAudio(messageAudio, 0.55);
+    setTimeout(() => showReadHint(), 500);
+  } else if (id === 'pageGifts' && wasOnLetter) {
+    // عند العودة من الرسالة إلى الهدايا، شغل voice overlay
+    setTimeout(() => {
+      showVoiceOverlay();
+    }, 300);
+  } else if (id !== 'pageVideo' && id !== 'pageLetter') {
+    // باقي الصفحات: شغل الموسيقى الخلفية
+    switchAudio(bgMusic, 0.55);
+    
+    // إذا كنا خارجين من صفحة الفيديو، نوقف الفيديو
+    if (wasOnVideo) {
+      leaveVideoPage();
+    }
+  }
+}
+
+function enterVideoPage() {
+  // تحميل API إذا لم يكن جاهزاً
+  if (!isYouTubeReady) {
+    loadYouTubeAPI();
+  }
+  
+  // إيقاف أي صوت (الموسيقى الخلفية) باستخدام fade out
+  if (activeAudio) {
+    fadeVolume(0, 500, activeAudio, () => {
+      activeAudio.pause();
+      activeAudio = null;
+    });
+  }
+  
+  // تجهيز الفيديو
+  if (isYouTubeReady && !youtubePlayer) {
+    setTimeout(() => {
+      initializeYouTubePlayer();
+    }, 300);
+  }
+}
+
+function leaveVideoPage() {
+  // إيقاف الفيديو عند الخروج من الصفحة
+  if (youtubePlayer && youtubePlayer.pauseVideo) {
+    youtubePlayer.pauseVideo();
+  }
+}
+
+/* ══ SECRET BUTTON — jump to 0:38 in video ══ */
+function jumpToSecret() {
+  const btn = document.getElementById('secretBtn');
+  
+  btn.classList.remove('clicked');
+  void btn.offsetWidth;
+  btn.classList.add('clicked');
+  setTimeout(() => btn.classList.remove('clicked'), 500);
+
+  if (!isYouTubeReady) {
+    loadYouTubeAPI();
+    setTimeout(() => {
+      if (youtubePlayer && youtubePlayer.seekTo) {
+        youtubePlayer.seekTo(38);
+        youtubePlayer.playVideo();
+      }
+    }, 1000);
+    return;
+  }
+  
+  if (youtubePlayer && youtubePlayer.seekTo) {
+    youtubePlayer.seekTo(38);
+    youtubePlayer.playVideo();
+  }
+
+  const box = document.querySelector('.player-box');
+  if (box) {
+    box.style.transition = 'box-shadow 0.3s ease';
+    box.style.boxShadow = '0 0 0 4px rgba(123,24,24,0.5), 0 6px 26px rgba(0,0,0,0.25)';
+    setTimeout(() => { box.style.boxShadow = '0 6px 26px rgba(0,0,0,0.25)'; }, 600);
+  }
+}
+
+/* ══ Voice Note Overlay ══ */
+const voiceOverlay = document.getElementById('voiceOverlay');
+const voicePlayBtn = document.getElementById('voicePlayBtn');
+const voiceWave = document.getElementById('voiceWave');
+const voiceProgress = document.getElementById('voiceProgressFill');
+const voiceTimeDisp = document.getElementById('voiceTimeDisplay');
+
+let voiceProgressTimer = null;
+
+function showVoiceOverlay() {
+  voiceOverlay.classList.add('show');
+  // إيقاف أي صوت نشط
+  if (activeAudio) {
+    fadeVolume(0, 500, activeAudio, () => {
+      activeAudio.pause();
+      activeAudio = null;
+    });
+  }
+}
+
+function closeVoiceOverlay() {
+  voiceOverlay.classList.remove('show');
+  
+  if (voiceAudio) {
+    voiceAudio.pause();
+    voiceAudio.currentTime = 0;
+  }
+  
+  voiceWave.classList.remove('playing');
+  voicePlayBtn.textContent = '▶';
+  clearInterval(voiceProgressTimer);
+  voiceProgress.style.width = '0%';
+  voiceTimeDisp.textContent = '0:00 / 0:00';
+  
+  // العودة للموسيقى الخلفية
+  switchAudio(bgMusic, 0.55);
+}
+
+function toggleVoice() {
+  if (!voiceAudio) return;
+  
+  if (voiceAudio.readyState === 0) {
+    voiceAudio.load();
+  }
+  
+  if (voiceAudio.paused) {
+    // إيقاف أي صوت نشط
+    if (activeAudio) {
+      fadeVolume(0, 400, activeAudio, () => {
+        activeAudio.pause();
+        activeAudio = null;
+      });
+    }
+    
+    if (voiceAudio.duration && !isNaN(voiceAudio.duration)) {
+      voiceTimeDisp.textContent = '0:00 / ' + fmtTime(voiceAudio.duration);
+    } else {
+      voiceTimeDisp.textContent = '0:00 / 0:00';
+      voiceAudio.addEventListener('loadedmetadata', function() {
+        voiceTimeDisp.textContent = '0:00 / ' + fmtTime(voiceAudio.duration);
+      }, { once: true });
+    }
+    
+    voiceAudio.volume = 1;
+    voiceAudio.play().catch(() => {});
+    voicePlayBtn.textContent = '⏸';
+    voiceWave.classList.add('playing');
+    startVoiceProgress();
+  } else {
+    voiceAudio.pause();
+    voicePlayBtn.textContent = '▶';
+    voiceWave.classList.remove('playing');
+    clearInterval(voiceProgressTimer);
+    // العودة للموسيقى الخلفية
+    switchAudio(bgMusic, 0.55);
+  }
+}
+
+function startVoiceProgress() {
+  clearInterval(voiceProgressTimer);
+  voiceProgressTimer = setInterval(() => {
+    if (!voiceAudio || voiceAudio.duration === 0 || isNaN(voiceAudio.duration)) {
+      if (voiceAudio && !isNaN(voiceAudio.currentTime)) {
+        voiceTimeDisp.textContent = fmtTime(voiceAudio.currentTime) + ' / 0:00';
+      }
+      return;
+    }
+    const pct = (voiceAudio.currentTime / voiceAudio.duration) * 100;
+    voiceProgress.style.width = pct + '%';
+    voiceTimeDisp.textContent = fmtTime(voiceAudio.currentTime) + ' / ' + fmtTime(voiceAudio.duration);
+    
+    if (voiceAudio.ended) {
+      clearInterval(voiceProgressTimer);
+      voicePlayBtn.textContent = '▶';
+      voiceWave.classList.remove('playing');
+      voiceProgress.style.width = '0%';
+      voiceTimeDisp.textContent = '0:00 / ' + fmtTime(voiceAudio.duration);
+      // العودة للموسيقى الخلفية
+      switchAudio(bgMusic, 0.55);
+    }
+  }, 300);
+}
+
+function fmtTime(s) {
+  if (isNaN(s) || s === undefined || s === null) return '0:00';
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return m + ':' + String(sec).padStart(2, '0');
+}
+
+if (voiceAudio) {
+  voiceAudio.addEventListener('loadedmetadata', function() {
+    voiceTimeDisp.textContent = '0:00 / ' + fmtTime(voiceAudio.duration);
+  });
+}
+
+/* ══ Read Hint Toast ══ */
+let readHintTimer = null;
+function showReadHint() {
+  const toast = document.getElementById('readHintToast');
+  if (!toast) return;
+  clearTimeout(readHintTimer);
+  toast.classList.add('show');
+  readHintTimer = setTimeout(() => {
+    toast.classList.remove('show');
+  }, 4000);
+}
+
+/* ══ 4 Big Polaroids ══ */
+const photos4 = [
+  { src:'pics/1.jpg', lbl:'💍💍💍💍💍', rot:-12, zi:4 },
+  { src:'pics/2.jpg', lbl:'❤️❤️❤️❤️❤️',    rot:9,   zi:3 },
+  { src:'pics/3.jpg', lbl:'🌹🌹🌹🌹🌹',     rot:-7,  zi:2 },
+  { src:'pics/4.jpg', lbl:'💕💕💕💕💕',   rot:11,  zi:1 },
+];
 const pos4 = [
   { top:'3%',  left:'2%' },
   { top:'3%',  left:'50%'},
   { top:'48%', left:'2%' },
   { top:'48%', left:'50%'},
 ];
-
 const annots4 = [
   { top:'8%',  left:'5%',  text:'← photobooth!' },
   { top:'8%',  left:'52%', text:'grad pic →' },
   { top:'52%', left:'4%',  text:'← recent!' },
   { top:'52%', left:'52%', text:'birthday! →' },
 ];
-
 let photosBuilt = false;
 function buildPhotos() {
   if (photosBuilt) return;
   photosBuilt = true;
   const zone = document.getElementById('scatterZone');
-
   photos4.forEach((p, i) => {
     const d = document.createElement('div');
     d.className = 'polar';
-    const W = '47%';
-    d.style.cssText = `top:${pos4[i].top}; left:${pos4[i].left}; width:${W}; aspect-ratio:0.8; transform:rotate(${p.rot}deg); z-index:${p.zi};`;
+    d.style.cssText = `top:${pos4[i].top}; left:${pos4[i].left}; width:47%; aspect-ratio:0.8; transform:rotate(${p.rot}deg); z-index:${p.zi};`;
     const img = document.createElement('img');
-    img.src = p.src;
-    img.alt = p.lbl;
+    img.src = p.src; img.alt = p.lbl;
     img.style.cssText = 'width:100%; aspect-ratio:1; object-fit:cover; display:block; background:#f5d0d0;';
-    img.onerror = () => { img.style.background=`hsl(${340+i*18},42%,${76+i*3}%)`; img.onerror=null; };
+    img.onerror = () => { img.style.background = `hsl(${340+i*18},42%,${76+i*3}%)`; img.onerror=null; };
     img.onclick = () => openLb(img.src);
     const lbl = document.createElement('div');
-    lbl.className = 'polar-lbl';
-    lbl.textContent = p.lbl;
+    lbl.className = 'polar-lbl'; lbl.textContent = p.lbl;
     d.appendChild(img); d.appendChild(lbl);
     zone.appendChild(d);
   });
-
   annots4.forEach(a => {
     const s = document.createElement('span');
     s.className = 'annot';
