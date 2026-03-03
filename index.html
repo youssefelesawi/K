@@ -6,7 +6,7 @@
 <title>I'm Sorry 💕</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Belgrano&family=Belleza&family=Gloria+Hallelujah&family=Caveat:wght@400;600;700&family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Belgrano&family=Belleza&family=Gloria+Hallelujah&family=Caveat:wght@400;600;700&family=Fredoka+One&family=Nunito:wght@400;600;700&family=Lateef&family=Scheherazade+New:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 /* ─── RESET ─── */
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
@@ -17,6 +17,7 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
 .font-gloria   { font-family:'Gloria Hallelujah',cursive !important; }
 .font-belgrano { font-family:'Belgrano',serif !important; }
 .font-belleza  { font-family:'Belleza',sans-serif !important; }
+.font-arabic-deco { font-family:'Lateef', cursive; font-weight:600; }
 
 /* ─── CRUMPLED PAPER BACKGROUND ─── */
 .bg-paper {
@@ -64,7 +65,7 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
 .loading-message {
   font-family: 'Gloria Hallelujah', cursive;
   font-size: clamp(1.2rem, 5vw, 2rem);
-  color: var(--red);
+  color: #7B1818;
   text-align: center;
   margin-bottom: 2rem;
   line-height: 1.5;
@@ -83,7 +84,7 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
 
 .loading-progress-bar {
   height: 100%;
-  background: var(--red);
+  background: #7B1818;
   width: 0%;
   transition: width 0.3s ease;
   border-radius: 10px;
@@ -100,7 +101,7 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
 .loading-percent {
   font-family: 'Belleza', sans-serif;
   font-size: clamp(0.9rem, 3vw, 1.1rem);
-  color: var(--red);
+  color: #7B1818;
   letter-spacing: 2px;
 }
 
@@ -133,7 +134,7 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
 }
 
 /* ══════════════════════════════════
-   PAGE 1 — GREETING
+   PAGE 1 — GREETING (English)
 ══════════════════════════════════ */
 #page1 .wrap { text-align:center; padding:1.5rem; }
 
@@ -184,7 +185,7 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
 .pill:hover  { transform:scale(1.05); box-shadow:0 4px 16px rgba(123,24,24,0.28); }
 
 /* ══════════════════════════════════
-   PAGE NO — PROMISE
+   PAGE NO — PROMISE (English)
 ══════════════════════════════════ */
 #pageNo .wrap { text-align:center; padding:1.5rem; }
 .cry-anim {
@@ -206,7 +207,7 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
 }
 
 /* ══════════════════════════════════
-   PAGE GIFTS — 4 ICONS
+   PAGE GIFTS — 4 ICONS (English)
 ══════════════════════════════════ */
 #pageGifts .wrap { text-align:center; padding:1rem; }
 .g-title {
@@ -225,7 +226,6 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
   width:min(340px,84vw); margin:0 auto;
 }
 
-/* ─── GIFT CARD WITH NUMBER BADGE ─── */
 .gcard-wrap {
   position: relative;
   cursor: pointer;
@@ -251,7 +251,6 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
   box-shadow: 0 2px 8px rgba(123,24,24,0.35);
   pointer-events: none;
 }
-/* Visited (completed) badge style */
 .gcard-wrap.visited .gcard-num {
   background: #4a7c59;
 }
@@ -259,7 +258,6 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
   border-color: #4a7c59;
   background: rgba(240,255,244,0.85);
 }
-/* Checkmark overlay for visited */
 .gcard-wrap.visited::after {
   content: '✓';
   position: absolute;
@@ -283,7 +281,7 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
 .gcard svg { width:62%; height:62%; }
 
 /* ══════════════════════════════════
-   PAGE PHOTOS — 4 BIG POLAROIDS
+   PAGE PHOTOS — 4 BIG POLAROIDS (English)
 ══════════════════════════════════ */
 #pagePhotos {
   overflow-y:auto; overflow-x:hidden;
@@ -354,7 +352,7 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
 .ret-btn:active { transform:scale(0.96); }
 
 /* ══════════════════════════════════
-   PAGE FLOWER
+   PAGE FLOWER (Arabic stamps only — rest English)
 ══════════════════════════════════ */
 #pageFlower {
   overflow-y:auto; overflow-x:hidden;
@@ -388,12 +386,17 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
   border:2.5px solid rgba(123,24,24,0.4);
   border-radius:35px;
   padding:clamp(0.3rem,1vw,0.48rem) clamp(0.6rem,2vw,0.95rem);
-  font-family:'Belleza',sans-serif;
-  font-size:clamp(0.55rem,1.6vw,0.72rem);
-  color:#555; line-height:1.3; text-align:center;
-  max-width:clamp(105px,28vw,148px);
+  font-family:'Lateef', cursive;
+  font-size:clamp(0.75rem,2.2vw,0.95rem);
+  color:#4a2e2e;
+  line-height:1.5;
+  text-align:center;
+  max-width:clamp(135px,34vw,185px);
   box-shadow:0 3px 10px rgba(0,0,0,0.12);
   z-index:5;
+  direction: rtl;
+  font-weight:600;
+  letter-spacing:0.3px;
 }
 
 .fstamp.st1 { top:20%; left:-10px; transform:rotate(-6deg); }
@@ -427,7 +430,7 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
 }
 
 /* ══════════════════════════════════
-   PAGE VIDEO / YOUTUBE
+   PAGE VIDEO / YOUTUBE (English)
 ══════════════════════════════════ */
 #pageVideo {
   overflow-y:auto; overflow-x:hidden;
@@ -492,7 +495,7 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
 }
 
 /* ══════════════════════════════════
-   PAGE LETTER
+   PAGE LETTER (Decorative English original + Arabic toggle icon)
 ══════════════════════════════════ */
 #pageLetter {
   overflow-y:auto; overflow-x:hidden;
@@ -513,31 +516,68 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
   font-family:'Gloria Hallelujah',cursive;
   font-size:clamp(1rem,3.5vw,1.6rem); color:var(--red);
   margin-bottom:0.9rem; line-height:1.4;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
+.translate-icon {
+  background: transparent;
+  border: 2px solid var(--red);
+  color: var(--red);
+  font-size: 1.3rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  touch-action: manipulation;
+  line-height: 1;
+}
+.translate-icon:hover {
+  background: var(--red);
+  color: white;
+  transform: scale(1.1);
+}
+
 .letter-card {
-  background:rgba(255,255,255,0.82);
+  background:rgba(255,255,255,0.85);
   border:1.5px solid rgba(123,24,24,0.16);
-  border-radius:8px; padding:1.8rem 1.5rem;
-  max-width:460px; width:90vw;
-  text-align:left; position:relative;
+  border-radius:8px;
+  padding:1.8rem 1.5rem;
+  max-width:460px;
+  width:90vw;
+  text-align:left;
+  direction: ltr;
+  position:relative;
   box-shadow:0 4px 18px rgba(0,0,0,0.1);
+  font-family:'Caveat', cursive;
+  font-size:clamp(1rem,3.5vw,1.25rem);
+  line-height:2;
+  color:#2b1e1e;
 }
-.lc-icon { position:absolute; top:-14px; right:16px; font-size:1.7rem; }
-.lc-greet {
-  font-family:'Caveat',cursive;
-  font-size:clamp(1.1rem,3.5vw,1.5rem); color:var(--red);
-  margin-bottom:0.9rem; line-height:1.5;
+.arabic-text {
+  display: none;
+  direction: rtl;
+  text-align: right;
+  font-family:'Lateef', cursive;
+  font-size:clamp(1rem,3.5vw,1.3rem);
+  line-height:1.9;
 }
-.lc-body {
-  font-family:'Caveat',cursive;
-  font-size:clamp(1rem,3.2vw,1.25rem); color:#333;
-  line-height:2; margin-bottom:0.8rem; letter-spacing:0.5px;
-}
-.lc-sign {
-  font-family:'Caveat',cursive;
-  font-size:clamp(1.1rem,3vw,1.4rem); color:var(--red);
-  text-align:right; margin-top:0.8rem;
-}
+.arabic-text .lc-greet { font-size:1.3em; color:var(--red); margin-bottom:0.4rem; }
+.arabic-text .lc-body { margin-bottom:0.7rem; }
+.arabic-text .lc-sign { text-align:left; direction:ltr; font-family:'Caveat',cursive; color:var(--red); margin-top:0.4rem; font-size:1.2rem; }
+
+.english-text .lc-greet { font-size:1.3em; color:var(--red); margin-bottom:0.4rem; }
+.english-text .lc-body { margin-bottom:0.7rem; }
+.english-text .lc-sign { font-family:'Caveat',cursive; color:var(--red); margin-top:0.4rem; font-size:1.2rem; }
+
+.show-arabic .english-text { display: none; }
+.show-arabic .arabic-text { display: block; }
 
 /* ══════════════════════════════════
    LIGHTBOX
@@ -781,7 +821,7 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
 
 <div class="bg-paper"></div>
 
-<!-- ══════════ LOADING PAGE ══════════ -->
+<!-- ══════════ LOADING PAGE ══════════ (مع رسائل عشوائية) -->
 <div class="loading-page" id="loadingPage">
   <div class="loading-heart">❤️</div>
   <div class="loading-message" id="loadingMessage">Loading your love story...</div>
@@ -793,33 +833,31 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
   <div class="loading-cache-note" id="loadingCacheNote">✨ Caching for faster next time ✨</div>
 </div>
 
-<!-- ══════════ PAGE 1 ══════════ -->
+<!-- ══════════ PAGE 1 ══════════ (English) -->
 <div class="page" id="page1">
   <div class="wrap">
-    <img class="gif-top" src="pics/cat.gif" alt=""
-         onerror="this.style.display='none'; this.onerror=null;">
+    <img class="gif-top" src="pics/cat.gif" alt="" onerror="this.style.display='none'; this.onerror=null;">
     <div class="p1-hello">Hello</div>
     <div class="p1-love">My Senorita!</div>
     <div class="p1-sub">Are you upset with me?</div>
     <div class="btn-row">
-      <button class="pill pill-fill"  onclick="goTo('pageNo')">YES</button>
+      <button class="pill pill-fill" onclick="goTo('pageNo')">YES</button>
       <button class="pill pill-ghost" onclick="goTo('pageGifts')">NO</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════ PAGE NO ══════════ -->
+<!-- ══════════ PAGE NO ══════════ (English) -->
 <div class="page" id="pageNo">
   <div class="wrap">
-    <img class="gif-cry" src="pics/cry.gif" alt=""
-         onerror="this.textContent='🐰'; this.style.fontSize='3.5rem'; this.style.background='none'; this.onerror=null;">
+    <img class="gif-cry" src="pics/cry.gif" alt="" onerror="this.textContent='🐰'; this.style.fontSize='3.5rem'; this.style.background='none'; this.onerror=null;">
     <div class="promise-h">I Promise I'll do my best not to hurt you</div>
     <div class="promise-s">I only did that out of LOVE</div>
     <button class="pill pill-ghost" onclick="goTo('page1')">TRY AGAIN</button>
   </div>
 </div>
 
-<!-- ══════════ PAGE GIFTS ══════════ -->
+<!-- ══════════ PAGE GIFTS ══════════ (English) -->
 <div class="page" id="pageGifts">
   <div class="wrap">
     <div class="g-title">THESE ARE FOR YOU!</div>
@@ -909,7 +947,7 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
   </div>
 </div>
 
-<!-- ══════════ PAGE PHOTOS ══════════ -->
+<!-- ══════════ PAGE PHOTOS ══════════ (English) -->
 <div class="page" id="pagePhotos">
   <div class="photos-inner">
     <div class="scatter-zone" id="scatterZone"></div>
@@ -919,17 +957,18 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
   </div>
 </div>
 
-<!-- ══════════ PAGE FLOWER ══════════ -->
+<!-- ══════════ PAGE FLOWER (Arabic stamps only) ══════════ -->
 <div class="page" id="pageFlower">
   <div class="flower-page-inner">
     <div class="flower-zone">
-      <div class="fstamp st1">My heart fears losing you, you</div>
-      <div class="fstamp st2">Mean everything to me</div>
-      <img class="bouquet-img" src="pics/rose.PNG" alt="Bouquet"
-           onerror="this.style.minHeight='260px'; this.style.background='linear-gradient(160deg,#fce4ec,#e8a0b4,#c0392b)'; this.onerror=null;">
-      <div class="fstamp st3">I'm trying my best to change, all for your precious eyes</div>
-      <div class="fstamp st4">Can't imagine life without you</div>
-      <div class="tulips-label">Rose</div>
+      <!-- Arabic stamps only - rest English -->
+      <div class="fstamp st1">قَلْبِي يَخَافُ فِقْدَانَكِ</div>
+      <div class="fstamp st2">أَنْتِ تَعْنِينَ لِي كُلَّ شَيْءٍ</div>
+      <img class="bouquet-img" src="pics/rose.PNG" alt="Bouquet" onerror="this.style.minHeight='260px'; this.style.background='linear-gradient(160deg,#fce4ec,#e8a0b4,#c0392b)'; this.onerror=null;">
+      <div class="fstamp st3">أُحَاوِلُ بِكُلِّ جُهْدِي أَنْ أَتَغَيَّرَ</div>
+      <div class="fstamp st4">لَا أَسْتَطِيعُ أَنْ أَتَخَيَّلَ الحَيَاةَ بِدُونِكِ</div>
+      <!-- English labels below -->
+      <div class="tulips-label">🌹 Rose</div>
       <div class="tulips-sub">My Wifee Fav</div>
     </div>
     <div class="flower-bottom">
@@ -940,7 +979,7 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
   </div>
 </div>
 
-<!-- ══════════ PAGE VIDEO / YOUTUBE ══════════ -->
+<!-- ══════════ PAGE VIDEO / YOUTUBE ══════════ (English) -->
 <div class="page" id="pageVideo">
   <div class="video-inner">
     <div class="song-cap">Short Video</div>
@@ -964,28 +1003,37 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
   </div>
 </div>
 
-<!-- ══════════ PAGE LETTER ══════════ -->
+<!-- ══════════ PAGE LETTER (Decorative English + Arabic toggle icon) ══════════ -->
 <div class="page" id="pageLetter">
   <div class="letter-inner">
-    <div class="letter-section-h">A Message for You 💌</div>
-    <div class="letter-card">
-      <span class="lc-icon"></span>
-      <div class="lc-greet">My Love Dija,</div>
-      <div class="lc-body">
-My beloved Khadija, I am truly sorry for hurting you deeply. I regret my anger, my words, and the pain I caused.
+    <div class="letter-section-h">
+      A Message for You 💌
+      <span class="translate-icon" id="translateToggle" onclick="toggleTranslation()">🔄</span>
+    </div>
+    <div class="letter-card" id="letterCard">
+      <!-- English text (default, decorative font) -->
+      <div class="english-text">
+        <div class="lc-greet">My beloved Khadija,</div>
+        <div class="lc-body">I am truly sorry for hurting you deeply. I regret my anger, my words, and the pain I caused.</div>
+        <div class="lc-body">Distance and silence often make my heart overthink and fear losing you. The thought of losing you fills my heart with endless fear.</div>
+        <div class="lc-body">I am giving my best to change, only for your beautiful eyes.</div>
+        <div class="lc-body">I want a lifetime together, not moments… I want a full life with you.</div>
+        <div class="lc-body">Your love is my addiction; I could never let you go… you are my first and last love… my last 7 minutes.</div>
+        <div class="lc-sign">Youssef ✦</div>
       </div>
-      <div class="lc-body">
-Distance and silence often make my heart overthink and fear losing. The thought of losing you fills my heart with endless fear
-I am giving my best to change, only for your precious eyes
+      <!-- Arabic translation (hidden by default) -->
+      <div class="arabic-text">
+        <div class="lc-greet">حَبِيبْتِي خَدِيجَة،</div>
+        <div class="lc-body">أَنَا آسِف جِدًّا إِنِّي جَرَحْتِك. نَادِم عَلَى غَضَبِي، وَعَلَى كَلَامِي، وَعَلَى الأَلَم اللِّي سَبَّبْتُهُ لِكِ.</div>
+        <div class="lc-body">البُعد وَالصَّمْت دايمًا بِيخلُّوا قَلْبِي يِفَكِّر كْتِير وَيِخَاف مِن خِسَارْتِك. فِكْرَة إِنِّي مُمكِن أَخْسِرِك بِتْمَلّى قَلْبِي خَوْف مِلُوش نِهَايَة.</div>
+        <div class="lc-body">أَنَا بَبْذُل كُل جُهْدِي عَشَان أَتْغَيَّر، لِأَجْل عُيُونِك الحِلْوِين بَس.</div>
+        <div class="lc-body">أَنَا عايز عُمْر كَامِل مَعَك، مِش مُجَرَّد لَحَظات… عايز حَيَاة كَامِلَة بِيكِ.</div>
+        <div class="lc-body">إِنْتِ إِدْمَانِي، وَمُسْتَحِيل أَسِيبِك أَبَدًا… إِنْتِ أَوَّل وَآخِر حُبّ فِي حَيَاتِي… وَآخِر سَبْع دَقَايِق لِي.</div>
+        <div class="lc-sign">يُوسُف ✦</div>
       </div>
-      <div class="lc-body">
-I want a lifetime together, not moments, just with your love. Your love is my addiction; I could never let you go, my first and last love
-... my last 7 minutes
-      </div>
-      <div class="lc-sign">Youssef ✦</div>
     </div>
     <hr class="dashed-sep" style="margin-top:0.9rem;">
-    <div style="font-family:'Gloria Hallelujah',cursive; font-size:clamp(0.9rem,3vw,1.2rem); color:var(--red); line-height:1.4;">with all my love 💕</div>
+    <div style="font-family:'Gloria Hallelujah',cursive; font-size:clamp(0.9rem,3vw,1.2rem); color:var(--red);">with all my love 💕</div>
     <button class="ret-btn" style="margin-top:0.5rem;" onclick="goTo('pageGifts')">RETURN</button>
   </div>
 </div>
@@ -997,42 +1045,33 @@ I want a lifetime together, not moments, just with your love. Your love is my ad
   <source src="pics/music.m4a" type="audio/mp4">
 </audio>
 
-<!-- ══════════ MESSAGE AUDIO (يشتغل عند دخول الرسالة) ══════════ -->
 <audio id="messageAudio" loop preload="auto" style="display:none!important; position:fixed; width:0; height:0; opacity:0; pointer-events:none;">
   <source src="pics/message.mp3" type="audio/mpeg">
   <source src="pics/message.ogg" type="audio/ogg">
   <source src="pics/message.m4a" type="audio/mp4">
 </audio>
 
-<!-- ══════════ VOICE NOTE APOLOGY OVERLAY ══════════ -->
+<!-- ══════════ VOICE NOTE OVERLAY ══════════ -->
 <div class="voice-overlay" id="voiceOverlay">
   <div class="voice-card">
     <div class="voice-from-tag">🎙️ From Youssef, with love</div>
     <span class="voice-card-icon">💌</span>
     <div class="voice-card-title">A voice note<br>just for you</div>
     <div class="voice-card-sub">Recorded from my heart — Press play 🎧</div>
-
-    <!-- Waveform visualizer -->
     <div class="voice-waveform" id="voiceWave">
       <div class="bar"></div><div class="bar"></div><div class="bar"></div>
       <div class="bar"></div><div class="bar"></div><div class="bar"></div>
       <div class="bar"></div><div class="bar"></div><div class="bar"></div>
     </div>
-
-    <!-- Play/Pause button -->
     <button class="voice-play-btn" id="voicePlayBtn" onclick="toggleVoice()">▶</button>
-
-    <!-- Progress -->
     <div class="voice-progress-wrap">
       <div class="voice-progress-fill" id="voiceProgressFill"></div>
     </div>
     <div class="voice-time" id="voiceTimeDisplay">0:00 / 0:00</div>
-
-    <button class="voice-close-btn" onclick="closeVoiceOverlay()">Return</button>
+    <button class="voice-close-btn" onclick="closeVoiceOverlay()">RETURN</button>
   </div>
 </div>
 
-<!-- Hidden audio for voice note -->
 <audio id="voiceAudio" preload="auto" style="display:none!important;">
   <source src="pics/voice.mp3" type="audio/mpeg">
   <source src="pics/voice.m4a" type="audio/mp4">
@@ -1055,87 +1094,127 @@ I want a lifetime together, not moments, just with your love. Your love is my ad
 </div>
 
 <script>
-/* ══ Loading Page Messages ══ */
-const loveMessages = [
-  "Every love story is beautiful, but ours is my favorite... 💕",
-  "I'm counting the seconds until I see your smile... 🥰",
-  "You are the reason I believe in love... 🌹",
-  "My heart beats only for you... ❤️",
-  "Loading your memories, my love... 📸",
-  "You are the most beautiful thing in my life... ✨",
-  "I'm preparing something special just for you... 🎁",
-  "Distance means so little when you mean so much... 🌍",
-  "You are my today and all of my tomorrows... 💫",
-  "I love you more than all the stars in the sky... ⭐",
-  "Your love is my favorite addiction... 💝",
-  "Every moment without you is a moment wasted... ⏳",
-  "You make my world beautiful... 🌈",
-  "I choose you. And I'll choose you every time... 💍",
-  "You're the piece of me I didn't know was missing... 🧩"
+// ══════════ 50 RANDOM LOADING MESSAGES (العبارات التي طلبتها) ══════════
+const loadingMessagesArray = [
+    "You're the first thing I think of when I wake up",
+    "You're my favorite place to go when my mind wanders",
+    "I miss you more than words can say",
+    "Every love story is beautiful, but ours is my favorite",
+    "I'm lost without you",
+    "You're the reason I believe in love",
+    "I'd choose you in every lifetime",
+    "You're my home",
+    "Without you, nothing feels right",
+    "You're the piece I was missing",
+    "You're my favorite notification",
+    "You make everything better",
+    "You're my sunshine on a rainy day",
+    "I love you more than pizza",
+    "My heart is yours, even when I mess up",
+    "Your smile is my favorite thing in the world",
+    "I'm trying to be better, for you",
+    "You're stuck with me forever",
+    "I hate when we fight, it breaks my heart",
+    "I'd wait a thousand years just to hold you again",
+    "You're the only one who truly knows me",
+    "I'm sorry for every stupid thing I've done",
+    "I love you to the moon and back",
+    "You're my favorite hello and hardest goodbye",
+    "I promise to do better",
+    "Your love is my addiction",
+    "I'm nothing without you",
+    "You're the best thing that ever happened to me",
+    "I'm sorry for not appreciating you enough",
+    "You're my dream come true",
+    "I'd do anything to see you smile",
+    "You're my always and forever",
+    "I miss your voice, your laugh, your everything",
+    "Sorry for being stubborn sometimes",
+    "I love you more every single day",
+    "You're my favorite distraction",
+    "I'm sorry for every time I made you feel unloved",
+    "You're my today and all my tomorrows",
+    "I'd walk through fire just to hold your hand",
+    "You're the most beautiful part of my life",
+    "I'm sorry I'm not better at showing how much I care",
+    "You're my person, forever and always",
+    "I'd choose you over and over again",
+    "Sorry for the stupid fights, they're never worth it",
+    "You're my greatest adventure",
+    "I love you... I'm sorry... I need you",
+    "You're my favorite thought before I sleep",
+    "My world stops when you're upset",
+    "You're the only one who gets me",
+    "I'd give up everything just to hold your hand"
 ];
 
-/* ══ File List for Caching ══ */
-const filesToCache = [
-  'pics/bg_main.jpg',
-  'pics/bg_alt.jpg',
-  'pics/cat.gif',
-  'pics/cry.gif',
-  'pics/rose.PNG',
-  'pics/1.jpg',
-  'pics/2.jpg',
-  'pics/3.jpg',
-  'pics/4.jpg',
-  'pics/5.jpg',
-  'pics/6.jpg',
-  'pics/7.jpg',
-  'pics/8.jpg',
-  'pics/9.jpg',
-  'pics/10.jpg',
-  'pics/11.jpg',
-  'pics/12.jpg',
-  'pics/music.mp3',
-  'pics/music.ogg',
-  'pics/music.m4a',
-  'pics/message.mp3',
-  'pics/message.ogg',
-  'pics/message.m4a',
-  'pics/voice.mp3',
-  'pics/voice.m4a',
-  'pics/voice.ogg'
-];
+// Translation toggle - only affects letter page
+function toggleTranslation() {
+  const card = document.getElementById('letterCard');
+  const icon = document.getElementById('translateToggle');
+  card.classList.toggle('show-arabic');
+  icon.style.transform = 'scale(0.9)';
+  setTimeout(() => icon.style.transform = 'scale(1)', 200);
+}
 
-/* ══ Loading Page Elements ══ */
+// باقي الدوال
 const loadingPage = document.getElementById('loadingPage');
-const loadingMessage = document.getElementById('loadingMessage');
 const loadingProgress = document.getElementById('loadingProgress');
+const loadingMessage = document.getElementById('loadingMessage');
 const loadingStatus = document.getElementById('loadingStatus');
 const loadingPercent = document.getElementById('loadingPercent');
 const loadingCacheNote = document.getElementById('loadingCacheNote');
 
-let loadedCount = 0;
-let totalFiles = filesToCache.length;
-
-/* ══ Audio Elements ══ */
 const bgMusic = document.getElementById('bgMusic');
 const messageAudio = document.getElementById('messageAudio');
 const voiceAudio = document.getElementById('voiceAudio');
 
-let activeAudio = null; // المتتبع للصوت النشط حالياً
+let activeAudio = null;
 let fadeInterval = null;
 
-/* ══ FORCE BACKGROUND MUSIC TO PLAY IMMEDIATELY ══ */
+// Simulated loading with random message
+window.addEventListener('load', function() {
+    // اختيار رسالة عشوائية من المصفوفة
+    const randomIndex = Math.floor(Math.random() * loadingMessagesArray.length);
+    const randomMessage = loadingMessagesArray[randomIndex];
+    
+    // تعيين الرسالة العشوائية
+    loadingMessage.textContent = randomMessage;
+    
+    // محاكاة التحميل
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += 2;
+        loadingProgress.style.width = progress + '%';
+        loadingPercent.textContent = progress + '%';
+        
+        if (progress >= 100) {
+            clearInterval(interval);
+            loadingMessage.textContent = "Stay Sure Thaw Sawii Loves U 💕";
+            loadingStatus.textContent = "Ready To Say (Sorry) ✨";
+            loadingPercent.textContent = '100%';
+            
+            setTimeout(() => {
+                loadingPage.classList.add('fade-out');
+                setTimeout(() => {
+                    loadingPage.style.display = 'none';
+                    document.getElementById('page1').classList.add('active');
+                }, 800);
+            }, 800);
+        }
+    }, 50);
+});
+
+// Auto-play background music
 (function initMusic() {
   if (bgMusic) {
     bgMusic.volume = 0.55;
     activeAudio = bgMusic;
-    
     const playPromise = bgMusic.play();
-    
     if (playPromise !== undefined) {
-      playPromise.catch(error => {
-        console.log('التشغيل التلقائي مُنع:', error);
+      playPromise.catch(() => {
         const playOnInteraction = () => {
-          bgMusic.play().catch(e => console.log('فشل التشغيل بعد التفاعل:', e));
+          bgMusic.play().catch(() => {});
           document.removeEventListener('click', playOnInteraction);
           document.removeEventListener('touchstart', playOnInteraction);
         };
@@ -1146,18 +1225,14 @@ let fadeInterval = null;
   }
 })();
 
-/* ══ Fade Volume Function ══ */
 function fadeVolume(targetVol, durationMs, audioElement, onDone) {
   if (!audioElement) { if (onDone) onDone(); return; }
-  
   if (fadeInterval) clearInterval(fadeInterval);
-  
   const startVol = audioElement.volume;
   const diff = targetVol - startVol;
   const steps = 40;
   const stepTime = durationMs / steps;
   let step = 0;
-  
   fadeInterval = setInterval(() => {
     step++;
     audioElement.volume = Math.max(0, Math.min(1, startVol + diff * (step / steps)));
@@ -1170,191 +1245,25 @@ function fadeVolume(targetVol, durationMs, audioElement, onDone) {
   }, stepTime);
 }
 
-/* ══ Switch Audio Function (Fade Out Old → Fade In New) ══ */
 function switchAudio(newAudio, targetVolume = 0.55) {
-  if (!newAudio) return;
-  
-  // إذا كان نفس الصوت النشط، لا تفعل شيء
-  if (activeAudio === newAudio) return;
-  
-  // إيقاف أي fade قيد التشغيل
+  if (!newAudio || activeAudio === newAudio) return;
   if (fadeInterval) clearInterval(fadeInterval);
-  
-  // Fade out الصوت القديم إذا كان موجود
   if (activeAudio) {
     fadeVolume(0, 500, activeAudio, () => {
       activeAudio.pause();
-      
-      // تشغيل الصوت الجديد
       newAudio.volume = 0;
-      newAudio.play().catch(e => console.log('تشغيل الصوت الجديد فشل:', e));
+      newAudio.play().catch(() => {});
       activeAudio = newAudio;
-      
-      // Fade in الصوت الجديد
-      setTimeout(() => {
-        fadeVolume(targetVolume, 800, newAudio);
-      }, 100);
+      setTimeout(() => fadeVolume(targetVolume, 800, newAudio), 100);
     });
   } else {
-    // لا يوجد صوت نشط، شغل الجديد مباشرة
     newAudio.volume = 0;
-    newAudio.play().catch(e => console.log('تشغيل الصوت الجديد فشل:', e));
+    newAudio.play().catch(() => {});
     activeAudio = newAudio;
     fadeVolume(targetVolume, 800, newAudio);
   }
 }
 
-/* ══ Cache Files Function ══ */
-async function cacheFiles() {
-  return new Promise(async (resolve) => {
-    if ('caches' in window) {
-      try {
-        const cache = await caches.open('love-site-cache-v1');
-        const cachedRequests = await cache.keys();
-        const cachedUrls = cachedRequests.map(req => req.url);
-        
-        const filesToFetch = filesToCache.filter(file => {
-          const fullUrl = new URL(file, window.location.origin).href;
-          return !cachedUrls.includes(fullUrl);
-        });
-        
-        totalFiles = filesToCache.length;
-        
-        if (filesToFetch.length === 0) {
-          updateLoadingProgress(100, 'All files already cached! 💕', '100%');
-          loadingCacheNote.textContent = '✨ All files cached - Loading instantly! ✨';
-          setTimeout(resolve, 1000);
-          return;
-        }
-        
-        for (let i = 0; i < filesToFetch.length; i++) {
-          const file = filesToFetch[i];
-          try {
-            const response = await fetch(file, { cache: 'force-cache' });
-            if (response.ok) {
-              await cache.put(file, response);
-            }
-          } catch (e) {
-            console.log('Cache error for', file, e);
-          }
-          
-          loadedCount = cachedUrls.length + i + 1;
-          const percent = Math.min(100, Math.round((loadedCount / totalFiles) * 100));
-          updateLoadingProgress(
-            percent,
-            loveMessages[Math.floor(Math.random() * loveMessages.length)],
-            percent + '%'
-          );
-        }
-        
-        loadingCacheNote.textContent = '✨ Files cached for faster next visit! ✨';
-        setTimeout(resolve, 800);
-        
-      } catch (e) {
-        console.log('Cache API error:', e);
-        simulateLoading(resolve);
-      }
-    } else {
-      simulateLoading(resolve);
-    }
-  });
-}
-
-function simulateLoading(resolve) {
-  let progress = 0;
-  const interval = setInterval(() => {
-    progress += Math.random() * 15;
-    if (progress >= 100) {
-      progress = 100;
-      clearInterval(interval);
-      updateLoadingProgress(100, "I'm ready for you, my love! 💕", '100%');
-      setTimeout(resolve, 800);
-    } else {
-      updateLoadingProgress(
-        progress,
-        loveMessages[Math.floor(Math.random() * loveMessages.length)],
-        Math.floor(progress) + '%'
-      );
-    }
-  }, 300);
-}
-
-function updateLoadingProgress(percent, message, percentText) {
-  loadingProgress.style.width = percent + '%';
-  loadingMessage.textContent = message;
-  loadingPercent.textContent = percentText;
-  
-  if (percent < 30) {
-    loadingStatus.textContent = 'Gathering our memories... 📸';
-  } else if (percent < 60) {
-    loadingStatus.textContent = 'Almost there, my love... 💕';
-  } else if (percent < 90) {
-    loadingStatus.textContent = 'Just a few more seconds... ⏳';
-  } else {
-    loadingStatus.textContent = 'Ready to show you my love! ✨';
-  }
-}
-
-/* ══ Preload and Cache ══ */
-(async function initLoading() {
-  await cacheFiles();
-  
-  loadingPage.classList.add('fade-out');
-  
-  setTimeout(() => {
-    loadingPage.style.display = 'none';
-    document.getElementById('page1').classList.add('active');
-  }, 800);
-})();
-
-/* ══ YouTube Player Variables ══ */
-let youtubePlayer;
-let isYouTubeReady = false;
-
-function loadYouTubeAPI() {
-  if (window.YT) {
-    isYouTubeReady = true;
-    return;
-  }
-  
-  const tag = document.createElement('script');
-  tag.src = 'https://www.youtube.com/iframe_api';
-  const firstScriptTag = document.getElementsByTagName('script')[0];
-  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-}
-
-window.onYouTubeIframeAPIReady = function() {
-  isYouTubeReady = true;
-  console.log('YouTube API ready');
-  
-  if (document.getElementById('pageVideo').classList.contains('active')) {
-    initializeYouTubePlayer();
-  }
-};
-
-function initializeYouTubePlayer() {
-  if (!isYouTubeReady || !document.getElementById('youtubeVideo')) return;
-  
-  youtubePlayer = new YT.Player('youtubeVideo', {
-    events: {
-      'onReady': onPlayerReady,
-      'onStateChange': onPlayerStateChange
-    }
-  });
-}
-
-function onPlayerReady(event) {
-  console.log('YouTube player ready');
-}
-
-function onPlayerStateChange(event) {
-  if (event.data === 0) {
-    // عند انتهاء الفيديو، نرجع للصوت الخلفي
-    switchAudio(bgMusic, 0.55);
-  }
-}
-
-/* ══ Gift card visit tracking ══ */
 const visited = new Set();
 
 function visitAndGo(wrapId, pageId) {
@@ -1363,7 +1272,6 @@ function visitAndGo(wrapId, pageId) {
   goTo(pageId);
 }
 
-/* ══ Navigation ══ */
 function goTo(id) {
   const currentPage = document.querySelector('.page.active');
   const wasOnVideo = currentPage && currentPage.id === 'pageVideo';
@@ -1377,154 +1285,98 @@ function goTo(id) {
   const pg = document.getElementById(id);
   if (pg) pg.scrollTop = 0;
 
-  // تبديل الصوت حسب الصفحة
   if (id === 'pageVideo') {
     enterVideoPage();
   } else if (id === 'pageLetter') {
-    // عند دخول صفحة الرسالة، شغل message.mp3
     switchAudio(messageAudio, 0.55);
     setTimeout(() => showReadHint(), 500);
   } else if (id === 'pageGifts' && wasOnLetter) {
-    // عند العودة من الرسالة إلى الهدايا، شغل voice overlay
-    setTimeout(() => {
-      showVoiceOverlay();
-    }, 300);
+    setTimeout(() => showVoiceOverlay(), 300);
   } else if (id !== 'pageVideo' && id !== 'pageLetter') {
-    // باقي الصفحات: شغل الموسيقى الخلفية
     switchAudio(bgMusic, 0.55);
-    
-    // إذا كنا خارجين من صفحة الفيديو، نوقف الفيديو
-    if (wasOnVideo) {
-      leaveVideoPage();
-    }
+    if (wasOnVideo) leaveVideoPage();
   }
+}
+
+// YouTube
+let youtubePlayer;
+let isYouTubeReady = false;
+
+function loadYouTubeAPI() {
+  if (window.YT) { isYouTubeReady = true; return; }
+  const tag = document.createElement('script');
+  tag.src = 'https://www.youtube.com/iframe_api';
+  document.getElementsByTagName('script')[0].parentNode.insertBefore(tag, document.getElementsByTagName('script')[0]);
+}
+
+window.onYouTubeIframeAPIReady = function() {
+  isYouTubeReady = true;
+  if (document.getElementById('pageVideo').classList.contains('active')) initializeYouTubePlayer();
+};
+
+function initializeYouTubePlayer() {
+  if (!isYouTubeReady || !document.getElementById('youtubeVideo')) return;
+  youtubePlayer = new YT.Player('youtubeVideo', {
+    events: { 'onStateChange': (e) => { if (e.data === 0) switchAudio(bgMusic, 0.55); } }
+  });
 }
 
 function enterVideoPage() {
-  // تحميل API إذا لم يكن جاهزاً
-  if (!isYouTubeReady) {
-    loadYouTubeAPI();
-  }
-  
-  // إيقاف أي صوت (الموسيقى الخلفية) باستخدام fade out
+  if (!isYouTubeReady) loadYouTubeAPI();
   if (activeAudio) {
-    fadeVolume(0, 500, activeAudio, () => {
-      activeAudio.pause();
-      activeAudio = null;
-    });
+    fadeVolume(0, 500, activeAudio, () => { activeAudio.pause(); activeAudio = null; });
   }
-  
-  // تجهيز الفيديو
-  if (isYouTubeReady && !youtubePlayer) {
-    setTimeout(() => {
-      initializeYouTubePlayer();
-    }, 300);
-  }
+  if (isYouTubeReady && !youtubePlayer) setTimeout(initializeYouTubePlayer, 300);
 }
 
 function leaveVideoPage() {
-  // إيقاف الفيديو عند الخروج من الصفحة
-  if (youtubePlayer && youtubePlayer.pauseVideo) {
-    youtubePlayer.pauseVideo();
-  }
+  if (youtubePlayer && youtubePlayer.pauseVideo) youtubePlayer.pauseVideo();
 }
 
-/* ══ SECRET BUTTON — jump to 0:38 in video ══ */
 function jumpToSecret() {
   const btn = document.getElementById('secretBtn');
-  
-  btn.classList.remove('clicked');
-  void btn.offsetWidth;
-  btn.classList.add('clicked');
+  btn.classList.remove('clicked'); void btn.offsetWidth; btn.classList.add('clicked');
   setTimeout(() => btn.classList.remove('clicked'), 500);
-
-  if (!isYouTubeReady) {
-    loadYouTubeAPI();
-    setTimeout(() => {
-      if (youtubePlayer && youtubePlayer.seekTo) {
-        youtubePlayer.seekTo(38);
-        youtubePlayer.playVideo();
-      }
-    }, 1000);
-    return;
-  }
-  
-  if (youtubePlayer && youtubePlayer.seekTo) {
-    youtubePlayer.seekTo(38);
-    youtubePlayer.playVideo();
-  }
-
-  const box = document.querySelector('.player-box');
-  if (box) {
-    box.style.transition = 'box-shadow 0.3s ease';
-    box.style.boxShadow = '0 0 0 4px rgba(123,24,24,0.5), 0 6px 26px rgba(0,0,0,0.25)';
-    setTimeout(() => { box.style.boxShadow = '0 6px 26px rgba(0,0,0,0.25)'; }, 600);
-  }
+  if (!isYouTubeReady) { loadYouTubeAPI(); setTimeout(() => { if (youtubePlayer?.seekTo) { youtubePlayer.seekTo(38); youtubePlayer.playVideo(); } }, 1000); return; }
+  if (youtubePlayer?.seekTo) { youtubePlayer.seekTo(38); youtubePlayer.playVideo(); }
 }
 
-/* ══ Voice Note Overlay ══ */
+// Voice overlay
 const voiceOverlay = document.getElementById('voiceOverlay');
 const voicePlayBtn = document.getElementById('voicePlayBtn');
 const voiceWave = document.getElementById('voiceWave');
 const voiceProgress = document.getElementById('voiceProgressFill');
 const voiceTimeDisp = document.getElementById('voiceTimeDisplay');
-
 let voiceProgressTimer = null;
 
 function showVoiceOverlay() {
   voiceOverlay.classList.add('show');
-  // إيقاف أي صوت نشط
   if (activeAudio) {
-    fadeVolume(0, 500, activeAudio, () => {
-      activeAudio.pause();
-      activeAudio = null;
-    });
+    fadeVolume(0, 500, activeAudio, () => { activeAudio.pause(); activeAudio = null; });
   }
 }
 
 function closeVoiceOverlay() {
   voiceOverlay.classList.remove('show');
-  
-  if (voiceAudio) {
-    voiceAudio.pause();
-    voiceAudio.currentTime = 0;
-  }
-  
+  if (voiceAudio) { voiceAudio.pause(); voiceAudio.currentTime = 0; }
   voiceWave.classList.remove('playing');
   voicePlayBtn.textContent = '▶';
   clearInterval(voiceProgressTimer);
   voiceProgress.style.width = '0%';
   voiceTimeDisp.textContent = '0:00 / 0:00';
-  
-  // العودة للموسيقى الخلفية
   switchAudio(bgMusic, 0.55);
 }
 
 function toggleVoice() {
   if (!voiceAudio) return;
-  
-  if (voiceAudio.readyState === 0) {
-    voiceAudio.load();
-  }
-  
+  if (voiceAudio.readyState === 0) voiceAudio.load();
   if (voiceAudio.paused) {
-    // إيقاف أي صوت نشط
-    if (activeAudio) {
-      fadeVolume(0, 400, activeAudio, () => {
-        activeAudio.pause();
-        activeAudio = null;
-      });
-    }
-    
-    if (voiceAudio.duration && !isNaN(voiceAudio.duration)) {
-      voiceTimeDisp.textContent = '0:00 / ' + fmtTime(voiceAudio.duration);
-    } else {
+    if (activeAudio) fadeVolume(0, 400, activeAudio, () => { activeAudio.pause(); activeAudio = null; });
+    if (voiceAudio.duration && !isNaN(voiceAudio.duration)) voiceTimeDisp.textContent = '0:00 / ' + fmtTime(voiceAudio.duration);
+    else {
       voiceTimeDisp.textContent = '0:00 / 0:00';
-      voiceAudio.addEventListener('loadedmetadata', function() {
-        voiceTimeDisp.textContent = '0:00 / ' + fmtTime(voiceAudio.duration);
-      }, { once: true });
+      voiceAudio.addEventListener('loadedmetadata', function() { voiceTimeDisp.textContent = '0:00 / ' + fmtTime(voiceAudio.duration); }, { once: true });
     }
-    
     voiceAudio.volume = 1;
     voiceAudio.play().catch(() => {});
     voicePlayBtn.textContent = '⏸';
@@ -1535,7 +1387,6 @@ function toggleVoice() {
     voicePlayBtn.textContent = '▶';
     voiceWave.classList.remove('playing');
     clearInterval(voiceProgressTimer);
-    // العودة للموسيقى الخلفية
     switchAudio(bgMusic, 0.55);
   }
 }
@@ -1544,70 +1395,46 @@ function startVoiceProgress() {
   clearInterval(voiceProgressTimer);
   voiceProgressTimer = setInterval(() => {
     if (!voiceAudio || voiceAudio.duration === 0 || isNaN(voiceAudio.duration)) {
-      if (voiceAudio && !isNaN(voiceAudio.currentTime)) {
-        voiceTimeDisp.textContent = fmtTime(voiceAudio.currentTime) + ' / 0:00';
-      }
+      if (voiceAudio && !isNaN(voiceAudio.currentTime)) voiceTimeDisp.textContent = fmtTime(voiceAudio.currentTime) + ' / 0:00';
       return;
     }
     const pct = (voiceAudio.currentTime / voiceAudio.duration) * 100;
     voiceProgress.style.width = pct + '%';
     voiceTimeDisp.textContent = fmtTime(voiceAudio.currentTime) + ' / ' + fmtTime(voiceAudio.duration);
-    
     if (voiceAudio.ended) {
       clearInterval(voiceProgressTimer);
       voicePlayBtn.textContent = '▶';
       voiceWave.classList.remove('playing');
       voiceProgress.style.width = '0%';
       voiceTimeDisp.textContent = '0:00 / ' + fmtTime(voiceAudio.duration);
-      // العودة للموسيقى الخلفية
       switchAudio(bgMusic, 0.55);
     }
   }, 300);
 }
 
-function fmtTime(s) {
-  if (isNaN(s) || s === undefined || s === null) return '0:00';
-  const m = Math.floor(s / 60);
-  const sec = Math.floor(s % 60);
-  return m + ':' + String(sec).padStart(2, '0');
-}
+function fmtTime(s) { if (isNaN(s) || s === undefined) return '0:00'; const m = Math.floor(s / 60); const sec = Math.floor(s % 60); return m + ':' + String(sec).padStart(2, '0'); }
 
-if (voiceAudio) {
-  voiceAudio.addEventListener('loadedmetadata', function() {
-    voiceTimeDisp.textContent = '0:00 / ' + fmtTime(voiceAudio.duration);
-  });
-}
-
-/* ══ Read Hint Toast ══ */
+// Read hint
 let readHintTimer = null;
 function showReadHint() {
   const toast = document.getElementById('readHintToast');
-  if (!toast) return;
   clearTimeout(readHintTimer);
   toast.classList.add('show');
-  readHintTimer = setTimeout(() => {
-    toast.classList.remove('show');
-  }, 4000);
+  readHintTimer = setTimeout(() => toast.classList.remove('show'), 4000);
 }
 
-/* ══ 4 Big Polaroids ══ */
+// Photos
 const photos4 = [
   { src:'pics/1.jpg', lbl:'💍💍💍💍💍', rot:-12, zi:4 },
-  { src:'pics/2.jpg', lbl:'❤️❤️❤️❤️❤️',    rot:9,   zi:3 },
-  { src:'pics/3.jpg', lbl:'🌹🌹🌹🌹🌹',     rot:-7,  zi:2 },
-  { src:'pics/4.jpg', lbl:'💕💕💕💕💕',   rot:11,  zi:1 },
+  { src:'pics/2.jpg', lbl:'❤️❤️❤️❤️❤️', rot:9, zi:3 },
+  { src:'pics/3.jpg', lbl:'🌹🌹🌹🌹🌹', rot:-7, zi:2 },
+  { src:'pics/4.jpg', lbl:'💕💕💕💕💕', rot:11, zi:1 },
 ];
 const pos4 = [
-  { top:'3%',  left:'2%' },
-  { top:'3%',  left:'50%'},
+  { top:'3%', left:'2%' },
+  { top:'3%', left:'50%' },
   { top:'48%', left:'2%' },
-  { top:'48%', left:'50%'},
-];
-const annots4 = [
-  { top:'8%',  left:'5%',  text:'← photobooth!' },
-  { top:'8%',  left:'52%', text:'grad pic →' },
-  { top:'52%', left:'4%',  text:'← recent!' },
-  { top:'52%', left:'52%', text:'birthday! →' },
+  { top:'48%', left:'50%' },
 ];
 let photosBuilt = false;
 function buildPhotos() {
@@ -1620,7 +1447,7 @@ function buildPhotos() {
     d.style.cssText = `top:${pos4[i].top}; left:${pos4[i].left}; width:47%; aspect-ratio:0.8; transform:rotate(${p.rot}deg); z-index:${p.zi};`;
     const img = document.createElement('img');
     img.src = p.src; img.alt = p.lbl;
-    img.style.cssText = 'width:100%; aspect-ratio:1; object-fit:cover; display:block; background:#f5d0d0;';
+    img.style.cssText = 'width:100%; aspect-ratio:1; object-fit:cover;';
     img.onerror = () => { img.style.background = `hsl(${340+i*18},42%,${76+i*3}%)`; img.onerror=null; };
     img.onclick = () => openLb(img.src);
     const lbl = document.createElement('div');
@@ -1628,19 +1455,9 @@ function buildPhotos() {
     d.appendChild(img); d.appendChild(lbl);
     zone.appendChild(d);
   });
-  annots4.forEach(a => {
-    const s = document.createElement('span');
-    s.className = 'annot';
-    s.style.cssText = `top:${a.top}; left:${a.left};`;
-    s.textContent = a.text;
-    zone.appendChild(s);
-  });
 }
 
-function openLb(src) {
-  document.getElementById('lbImg').src = src;
-  document.getElementById('lightbox').classList.add('open');
-}
+function openLb(src) { document.getElementById('lbImg').src = src; document.getElementById('lightbox').classList.add('open'); }
 function closeLb() { document.getElementById('lightbox').classList.remove('open'); }
 document.getElementById('lightbox').addEventListener('click', e => { if(e.target===e.currentTarget) closeLb(); });
 </script>
