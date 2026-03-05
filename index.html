@@ -177,12 +177,11 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
   position: fixed;
   inset: 0;
   z-index: 1100;
-  background: linear-gradient(145deg, #f3eee8 0%, #e8dfd5 100%);
+  background: #000;
   display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1.5rem;
   opacity: 0;
   transition: opacity 0.6s ease;
 }
@@ -192,17 +191,6 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
 #pressMeScreen.fade-out {
   opacity: 0;
   pointer-events: none;
-}
-.press-me-icon {
-  font-size: clamp(3rem, 12vw, 5rem);
-  animation: heartBeat 1.2s ease-in-out infinite;
-}
-.press-me-hint {
-  font-family: 'Belleza', sans-serif;
-  font-size: clamp(0.75rem, 2.5vw, 0.95rem);
-  color: #aaa;
-  letter-spacing: 2px;
-  text-transform: uppercase;
 }
 #pressMeBtn {
   font-family: 'Gloria Hallelujah', cursive;
@@ -222,7 +210,6 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
 }
 #pressMeBtn:hover  { transform: scale(1.07); box-shadow: 0 12px 40px rgba(123,24,24,0.45); }
 #pressMeBtn:active { transform: scale(0.95); }
-/* Ripple on click */
 #pressMeBtn::after {
   content: '';
   position: absolute; inset: 0;
@@ -955,8 +942,6 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
 
 <!-- ══════════ PRESS ME SCREEN ══════════ -->
 <div id="pressMeScreen">
-  <div class="press-me-icon">❤️</div>
-  <div class="press-me-hint">tap to begin</div>
   <button id="pressMeBtn" onclick="onPressMeClick()">PRESS ME</button>
 </div>
 
