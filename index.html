@@ -113,6 +113,65 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
   letter-spacing: 1px;
 }
 
+/* ─── CINEMA INTRO ─── */
+#cinemaScreen {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.2s cubic-bezier(0.4,0,0.2,1);
+}
+#cinemaScreen.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+#cinemaScreen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+#cinemaVideo {
+  /* contain = كامل الفيديو مرئي على أي شاشة بدون قص */
+  width: 100vw;
+  height: 100vh;
+  object-fit: contain;
+  display: block;
+  position: absolute;
+  inset: 0;
+  background: #000;
+}
+/* Cinematic vignette */
+.cinema-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.72) 100%);
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+#cinemaScreen.visible .cinema-vignette {
+  opacity: 1;
+}
+
+/* ─── BLACK FADE OVERLAY (بعد انتهاء الفيديو) ─── */
+#blackFade {
+  position: fixed;
+  inset: 0;
+  z-index: 950;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+}
+#blackFade.fade-in  { opacity: 1; pointer-events: all; }
+#blackFade.fade-out { opacity: 0; pointer-events: none; }
+
 /* ─── PAGES ─── */
 .page {
   position:fixed; inset:0;
@@ -821,6 +880,18 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
 
 <div class="bg-paper"></div>
 
+<!-- ══════════ CINEMA INTRO ══════════ -->
+<div id="cinemaScreen">
+  <video id="cinemaVideo" playsinline webkit-playsinline muted autoplay preload="auto">
+    <source src="pics/cinema.mp4" type="video/mp4">
+    <source src="pics/cinema.webm" type="video/webm">
+  </video>
+  <div class="cinema-vignette"></div>
+</div>
+
+<!-- ══════════ BLACK FADE ══════════ -->
+<div id="blackFade"></div>
+
 <!-- ══════════ LOADING PAGE ══════════ (مع رسائل عشوائية) -->
 <div class="loading-page" id="loadingPage">
   <div class="loading-heart">❤️</div>
@@ -968,7 +1039,7 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
       <div class="fstamp st3">أُحَاوِلُ بِكُلِّ جُهْدِي أَنْ أَتَغَيَّرَ</div>
       <div class="fstamp st4">لَا أَسْتَطِيعُ أَنْ أَتَخَيَّلَ الحَيَاةَ بِدُونِكِ</div>
       <!-- English labels below -->
-      <div class="tulips-label"> Rose</div>
+      <div class="tulips-label"> Flowers </div>
       <div class="tulips-sub">My Wifee Fav</div>
     </div>
     <div class="flower-bottom">
@@ -1172,6 +1243,84 @@ const voiceAudio = document.getElementById('voiceAudio');
 let activeAudio = null;
 let fadeInterval = null;
 
+// ══════════ CINEMA INTRO ══════════
+const cinemaScreen = document.getElementById('cinemaScreen');
+const cinemaVideo  = document.getElementById('cinemaVideo');
+
+function showCinema() {
+  // Unmute and max volume for cinematic feel
+  cinemaVideo.muted = false;
+  cinemaVideo.volume = 1;
+  cinemaVideo.currentTime = 0;
+
+  // Fade IN cinema screen
+  cinemaScreen.classList.add('visible');
+
+  // Try to play; if blocked keep muted and retry
+  const playPromise = cinemaVideo.play();
+  if (playPromise !== undefined) {
+    playPromise.catch(() => {
+      cinemaVideo.muted = true;
+      cinemaVideo.play().catch(() => {});
+    });
+  }
+
+  // When video ends → cinematic fade OUT then show site
+  cinemaVideo.addEventListener('ended', endCinema, { once: true });
+
+  // Safety fallback in case video fails to load
+  cinemaVideo.addEventListener('error', endCinema, { once: true });
+  setTimeout(() => { if (cinemaScreen.classList.contains('visible')) endCinema(); }, 35000);
+}
+
+function endCinema() {
+  if (cinemaDone) return;
+  cinemaDone = true;
+
+  const blackFade = document.getElementById('blackFade');
+
+  // 1) Fade TO black (0.8s)
+  blackFade.classList.add('fade-in');
+
+  setTimeout(() => {
+    // 2) Hide cinema screen + pause video
+    cinemaScreen.style.display = 'none';
+    cinemaVideo.pause();
+
+    // 3) Show page1 while screen is still black
+    document.getElementById('page1').classList.add('active');
+
+    // 4) Hold black for 2 seconds total, then fade OUT to reveal site
+    setTimeout(() => {
+      blackFade.classList.remove('fade-in');
+      blackFade.classList.add('fade-out');
+
+      // 5) Start music during fade-in of site (feels natural)
+      bgMusic.volume = 0;
+      activeAudio = bgMusic;
+      bgMusic.play().catch(() => {
+        const startOnTap = () => {
+          if (!activeAudio || activeAudio.paused) {
+            bgMusic.volume = 0;
+            bgMusic.play().catch(() => {});
+            activeAudio = bgMusic;
+            fadeVolume(0.55, 1000, bgMusic);
+          }
+          document.removeEventListener('click', startOnTap);
+          document.removeEventListener('touchstart', startOnTap);
+        };
+        document.addEventListener('click', startOnTap);
+        document.addEventListener('touchstart', startOnTap);
+      });
+      fadeVolume(0.55, 1400, bgMusic);
+
+      // 6) Remove overlay after fade completes
+      setTimeout(() => { blackFade.style.display = 'none'; }, 900);
+    }, 1200); // hold black for 1.2s after fade-in completes (total ~2s)
+
+  }, 800); // wait for fade-to-black to complete
+}
+
 // Simulated loading with random message
 window.addEventListener('load', function() {
     // اختيار رسالة عشوائية من المصفوفة
@@ -1195,35 +1344,21 @@ window.addEventListener('load', function() {
             loadingPercent.textContent = '100%';
             
             setTimeout(() => {
+                // Fade out loading page
                 loadingPage.classList.add('fade-out');
                 setTimeout(() => {
                     loadingPage.style.display = 'none';
-                    document.getElementById('page1').classList.add('active');
+                    // Show cinema intro
+                    showCinema();
                 }, 800);
             }, 800);
         }
     }, 50);
 });
 
-// Auto-play background music
-(function initMusic() {
-  if (bgMusic) {
-    bgMusic.volume = 0.55;
-    activeAudio = bgMusic;
-    const playPromise = bgMusic.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        const playOnInteraction = () => {
-          bgMusic.play().catch(() => {});
-          document.removeEventListener('click', playOnInteraction);
-          document.removeEventListener('touchstart', playOnInteraction);
-        };
-        document.addEventListener('click', playOnInteraction);
-        document.addEventListener('touchstart', playOnInteraction);
-      });
-    }
-  }
-})();
+// Auto-play background music — starts ONLY after cinema ends via endCinema()
+// No early start, no fallback on click before cinema is done
+let cinemaDone = false;
 
 function fadeVolume(targetVol, durationMs, audioElement, onDone) {
   if (!audioElement) { if (onDone) onDone(); return; }
@@ -1317,20 +1452,46 @@ window.onYouTubeIframeAPIReady = function() {
 function initializeYouTubePlayer() {
   if (!isYouTubeReady || !document.getElementById('youtubeVideo')) return;
   youtubePlayer = new YT.Player('youtubeVideo', {
-    events: { 'onStateChange': (e) => { if (e.data === 0) switchAudio(bgMusic, 0.55); } }
+    events: {
+      'onStateChange': (e) => {
+        if (e.data === 0) {
+          // Video ended → fade in bgMusic
+          if (!activeAudio) {
+            bgMusic.volume = 0;
+            bgMusic.currentTime = 0;
+            bgMusic.play().catch(() => {});
+            activeAudio = bgMusic;
+            fadeVolume(0.55, 1000, bgMusic);
+          } else {
+            switchAudio(bgMusic, 0.55);
+          }
+        }
+      }
+    }
   });
 }
 
 function enterVideoPage() {
   if (!isYouTubeReady) loadYouTubeAPI();
+  // Fade out current audio smoothly before YouTube starts
   if (activeAudio) {
-    fadeVolume(0, 500, activeAudio, () => { activeAudio.pause(); activeAudio = null; });
+    fadeVolume(0, 700, activeAudio, () => {
+      activeAudio.pause();
+      activeAudio = null;
+    });
   }
   if (isYouTubeReady && !youtubePlayer) setTimeout(initializeYouTubePlayer, 300);
 }
 
 function leaveVideoPage() {
   if (youtubePlayer && youtubePlayer.pauseVideo) youtubePlayer.pauseVideo();
+  // Fade in bgMusic after leaving video page
+  if (!activeAudio || activeAudio !== bgMusic) {
+    bgMusic.volume = 0;
+    bgMusic.play().catch(() => {});
+    activeAudio = bgMusic;
+    setTimeout(() => fadeVolume(0.55, 900, bgMusic), 200);
+  }
 }
 
 function jumpToSecret() {
@@ -1351,8 +1512,12 @@ let voiceProgressTimer = null;
 
 function showVoiceOverlay() {
   voiceOverlay.classList.add('show');
+  // Fade out background music smoothly before voice plays
   if (activeAudio) {
-    fadeVolume(0, 500, activeAudio, () => { activeAudio.pause(); activeAudio = null; });
+    fadeVolume(0, 700, activeAudio, () => {
+      activeAudio.pause();
+      activeAudio = null;
+    });
   }
 }
 
@@ -1364,31 +1529,52 @@ function closeVoiceOverlay() {
   clearInterval(voiceProgressTimer);
   voiceProgress.style.width = '0%';
   voiceTimeDisp.textContent = '0:00 / 0:00';
-  switchAudio(bgMusic, 0.55);
+  // Fade in bgMusic after voice ends
+  bgMusic.volume = 0;
+  bgMusic.play().catch(() => {});
+  activeAudio = bgMusic;
+  setTimeout(() => fadeVolume(0.55, 900, bgMusic), 300);
 }
 
 function toggleVoice() {
   if (!voiceAudio) return;
   if (voiceAudio.readyState === 0) voiceAudio.load();
   if (voiceAudio.paused) {
-    if (activeAudio) fadeVolume(0, 400, activeAudio, () => { activeAudio.pause(); activeAudio = null; });
-    if (voiceAudio.duration && !isNaN(voiceAudio.duration)) voiceTimeDisp.textContent = '0:00 / ' + fmtTime(voiceAudio.duration);
-    else {
-      voiceTimeDisp.textContent = '0:00 / 0:00';
-      voiceAudio.addEventListener('loadedmetadata', function() { voiceTimeDisp.textContent = '0:00 / ' + fmtTime(voiceAudio.duration); }, { once: true });
+    // Fade out any active audio first
+    if (activeAudio) {
+      fadeVolume(0, 500, activeAudio, () => {
+        activeAudio.pause();
+        activeAudio = null;
+        // Then fade in voice
+        _startVoicePlayback();
+      });
+    } else {
+      _startVoicePlayback();
     }
-    voiceAudio.volume = 1;
-    voiceAudio.play().catch(() => {});
-    voicePlayBtn.textContent = '⏸';
-    voiceWave.classList.add('playing');
-    startVoiceProgress();
   } else {
     voiceAudio.pause();
     voicePlayBtn.textContent = '▶';
     voiceWave.classList.remove('playing');
     clearInterval(voiceProgressTimer);
-    switchAudio(bgMusic, 0.55);
+    // Fade in bgMusic after pausing voice
+    bgMusic.volume = 0;
+    bgMusic.play().catch(() => {});
+    activeAudio = bgMusic;
+    setTimeout(() => fadeVolume(0.55, 800, bgMusic), 200);
   }
+}
+
+function _startVoicePlayback() {
+  if (voiceAudio.duration && !isNaN(voiceAudio.duration)) voiceTimeDisp.textContent = '0:00 / ' + fmtTime(voiceAudio.duration);
+  else {
+    voiceTimeDisp.textContent = '0:00 / 0:00';
+    voiceAudio.addEventListener('loadedmetadata', function() { voiceTimeDisp.textContent = '0:00 / ' + fmtTime(voiceAudio.duration); }, { once: true });
+  }
+  voiceAudio.volume = 1;
+  voiceAudio.play().catch(() => {});
+  voicePlayBtn.textContent = '⏸';
+  voiceWave.classList.add('playing');
+  startVoiceProgress();
 }
 
 function startVoiceProgress() {
@@ -1407,7 +1593,11 @@ function startVoiceProgress() {
       voiceWave.classList.remove('playing');
       voiceProgress.style.width = '0%';
       voiceTimeDisp.textContent = '0:00 / ' + fmtTime(voiceAudio.duration);
-      switchAudio(bgMusic, 0.55);
+      // Fade in bgMusic after voice ends naturally
+      bgMusic.volume = 0;
+      bgMusic.play().catch(() => {});
+      activeAudio = bgMusic;
+      setTimeout(() => fadeVolume(0.55, 900, bgMusic), 200);
     }
   }, 300);
 }
