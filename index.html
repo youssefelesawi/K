@@ -966,7 +966,7 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
     <div class="p1-sub">Are you upset with me?</div>
     <div class="btn-row">
       <button class="pill pill-fill" onclick="goTo('pageNo')">YES</button>
-      <button class="pill pill-ghost" onclick="goTo('pageGifts')">NO</button>
+      <button class="pill pill-ghost" onclick="startBgMusicNow(); goTo('pageGifts')">NO</button>
     </div>
   </div>
 </div>
@@ -1440,6 +1440,17 @@ window.addEventListener('load', function() {
 // Auto-play background music — starts ONLY after cinema ends via endCinema()
 // No early start, no fallback on click before cinema is done
 let cinemaDone = false;
+
+function startBgMusicNow() {
+  if (activeAudio === bgMusic) return;
+  if (activeAudio) {
+    fadeVolume(0, 400, activeAudio, () => { activeAudio.pause(); activeAudio = null; });
+  }
+  bgMusic.volume = 0;
+  bgMusic.play().catch(() => {});
+  activeAudio = bgMusic;
+  fadeVolume(0.55, 800, bgMusic);
+}
 
 function fadeVolume(targetVol, durationMs, audioElement, onDone) {
   if (!audioElement) { if (onDone) onDone(); return; }
