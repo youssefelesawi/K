@@ -172,6 +172,67 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
 #blackFade.fade-in  { opacity: 1; pointer-events: all; }
 #blackFade.fade-out { opacity: 0; pointer-events: none; }
 
+/* ─── PRESS ME SCREEN ─── */
+#pressMeScreen {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  background: linear-gradient(145deg, #f3eee8 0%, #e8dfd5 100%);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+#pressMeScreen.visible {
+  opacity: 1;
+}
+#pressMeScreen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+.press-me-icon {
+  font-size: clamp(3rem, 12vw, 5rem);
+  animation: heartBeat 1.2s ease-in-out infinite;
+}
+.press-me-hint {
+  font-family: 'Belleza', sans-serif;
+  font-size: clamp(0.75rem, 2.5vw, 0.95rem);
+  color: #aaa;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+#pressMeBtn {
+  font-family: 'Gloria Hallelujah', cursive;
+  font-size: clamp(1rem, 4vw, 1.5rem);
+  color: #fff;
+  background: #7B1818;
+  border: none;
+  border-radius: 50px;
+  padding: clamp(0.9rem, 3vw, 1.2rem) clamp(2.5rem, 8vw, 4rem);
+  cursor: pointer;
+  box-shadow: 0 8px 32px rgba(123,24,24,0.35);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  touch-action: manipulation;
+  letter-spacing: 2px;
+  position: relative;
+  overflow: hidden;
+}
+#pressMeBtn:hover  { transform: scale(1.07); box-shadow: 0 12px 40px rgba(123,24,24,0.45); }
+#pressMeBtn:active { transform: scale(0.95); }
+/* Ripple on click */
+#pressMeBtn::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(255,255,255,0.25);
+  border-radius: 50px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+#pressMeBtn.clicked::after { opacity: 1; animation: rippleFade 0.4s ease forwards; }
+
 /* ─── PAGES ─── */
 .page {
   position:fixed; inset:0;
@@ -892,6 +953,13 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
 <!-- ══════════ BLACK FADE ══════════ -->
 <div id="blackFade"></div>
 
+<!-- ══════════ PRESS ME SCREEN ══════════ -->
+<div id="pressMeScreen">
+  <div class="press-me-icon">❤️</div>
+  <div class="press-me-hint">tap to begin</div>
+  <button id="pressMeBtn" onclick="onPressMeClick()">PRESS ME</button>
+</div>
+
 <!-- ══════════ LOADING PAGE ══════════ (مع رسائل عشوائية) -->
 <div class="loading-page" id="loadingPage">
   <div class="loading-heart">❤️</div>
@@ -1039,7 +1107,7 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
       <div class="fstamp st3">أُحَاوِلُ بِكُلِّ جُهْدِي أَنْ أَتَغَيَّرَ</div>
       <div class="fstamp st4">لَا أَسْتَطِيعُ أَنْ أَتَخَيَّلَ الحَيَاةَ بِدُونِكِ</div>
       <!-- English labels below -->
-      <div class="tulips-label"> Flowers </div>
+      <div class="tulips-label"> Rose</div>
       <div class="tulips-sub">My Wifee Fav</div>
     </div>
     <div class="flower-bottom">
@@ -1243,6 +1311,34 @@ const voiceAudio = document.getElementById('voiceAudio');
 let activeAudio = null;
 let fadeInterval = null;
 
+// ══════════ PRESS ME SCREEN ══════════
+const pressMeScreen = document.getElementById('pressMeScreen');
+
+function showPressMeScreen() {
+  pressMeScreen.style.display = 'flex';
+  // Force reflow then fade in
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      pressMeScreen.classList.add('visible');
+    });
+  });
+}
+
+function onPressMeClick() {
+  const btn = document.getElementById('pressMeBtn');
+  btn.classList.add('clicked');
+  setTimeout(() => btn.classList.remove('clicked'), 400);
+
+  // Fade out Press Me screen
+  pressMeScreen.classList.add('fade-out');
+  setTimeout(() => {
+    pressMeScreen.style.display = 'none';
+    pressMeScreen.classList.remove('visible', 'fade-out');
+    // Now start cinema — user gesture unlocks autoplay + audio on iOS
+    showCinema();
+  }, 600);
+}
+
 // ══════════ CINEMA INTRO ══════════
 const cinemaScreen = document.getElementById('cinemaScreen');
 const cinemaVideo  = document.getElementById('cinemaVideo');
@@ -1348,8 +1444,8 @@ window.addEventListener('load', function() {
                 loadingPage.classList.add('fade-out');
                 setTimeout(() => {
                     loadingPage.style.display = 'none';
-                    // Show cinema intro
-                    showCinema();
+                    // Show Press Me screen to unlock autoplay on iOS
+                    showPressMeScreen();
                 }, 800);
             }, 800);
         }
