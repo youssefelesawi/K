@@ -1351,7 +1351,7 @@ function showCinema() {
 
   // Safety fallback in case video fails to load
   cinemaVideo.addEventListener('error', endCinema, { once: true });
-  setTimeout(() => { if (cinemaScreen.classList.contains('visible')) endCinema(); }, 35000);
+  setTimeout(() => { if (cinemaScreen.classList.contains('visible')) endCinema(); }, 40000);
 }
 
 function endCinema() {
