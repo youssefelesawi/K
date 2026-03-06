@@ -4,6 +4,88 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>I'm Sorry 💕</title>
+
+<!-- ══ SERVICE WORKER REGISTRATION ══ -->
+<script>
+(function() {
+  // نسجّل الـ Service Worker بمجرد فتح الصفحة
+  if ('serviceWorker' in navigator) {
+    // نحوّل محتوى SW إلى Blob URL لأن الموقع ملف واحد بدون سيرفر
+    const swCode = `
+const CACHE_NAME = 'sorry-site-v1';
+const ASSETS = [
+  './',
+  'pics/bg_main.jpg',
+  'pics/cinema.mp4',
+  'pics/music.mp3',
+  'pics/message.mp3',
+  'pics/voice.mp3',
+  'pics/1.jpg',
+  'pics/2.jpg',
+  'pics/3.jpg',
+  'pics/4.jpg',
+  'pics/cat.gif',
+  'pics/cry.gif',
+  'pics/rose.PNG',
+];
+
+// عند التثبيت: نحمّل كل الملفات في الكاش
+self.addEventListener('install', event => {
+  self.skipWaiting();
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(cache => {
+      return Promise.allSettled(
+        ASSETS.map(url =>
+          cache.add(url).catch(() => {}) // نتجاهل الفشل لملف معين
+        )
+      );
+    })
+  );
+});
+
+// عند التفعيل: نحذف الكاش القديم
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
+    ).then(() => self.clients.claim())
+  );
+});
+
+// عند كل طلب: نرجع من الكاش أولاً (Cache First)
+self.addEventListener('fetch', event => {
+  // فقط للملفات المحلية (نتجاهل Firebase و YouTube و Google Fonts)
+  const url = new URL(event.request.url);
+  const isExternal = url.hostname !== self.location.hostname;
+  if (isExternal) return; // اترك الخارجي يمشي طبيعي
+
+  event.respondWith(
+    caches.match(event.request).then(cached => {
+      if (cached) return cached;
+      // لو ما موجود في الكاش، حمّله وخزّنه
+      return fetch(event.request).then(response => {
+        if (response && response.status === 200) {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+        }
+        return response;
+      }).catch(() => cached);
+    })
+  );
+});
+`;
+    const blob = new Blob([swCode], { type: 'application/javascript' });
+    const swUrl = URL.createObjectURL(blob);
+    navigator.serviceWorker.register(swUrl, { scope: './' })
+      .then(reg => {
+        console.log('[SW] Registered ✓', reg.scope);
+        window._swRegistered = true;
+      })
+      .catch(err => console.warn('[SW] Registration failed:', err));
+  }
+})();
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Belgrano&family=Belleza&family=Gloria+Hallelujah&family=Caveat:wght@400;600;700&family=Fredoka+One&family=Nunito:wght@400;600;700&family=Lateef&family=Scheherazade+New:wght@400;600;700&display=swap" rel="stylesheet">
@@ -1503,13 +1585,13 @@ let pageDone = false;
 
 window.addEventListener('load', function() {
 
-    pageDone = true;  // الصفحة اتحملت فعلياً بالكامل
+    pageDone = true;
 
     // الرسالة العشوائية
     const randomIndex = Math.floor(Math.random() * loadingMessagesArray.length);
     loadingMessage.textContent = loadingMessagesArray[randomIndex];
 
-    // ── قائمة الملفات الفعلية المراد تتبعها ──
+    // ── قائمة الملفات الفعلية ──
     const assets = [
       { url: 'pics/bg_main.jpg',   type: 'image' },
       { url: 'pics/cinema.mp4',    type: 'media'  },
@@ -1524,10 +1606,9 @@ window.addEventListener('load', function() {
 
     const total = assets.length;
     let loaded = 0;
-    let assetsDone = false;   // كل الملفات اتحملت
-    let extraDone = false;    // انتهت الـ 5 ثوانٍ الإضافية بعد اكتمال التحميل
+    let assetsDone = false;
+    let extraDone = false;
 
-    // ── تحديث الشريط ──
     function onAssetLoaded() {
         loaded++;
         const pct = Math.round((loaded / total) * 100);
@@ -1540,35 +1621,62 @@ window.addEventListener('load', function() {
             loadingPercent.textContent = '100%';
             loadingMessage.textContent = "Be Sure Thaw Sawii Loves U 💕";
             loadingStatus.textContent = "Ready To Say (Sorry) ✨";
-            // ── 5 ثوانٍ إضافية بعد اكتمال تحميل الملفات ──
+            // إذا الملفات من الكاش: انتظر ثانية واحدة فقط بدل 5
+            const waitTime = window._loadedFromCache ? 1000 : 5000;
             setTimeout(() => {
                 extraDone = true;
                 tryFinishLoading();
-            }, 5000);
+            }, waitTime);
         }
     }
 
-    // ── تحميل كل ملف وتتبعه ──
-    assets.forEach(asset => {
-        if (asset.type === 'image') {
-            const img = new Image();
-            img.onload  = onAssetLoaded;
-            img.onerror = onAssetLoaded;
-            img.src = asset.url;
-        } else {
-            fetch(asset.url, { method: 'HEAD', cache: 'force-cache' })
-                .then(onAssetLoaded)
-                .catch(onAssetLoaded);
-        }
-    });
+    // ── نتحقق من الكاش أولاً ──
+    async function checkAndLoad() {
+        const CACHE_NAME = 'sorry-site-v1';
+        let allCached = false;
 
-    // ── تحميل الفيديو والصوتيات في الخلفية فعلياً ──
+        if ('caches' in window) {
+            try {
+                const cache = await caches.open(CACHE_NAME);
+                const checks = await Promise.all(
+                    assets.map(a => cache.match(a.url).then(r => !!r))
+                );
+                allCached = checks.every(Boolean);
+            } catch(e) {}
+        }
+
+        window._loadedFromCache = allCached;
+
+        if (allCached) {
+            // الملفات في الكاش → عرض رسالة مختلفة وأسرع
+            loadingStatus.textContent = "Loaded from cache ⚡";
+            loadingCacheNote.textContent = "✨ محمّل من جهازك — أسرع! ✨";
+        }
+
+        // نشغّل التحميل (سيأتي من الكاش تلقائياً عبر SW)
+        assets.forEach(asset => {
+            if (asset.type === 'image') {
+                const img = new Image();
+                img.onload  = onAssetLoaded;
+                img.onerror = onAssetLoaded;
+                img.src = asset.url;
+            } else {
+                fetch(asset.url, { method: 'HEAD', cache: 'force-cache' })
+                    .then(onAssetLoaded)
+                    .catch(onAssetLoaded);
+            }
+        });
+    }
+
+    checkAndLoad();
+
+    // ── تحميل الفيديو والصوتيات في الخلفية ──
     cinemaVideo.load();
     document.getElementById('bgMusic').load();
     document.getElementById('messageAudio').load();
     document.getElementById('voiceAudio').load();
 
-    // ── الخروج من شاشة التحميل فقط بعد الشرطين: pageDone + assetsDone + extraDone ──
+    // ── الخروج من شاشة التحميل فقط بعد: pageDone + assetsDone + extraDone ──
     function tryFinishLoading() {
         if (!pageDone || !assetsDone || !extraDone) return;
         setTimeout(() => {
@@ -1580,7 +1688,7 @@ window.addEventListener('load', function() {
         }, 500);
     }
 
-    // ── Fallback: لو فشل كل شيء بعد 30 ثانية، أكمل على أي حال ──
+    // ── Fallback بعد 30 ثانية ──
     setTimeout(() => {
         if (!assetsDone) {
             loaded = total;
