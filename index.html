@@ -1497,55 +1497,100 @@ function endCinema() {
   }, 800);
 }
 
-// Simulated loading with random message
+// ══════════ REAL ASSET LOADING ══════════
 window.addEventListener('load', function() {
-    // بدء تحميل الفيديو في الخلفية أثناء شاشة التحميل
-    cinemaVideo.load();
 
-    // اختيار رسالة عشوائية من المصفوفة
+    // الرسالة العشوائية
     const randomIndex = Math.floor(Math.random() * loadingMessagesArray.length);
-    const randomMessage = loadingMessagesArray[randomIndex];
-    loadingMessage.textContent = randomMessage;
+    loadingMessage.textContent = loadingMessagesArray[randomIndex];
 
-    // ── متغيرات التحكم ──
-    let progress = 0;
-    let barDone = false;      // الشريط وصل 100%
-    let extraDone = false;    // انتهت الـ 5 ثوانٍ الإضافية
+    // ── قائمة الملفات الفعلية المراد تتبعها ──
+    // نأخذ أول نسخة متاحة لكل نوع (mp3 للصوت, mp4 للفيديو)
+    const assets = [
+      { url: 'pics/bg_main.jpg',   type: 'image' },
+      { url: 'pics/cinema.mp4',    type: 'media'  },
+      { url: 'pics/music.mp3',     type: 'media'  },
+      { url: 'pics/message.mp3',   type: 'media'  },
+      { url: 'pics/voice.mp3',     type: 'media'  },
+      { url: 'pics/1.jpg',         type: 'image'  },
+      { url: 'pics/2.jpg',         type: 'image'  },
+      { url: 'pics/3.jpg',         type: 'image'  },
+      { url: 'pics/4.jpg',         type: 'image'  },
+    ];
 
-    // ── تشغيل شريط التقدم (50ms × 50 = ~2.5s للوصول 100%) ──
-    const interval = setInterval(() => {
-        progress += 2;
-        loadingProgress.style.width = progress + '%';
-        loadingPercent.textContent = progress + '%';
+    const total = assets.length;
+    let loaded = 0;
+    let assetsDone = false;   // كل الملفات اتحملت
+    let extraDone = false;    // انتهت الـ 5 ثوانٍ الإضافية بعد اكتمال التحميل
 
-        if (progress >= 100) {
-            clearInterval(interval);
+    // ── تحديث الشريط ──
+    function onAssetLoaded() {
+        loaded++;
+        const pct = Math.round((loaded / total) * 100);
+        loadingProgress.style.width = pct + '%';
+        loadingPercent.textContent = pct + '%';
+
+        if (loaded >= total) {
+            assetsDone = true;
             loadingProgress.style.width = '100%';
             loadingPercent.textContent = '100%';
             loadingMessage.textContent = "Be Sure Thaw Sawii Loves U 💕";
             loadingStatus.textContent = "Ready To Say (Sorry) ✨";
-            barDone = true;
-            tryFinishLoading();
+            // ── 5 ثوانٍ إضافية بعد اكتمال تحميل الملفات ──
+            setTimeout(() => {
+                extraDone = true;
+                tryFinishLoading();
+            }, 5000);
         }
-    }, 50);
+    }
 
-    // ── 5 ثوانٍ إضافية من لحظة بدء التحميل ──
-    setTimeout(() => {
-        extraDone = true;
-        tryFinishLoading();
-    }, 5000);
+    // ── تحميل كل ملف وتتبعه ──
+    assets.forEach(asset => {
+        if (asset.type === 'image') {
+            const img = new Image();
+            img.onload  = onAssetLoaded;
+            img.onerror = onAssetLoaded; // نحسبه حتى لو فشل
+            img.src = asset.url;
+        } else {
+            // fetch مع HEAD للحصول على استجابة بدون تحميل كامل للملف الكبير
+            // لكن للتحقق الفعلي من إمكانية التحميل نستخدم fetch
+            fetch(asset.url, { method: 'HEAD', cache: 'force-cache' })
+                .then(onAssetLoaded)
+                .catch(onAssetLoaded);
+        }
+    });
 
-    // ── تنتهي شاشة التحميل فقط إذا اكتمل الشريط وانتهت الـ 5 ثوانٍ معاً ──
+    // ── تحميل الفيديو والصوتيات في الخلفية فعلياً ──
+    cinemaVideo.load();
+    document.getElementById('bgMusic').load();
+    document.getElementById('messageAudio').load();
+    document.getElementById('voiceAudio').load();
+
+    // ── الخروج من شاشة التحميل فقط بعد الشرطين ──
     function tryFinishLoading() {
-        if (!barDone || !extraDone) return;
+        if (!assetsDone || !extraDone) return;
         setTimeout(() => {
             loadingPage.classList.add('fade-out');
             setTimeout(() => {
                 loadingPage.style.display = 'none';
                 showPressMeScreen();
             }, 800);
-        }, 800);
+        }, 500);
     }
+
+    // ── Fallback: لو فشل كل شيء بعد 30 ثانية، أكمل على أي حال ──
+    setTimeout(() => {
+        if (!assetsDone) {
+            loaded = total;
+            onAssetLoaded = () => {};
+            assetsDone = true;
+            loadingProgress.style.width = '100%';
+            loadingPercent.textContent = '100%';
+            loadingMessage.textContent = "Be Sure Thaw Sawii Loves U 💕";
+            loadingStatus.textContent = "Ready To Say (Sorry) ✨";
+            setTimeout(() => { extraDone = true; tryFinishLoading(); }, 5000);
+        }
+    }, 30000);
 });
 
 // Auto-play background music — starts ONLY after cinema ends via endCinema()
