@@ -1053,7 +1053,7 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
     <div class="p1-sub">Are you upset with me?</div>
     <div class="btn-row">
       <button class="pill pill-fill" onclick="goTo('pageNo')">YES</button>
-      <button class="pill pill-ghost" onclick="startBgMusicNow(); goTo('pageGifts')">NO</button>
+      <button class="pill pill-ghost" onclick="startBgMusicFull(); goTo('pageGifts')">NO</button>
     </div>
   </div>
 </div>
@@ -1498,14 +1498,18 @@ function endCinema() {
 }
 
 // ══════════ REAL ASSET LOADING ══════════
+// pageDone = true only after window 'load' event fires (all resources loaded)
+let pageDone = false;
+
 window.addEventListener('load', function() {
+
+    pageDone = true;  // الصفحة اتحملت فعلياً بالكامل
 
     // الرسالة العشوائية
     const randomIndex = Math.floor(Math.random() * loadingMessagesArray.length);
     loadingMessage.textContent = loadingMessagesArray[randomIndex];
 
     // ── قائمة الملفات الفعلية المراد تتبعها ──
-    // نأخذ أول نسخة متاحة لكل نوع (mp3 للصوت, mp4 للفيديو)
     const assets = [
       { url: 'pics/bg_main.jpg',   type: 'image' },
       { url: 'pics/cinema.mp4',    type: 'media'  },
@@ -1549,11 +1553,9 @@ window.addEventListener('load', function() {
         if (asset.type === 'image') {
             const img = new Image();
             img.onload  = onAssetLoaded;
-            img.onerror = onAssetLoaded; // نحسبه حتى لو فشل
+            img.onerror = onAssetLoaded;
             img.src = asset.url;
         } else {
-            // fetch مع HEAD للحصول على استجابة بدون تحميل كامل للملف الكبير
-            // لكن للتحقق الفعلي من إمكانية التحميل نستخدم fetch
             fetch(asset.url, { method: 'HEAD', cache: 'force-cache' })
                 .then(onAssetLoaded)
                 .catch(onAssetLoaded);
@@ -1566,9 +1568,9 @@ window.addEventListener('load', function() {
     document.getElementById('messageAudio').load();
     document.getElementById('voiceAudio').load();
 
-    // ── الخروج من شاشة التحميل فقط بعد الشرطين ──
+    // ── الخروج من شاشة التحميل فقط بعد الشرطين: pageDone + assetsDone + extraDone ──
     function tryFinishLoading() {
-        if (!assetsDone || !extraDone) return;
+        if (!pageDone || !assetsDone || !extraDone) return;
         setTimeout(() => {
             loadingPage.classList.add('fade-out');
             setTimeout(() => {
@@ -1582,7 +1584,6 @@ window.addEventListener('load', function() {
     setTimeout(() => {
         if (!assetsDone) {
             loaded = total;
-            onAssetLoaded = () => {};
             assetsDone = true;
             loadingProgress.style.width = '100%';
             loadingPercent.textContent = '100%';
@@ -1606,6 +1607,29 @@ function startBgMusicNow() {
   bgMusic.play().catch(() => {});
   activeAudio = bgMusic;
   fadeVolume(0.55, 800, bgMusic);
+}
+
+// تشغيل الموسيقى بأعلى صوت (1.0) فور ضغط NO
+function startBgMusicFull() {
+  if (activeAudio && activeAudio !== bgMusic) {
+    fadeVolume(0, 300, activeAudio, () => { activeAudio.pause(); activeAudio = null; });
+  }
+  bgMusic.volume = 1;
+  const p = bgMusic.play();
+  if (p !== undefined) {
+    p.catch(() => {
+      const unlockOnTap = () => {
+        bgMusic.volume = 1;
+        bgMusic.play().catch(() => {});
+        activeAudio = bgMusic;
+        document.removeEventListener('click', unlockOnTap);
+        document.removeEventListener('touchstart', unlockOnTap);
+      };
+      document.addEventListener('click', unlockOnTap);
+      document.addEventListener('touchstart', unlockOnTap);
+    });
+  }
+  activeAudio = bgMusic;
 }
 
 function fadeVolume(targetVol, durationMs, audioElement, onDone) {
