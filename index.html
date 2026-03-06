@@ -941,6 +941,74 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
   white-space: nowrap;
   box-shadow: 0 3px 10px rgba(123,24,24,0.3);
 }
+/* ─── QUESTIONS OVERLAY ─── */
+.questions-overlay {
+  position: fixed; inset: 0; z-index: 1200;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.4s ease;
+  padding: 1rem;
+}
+.questions-overlay.show {
+  opacity: 1; pointer-events: all;
+}
+.questions-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: clamp(1.2rem, 5vw, 2rem) clamp(1rem, 4vw, 1.8rem);
+  width: min(420px, 92vw);
+  box-shadow: 0 12px 48px rgba(0,0,0,0.22);
+  display: flex; flex-direction: column; gap: 0.9rem;
+}
+.questions-title {
+  font-family: 'Gloria Hallelujah', cursive;
+  font-size: clamp(0.95rem, 3.5vw, 1.3rem);
+  color: var(--red); text-align: center; line-height: 1.4;
+  margin-bottom: 0.3rem;
+}
+.q-divider { border: none; border-top: 1.5px dashed rgba(123,24,24,0.18); }
+.q-item { display: flex; flex-direction: column; gap: 0.45rem; }
+.q-text {
+  font-family: 'Belleza', sans-serif;
+  font-size: clamp(0.78rem, 2.8vw, 0.95rem);
+  color: #333; letter-spacing: 0.3px;
+}
+.q-btn-row { display: flex; gap: 0.6rem; }
+.q-btn {
+  flex: 1; padding: 0.42rem 0;
+  font-family: 'Belleza', sans-serif;
+  font-size: clamp(0.72rem, 2.5vw, 0.85rem);
+  letter-spacing: 2px; text-transform: uppercase;
+  border-radius: 50px; cursor: pointer;
+  border: 2px solid rgba(123,24,24,0.3); background: transparent; color: #888;
+  transition: all 0.2s; touch-action: manipulation;
+}
+.q-btn:hover { border-color: var(--red); color: var(--red); }
+.q-btn.selected-yes { background: var(--red); color: #fff; border-color: var(--red); }
+.q-btn.selected-no  { background: #555;      color: #fff; border-color: #555; }
+.q-send-btn {
+  font-family: 'Belleza', sans-serif;
+  font-size: clamp(0.72rem, 2.5vw, 0.85rem);
+  letter-spacing: 3px; text-transform: uppercase;
+  padding: 0.7rem; border-radius: 50px;
+  background: rgba(123,24,24,0.08); color: #bbb;
+  border: 2px solid rgba(123,24,24,0.15); cursor: not-allowed;
+  transition: all 0.25s; margin-top: 0.3rem;
+}
+.q-send-btn.ready {
+  background: var(--red); color: #fff;
+  border-color: var(--red); cursor: pointer;
+}
+.q-send-btn.ready:hover { background: var(--red2); transform: scale(1.02); }
+.q-sent-msg {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(1rem, 3.5vw, 1.2rem);
+  color: var(--red); text-align: center;
+  display: none;
+}
+.q-sent-msg.show { display: block; }
 </style>
 </head>
 <body>
@@ -1227,6 +1295,51 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
     <span class="read-hint-icon">📜</span>
     <span class="read-hint-text">After Reading Please Press RETURN</span>
     <span class="read-hint-arrow">↓</span>
+  </div>
+</div>
+
+<!-- QUESTIONS OVERLAY -->
+<div class="questions-overlay" id="questionsOverlay">
+  <div class="questions-card">
+    <div class="questions-title">Quick Questions 💌<br><span style="font-size:0.75em; color:#888; font-family:'Belleza',sans-serif; letter-spacing:1px;">answer honestly 🥺</span></div>
+
+    <div class="q-item" id="qi1">
+      <div class="q-text">1. Do U Love me ?</div>
+      <div class="q-btn-row">
+        <button class="q-btn" onclick="selectAnswer(1,'yes')">YES</button>
+        <button class="q-btn" onclick="selectAnswer(1,'no')">NO</button>
+      </div>
+    </div>
+    <hr class="q-divider">
+
+    <div class="q-item" id="qi2">
+      <div class="q-text">2. Are U still upset with me ?</div>
+      <div class="q-btn-row">
+        <button class="q-btn" onclick="selectAnswer(2,'yes')">YES</button>
+        <button class="q-btn" onclick="selectAnswer(2,'no')">NO</button>
+      </div>
+    </div>
+    <hr class="q-divider">
+
+    <div class="q-item" id="qi3">
+      <div class="q-text">3. Are U waiting me to take the first step and reach U ?</div>
+      <div class="q-btn-row">
+        <button class="q-btn" onclick="selectAnswer(3,'yes')">YES</button>
+        <button class="q-btn" onclick="selectAnswer(3,'no')">NO</button>
+      </div>
+    </div>
+    <hr class="q-divider">
+
+    <div class="q-item" id="qi4">
+      <div class="q-text">4. Is the break over ?</div>
+      <div class="q-btn-row">
+        <button class="q-btn" onclick="selectAnswer(4,'yes')">YES</button>
+        <button class="q-btn" onclick="selectAnswer(4,'no')">NO</button>
+      </div>
+    </div>
+
+    <button class="q-send-btn" id="qSendBtn" onclick="submitAnswers()">SEND ANSWERS</button>
+    <div class="q-sent-msg" id="qSentMsg">Answers saved 💌</div>
   </div>
 </div>
 
@@ -1611,6 +1724,8 @@ function closeVoiceOverlay() {
   bgMusic.play().catch(() => {});
   activeAudio = bgMusic;
   setTimeout(() => fadeVolume(0.55, 900, bgMusic), 300);
+  // Show questions overlay after closing voice
+  setTimeout(() => showQuestionsOverlay(), 600);
 }
 
 function toggleVoice() {
@@ -1675,6 +1790,8 @@ function startVoiceProgress() {
       bgMusic.play().catch(() => {});
       activeAudio = bgMusic;
       setTimeout(() => fadeVolume(0.55, 900, bgMusic), 200);
+      // Show questions overlay after voice ends naturally
+      setTimeout(() => showQuestionsOverlay(), 700);
     }
   }, 300);
 }
@@ -1727,6 +1844,78 @@ function buildPhotos() {
 function openLb(src) { document.getElementById('lbImg').src = src; document.getElementById('lightbox').classList.add('open'); }
 function closeLb() { document.getElementById('lightbox').classList.remove('open'); }
 document.getElementById('lightbox').addEventListener('click', e => { if(e.target===e.currentTarget) closeLb(); });
+</script>
+<!-- FIREBASE SDK -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCkR2VVXhXzYNaGY0E0aGdyPjSmePuBgTM",
+    authDomain: "lovehome1422025.firebaseapp.com",
+    databaseURL: "https://lovehome1422025-default-rtdb.firebaseio.com",
+    projectId: "lovehome1422025",
+    storageBucket: "lovehome1422025.firebasestorage.app",
+    messagingSenderId: "939946595170",
+    appId: "1:939946595170:web:042958c8d070508bb0923b"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  window._saveAnswersToFirestore = async function(answers) {
+    try {
+      await setDoc(doc(db, "answers", "latest"), {
+        doYouLoveMe:       answers[1],
+        stillUpsetWithMe:  answers[2],
+        waitingFirstStep:  answers[3],
+        isBreakOver:       answers[4],
+        timestamp:         serverTimestamp(),
+        visitedAt:         new Date().toISOString()
+      });
+      return true;
+    } catch(e) {
+      console.error("Firestore error:", e);
+      return false;
+    }
+  };
+</script>
+
+<!-- QUESTIONS LOGIC -->
+<script>
+const qAnswers = {};
+
+function selectAnswer(qNum, val) {
+  qAnswers[qNum] = val;
+  const item = document.getElementById('qi' + qNum);
+  const btns = item.querySelectorAll('.q-btn');
+  btns.forEach(b => b.classList.remove('selected-yes', 'selected-no'));
+  const idx = val === 'yes' ? 0 : 1;
+  btns[idx].classList.add(val === 'yes' ? 'selected-yes' : 'selected-no');
+  if (Object.keys(qAnswers).length === 4) {
+    document.getElementById('qSendBtn').classList.add('ready');
+  }
+}
+
+async function submitAnswers() {
+  const btn = document.getElementById('qSendBtn');
+  btn.textContent = 'SENDING... 💌';
+  btn.classList.remove('ready');
+  if (window._saveAnswersToFirestore) {
+    await window._saveAnswersToFirestore(qAnswers);
+  }
+  btn.style.display = 'none';
+  document.getElementById('qSentMsg').classList.add('show');
+  setTimeout(() => closeQuestionsOverlay(), 2500);
+}
+
+function showQuestionsOverlay() {
+  document.getElementById('questionsOverlay').classList.add('show');
+}
+
+function closeQuestionsOverlay() {
+  document.getElementById('questionsOverlay').classList.remove('show');
+}
 </script>
 </body>
 </html>
