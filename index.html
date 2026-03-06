@@ -734,25 +734,69 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
   justify-content: center;
 }
 .translate-icon {
-  background: transparent;
-  border: 2px solid var(--red);
-  color: var(--red);
-  font-size: 1.3rem;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: inline-flex;
+  display: none;
+}
+
+/* ── زر الترجمة — أيقونة دائرية فقط ── */
+.translate-btn {
+  display: flex;
   align-items: center;
   justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--red);
+  color: var(--red);
   cursor: pointer;
-  transition: all 0.2s;
   touch-action: manipulation;
-  line-height: 1;
+  transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  box-shadow: 0 3px 14px rgba(123,24,24,0.15);
+  position: relative;
 }
-.translate-icon:hover {
+.translate-btn:hover {
   background: var(--red);
-  color: white;
-  transform: scale(1.1);
+  color: #fff;
+  box-shadow: 0 6px 22px rgba(123,24,24,0.3);
+  transform: translateY(-2px);
+}
+.translate-btn:active { transform: scale(0.92); }
+
+/* SVG داخل الزر */
+.translate-btn svg {
+  width: 26px;
+  height: 26px;
+  fill: currentColor;
+  transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1);
+  display: block;
+}
+/* دوران الأيقونة عند تفعيل العربي */
+.translate-btn.is-arabic svg {
+  transform: rotateY(180deg);
+}
+
+/* tooltip صغير يظهر فوق الزر */
+.translate-btn::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) scale(0.85);
+  background: rgba(30,10,10,0.78);
+  color: #fff;
+  font-family: 'Belleza', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  padding: 0.28rem 0.7rem;
+  border-radius: 20px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.translate-btn:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
 }
 
 .letter-card {
@@ -1094,6 +1138,221 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
   display: none;
 }
 .q-sent-msg.show { display: block; }
+
+/* ══════════════════════════════════
+   VOLUME TOAST — بعد التحميل
+══════════════════════════════════ */
+#volumeToast {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+#volumeToast.show {
+  opacity: 1;
+  pointer-events: all;
+}
+#volumeToast.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+.vt-card {
+  background: #fff;
+  border-radius: 24px;
+  padding: 2.2rem 2rem 1.8rem;
+  width: min(320px, 82vw);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  animation: vtPop 0.45s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+@keyframes vtPop {
+  from { transform: scale(0.7); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+.vt-icon {
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+/* SVG مكبر صوت مع موجات */
+.vt-icon svg { width: 64px; height: 64px; }
+.vt-wave {
+  position: absolute;
+  right: -2px; top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.vt-bar {
+  width: 4px;
+  background: var(--red);
+  border-radius: 2px;
+  animation: vtBarAnim 0.9s ease-in-out infinite;
+  transform-origin: bottom;
+}
+.vt-bar:nth-child(1) { height: 8px;  animation-delay: 0s;    }
+.vt-bar:nth-child(2) { height: 14px; animation-delay: 0.15s; }
+.vt-bar:nth-child(3) { height: 10px; animation-delay: 0.3s;  }
+@keyframes vtBarAnim {
+  0%,100% { transform: scaleY(0.4); opacity: 0.5; }
+  50%     { transform: scaleY(1.2); opacity: 1;   }
+}
+.vt-text {
+  font-family: 'Gloria Hallelujah', cursive;
+  font-size: clamp(0.82rem, 3vw, 1rem);
+  color: #1a1a1a;
+  text-align: center;
+  line-height: 1.65;
+}
+.vt-text span {
+  color: var(--red);
+  display: block;
+  font-size: 1.15em;
+}
+.vt-bar-wrap {
+  width: 100%;
+  height: 4px;
+  background: rgba(123,24,24,0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 0.3rem;
+}
+.vt-bar-fill {
+  height: 100%;
+  background: var(--red);
+  border-radius: 4px;
+  width: 100%;
+  transform-origin: left;
+  animation: vtCountdown 3s linear forwards;
+}
+@keyframes vtCountdown {
+  from { transform: scaleX(1); }
+  to   { transform: scaleX(0); }
+}
+
+/* ══════════════════════════════════
+   ORDER ERROR POPUP — الترتيب الإجباري
+══════════════════════════════════ */
+#orderError {
+  position: fixed;
+  inset: 0;
+  z-index: 1300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+#orderError.show {
+  opacity: 1;
+  pointer-events: all;
+}
+.oe-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 1.8rem 1.6rem 1.5rem;
+  width: min(300px, 80vw);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow: 0 16px 50px rgba(0,0,0,0.22);
+  animation: oePop 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
+  border-top: 4px solid var(--red);
+}
+@keyframes oePop {
+  from { transform: scale(0.75) translateY(10px); opacity: 0; }
+  to   { transform: scale(1)    translateY(0);    opacity: 1; }
+}
+.oe-icon {
+  font-size: 2.8rem;
+  line-height: 1;
+  animation: oeWiggle 0.5s ease;
+}
+@keyframes oeWiggle {
+  0%,100% { transform: rotate(0); }
+  20%     { transform: rotate(-12deg); }
+  40%     { transform: rotate(12deg); }
+  60%     { transform: rotate(-8deg); }
+  80%     { transform: rotate(8deg); }
+}
+.oe-title {
+  font-family: 'Gloria Hallelujah', cursive;
+  font-size: clamp(0.85rem, 3vw, 1rem);
+  color: var(--red);
+  text-align: center;
+  line-height: 1.5;
+}
+.oe-sub {
+  font-family: 'Belleza', sans-serif;
+  font-size: clamp(0.72rem, 2.5vw, 0.85rem);
+  color: #888;
+  text-align: center;
+  letter-spacing: 0.5px;
+  line-height: 1.5;
+}
+/* أرقام الترتيب المطلوب */
+.oe-steps {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.oe-step {
+  background: rgba(123,24,24,0.08);
+  border: 1.5px solid rgba(123,24,24,0.2);
+  border-radius: 50px;
+  padding: 0.22rem 0.65rem;
+  font-family: 'Belleza', sans-serif;
+  font-size: clamp(0.62rem, 2vw, 0.72rem);
+  color: var(--red);
+  letter-spacing: 0.5px;
+}
+.oe-step.done {
+  background: rgba(74,124,89,0.1);
+  border-color: rgba(74,124,89,0.3);
+  color: #4a7c59;
+}
+.oe-arrow {
+  color: #ccc;
+  font-size: 0.7rem;
+}
+.oe-dismiss {
+  font-family: 'Belleza', sans-serif;
+  font-size: clamp(0.68rem, 2.2vw, 0.78rem);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: var(--red);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 0.5rem 1.6rem;
+  cursor: pointer;
+  margin-top: 0.3rem;
+  touch-action: manipulation;
+  transition: all 0.2s;
+}
+.oe-dismiss:hover { background: var(--red2); transform: scale(1.04); }
+.oe-dismiss:active { transform: scale(0.96); }
+
 </style>
 </head>
 <body>
@@ -1264,7 +1523,7 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
       <div class="fstamp st3">أُحَاوِلُ بِكُلِّ جُهْدِي أَنْ أَتَغَيَّرَ</div>
       <div class="fstamp st4">لَا أَسْتَطِيعُ أَنْ أَتَخَيَّلَ الحَيَاةَ بِدُونِكِ</div>
       <!-- English labels below -->
-      <div class="tulips-label"> Rose</div>
+      <div class="tulips-label"> Flowers</div>
       <div class="tulips-sub">My Wifee Fav</div>
     </div>
     <div class="flower-bottom">
@@ -1304,7 +1563,6 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
   <div class="letter-inner">
     <div class="letter-section-h">
       A Message for You 💌
-      <span class="translate-icon" id="translateToggle" onclick="toggleTranslation()">🔄</span>
     </div>
     <div class="letter-card" id="letterCard">
       <!-- English text (default, decorative font) -->
@@ -1328,7 +1586,16 @@ body { width:100%; height:100dvh; overflow:hidden; background:#ede8e1; font-fami
         <div class="lc-sign">يُوسُف ✦</div>
       </div>
     </div>
-    <hr class="dashed-sep" style="margin-top:0.9rem;">
+
+    <!-- ── زر الترجمة — أيقونة دائرية فقط ── -->
+    <button class="translate-btn" id="translateToggle" onclick="toggleTranslation()" data-tip="Translate">
+      <!-- أيقونة الكرة الأرضية مع حرفي EN/AR — واضحة ودلالية -->
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95a15.65 15.65 0 0 0-1.38-3.56A8.03 8.03 0 0 1 18.92 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56A7.987 7.987 0 0 1 5.08 16zm2.95-8H5.08a7.987 7.987 0 0 1 4.33-3.56A15.65 15.65 0 0 0 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2s.07-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/>
+      </svg>
+    </button>
+
+    <hr class="dashed-sep" style="margin-top:0.5rem;">
     <div style="font-family:'Gloria Hallelujah',cursive; font-size:clamp(0.9rem,3vw,1.2rem); color:var(--red);">with all my love 💕</div>
     <button class="ret-btn" style="margin-top:0.5rem;" onclick="goTo('pageGifts')">RETURN</button>
   </div>
@@ -1454,10 +1721,13 @@ const loadingMessagesArray = [
 // Translation toggle - only affects letter page
 function toggleTranslation() {
   const card = document.getElementById('letterCard');
-  const icon = document.getElementById('translateToggle');
+  const btn  = document.getElementById('translateToggle');
   card.classList.toggle('show-arabic');
-  icon.style.transform = 'scale(0.9)';
-  setTimeout(() => icon.style.transform = 'scale(1)', 200);
+  btn.classList.toggle('is-arabic');
+  btn.setAttribute('data-tip', btn.classList.contains('is-arabic') ? 'English' : 'Translate');
+  // micro-bounce
+  btn.style.transform = 'scale(0.88)';
+  setTimeout(() => btn.style.transform = '', 250);
 }
 
 // باقي الدوال
@@ -1622,8 +1892,8 @@ window.addEventListener('load', function() {
             assetsDone = true;
             loadingProgress.style.width = '100%';
             loadingPercent.textContent = '100%';
-            loadingMessage.textContent = "Be Sure Thaw Sawii Loves U 💕";
-            loadingStatus.textContent = "Ready To Say (Sorry) ✨";
+            loadingMessage.textContent = "Be Sure That Sawii Loves U 💕";
+            loadingStatus.textContent = "Ready ??!";
             // إذا الملفات من الكاش: انتظر ثانية واحدة فقط بدل 5
             const waitTime = window._loadedFromCache ? 1000 : 5000;
             setTimeout(() => {
@@ -1700,7 +1970,8 @@ window.addEventListener('load', function() {
             loadingPage.classList.add('fade-out');
             setTimeout(() => {
                 loadingPage.style.display = 'none';
-                showPressMeScreen();
+                // ← رسالة الصوت أولاً ثم شاشة PRESS ME
+                showVolumeToast(() => showPressMeScreen());
             }, 800);
         }, 500);
     }
@@ -1712,8 +1983,8 @@ window.addEventListener('load', function() {
             assetsDone = true;
             loadingProgress.style.width = '100%';
             loadingPercent.textContent = '100%';
-            loadingMessage.textContent = "Be Sure Thaw Sawii Loves U 💕";
-            loadingStatus.textContent = "Ready To Say (Sorry) ✨";
+            loadingMessage.textContent = "Be Sure That Sawii Loves U 💕";
+            loadingStatus.textContent = "Ready ??!";
             setTimeout(() => { extraDone = true; tryFinishLoading(); }, 5000);
         }
     }, 30000);
@@ -1798,22 +2069,119 @@ function switchAudio(newAudio, targetVolume = 0.55) {
 
 const visited = new Set();
 
+// ══════════ VOLUME TOAST ══════════
+function showVolumeToast(onDone) {
+  const toast = document.getElementById('volumeToast');
+  const fill  = document.getElementById('vtBarFill');
+  toast.classList.add('show');
+  // restart countdown animation
+  fill.style.animation = 'none';
+  void fill.offsetWidth;
+  fill.style.animation = 'vtCountdown 3s linear forwards';
+  setTimeout(() => {
+    toast.classList.remove('show');
+    toast.classList.add('hide');
+    setTimeout(() => { toast.classList.remove('hide'); if (onDone) onDone(); }, 500);
+  }, 3000);
+}
+
+// ══════════ ORDER LOCK SYSTEM ══════════
+// الترتيب الإجباري: photos(1) → flower(2) → video(3) → letter(4)
+const PAGE_ORDER = ['pagePhotos', 'pageFlower', 'pageVideo', 'pageLetter'];
+const PAGE_LABELS = {
+  pagePhotos: '📷 Photos',
+  pageFlower: '🌹 Flowers',
+  pageVideo:  '🎥 Video',
+  pageLetter: '💌 Letter',
+};
+// الـ wrap IDs المقابلة
+const PAGE_WRAP = {
+  pagePhotos: 'wrap1',
+  pageFlower: 'wrap2',
+  pageVideo:  'wrap3',
+  pageLetter: 'wrap4',
+};
+// التقدم: كم صفحة أُنجزت بالترتيب
+let orderProgress = 0; // 0 = لم يُفتح أي شيء بعد
+
+function getNextRequired() {
+  return PAGE_ORDER[orderProgress] || null;
+}
+
+function isPageUnlocked(pageId) {
+  // صفحات خارج النظام (page1, pageNo, pageGifts) دائماً مفتوحة
+  if (!PAGE_ORDER.includes(pageId)) return true;
+  const idx = PAGE_ORDER.indexOf(pageId);
+  return idx <= orderProgress;
+}
+
+function markPageDone(pageId) {
+  const idx = PAGE_ORDER.indexOf(pageId);
+  if (idx === orderProgress) {
+    orderProgress = idx + 1;
+  }
+}
+
+function showOrderError(targetPageId) {
+  const popup = document.getElementById('orderError');
+  const stepsEl = document.getElementById('oeSteps');
+
+  // ابنِ مؤشر الخطوات
+  stepsEl.innerHTML = '';
+  PAGE_ORDER.forEach((pid, i) => {
+    if (i > 0) {
+      const arr = document.createElement('span');
+      arr.className = 'oe-arrow'; arr.textContent = '›';
+      stepsEl.appendChild(arr);
+    }
+    const s = document.createElement('span');
+    s.className = 'oe-step' + (i < orderProgress ? ' done' : '');
+    s.textContent = PAGE_LABELS[pid];
+    stepsEl.appendChild(s);
+  });
+
+  // أعد تشغيل أنيميشن الأيقونة
+  const icon = popup.querySelector('.oe-icon');
+  icon.style.animation = 'none';
+  void icon.offsetWidth;
+  icon.style.animation = 'oeWiggle 0.5s ease';
+
+  popup.classList.add('show');
+}
+
+function closeOrderError() {
+  document.getElementById('orderError').classList.remove('show');
+}
+
+// ══════════ OVERRIDE visitAndGo WITH ORDER CHECK ══════════
 function visitAndGo(wrapId, pageId) {
+  if (!isPageUnlocked(pageId)) {
+    showOrderError(pageId);
+    return;
+  }
   visited.add(wrapId);
   document.getElementById(wrapId).classList.add('visited');
   goTo(pageId);
 }
 
+
+
 function goTo(id) {
   const currentPage = document.querySelector('.page.active');
   const wasOnVideo = currentPage && currentPage.id === 'pageVideo';
   const wasOnLetter = currentPage && currentPage.id === 'pageLetter';
+  const wasOnPhotos = currentPage && currentPage.id === 'pagePhotos';
+  const wasOnFlower = currentPage && currentPage.id === 'pageFlower';
 
-  if (currentPage) currentPage.classList.remove('active');
+  // ── سجّل إنجاز الصفحة عند المغادرة ──
+  if (currentPage) {
+    markPageDone(currentPage.id);
+    currentPage.classList.remove('active');
+  }
   document.getElementById(id).classList.add('active');
-  
+
   if (id === 'pagePhotos') buildPhotos();
-  
+
   const pg = document.getElementById(id);
   if (pg) pg.scrollTop = 0;
 
@@ -2124,5 +2492,34 @@ function closeQuestionsOverlay() {
   document.getElementById('questionsOverlay').classList.remove('show');
 }
 </script>
-</body>
-</html>
+<!-- ══════════ VOLUME TOAST ══════════ -->
+<div id="volumeToast">
+  <div class="vt-card">
+    <div class="vt-icon">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 9v6h4l5 5V4L7 9H3z" fill="#7B1818"/>
+        <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" fill="#7B1818" opacity="0.5"/>
+        <path d="M14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" fill="#7B1818" opacity="0.3"/>
+      </svg>
+    </div>
+    <div class="vt-text">
+      <span>🔊 Max Volume!</span>
+      <br/>
+    </div>
+    <div class="vt-bar-wrap">
+      <div class="vt-bar-fill" id="vtBarFill"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ ORDER ERROR POPUP ══════════ -->
+<div id="orderError">
+  <div class="oe-card">
+    <div class="oe-icon">🔒</div>
+    <div class="oe-title">Follow the order!</div>
+    <div class="oe-sub">You need to finish the previous<br>Pages First </div>
+    <div class="oe-steps" id="oeSteps"></div>
+    <button class="oe-dismiss" onclick="closeOrderError()">OK ✓</button>
+  </div>
+</div>
+
