@@ -1505,34 +1505,47 @@ window.addEventListener('load', function() {
     // اختيار رسالة عشوائية من المصفوفة
     const randomIndex = Math.floor(Math.random() * loadingMessagesArray.length);
     const randomMessage = loadingMessagesArray[randomIndex];
-    
-    // تعيين الرسالة العشوائية
     loadingMessage.textContent = randomMessage;
-    
-    // محاكاة التحميل
+
+    // ── متغيرات التحكم ──
     let progress = 0;
+    let barDone = false;      // الشريط وصل 100%
+    let extraDone = false;    // انتهت الـ 5 ثوانٍ الإضافية
+
+    // ── تشغيل شريط التقدم (50ms × 50 = ~2.5s للوصول 100%) ──
     const interval = setInterval(() => {
         progress += 2;
         loadingProgress.style.width = progress + '%';
         loadingPercent.textContent = progress + '%';
-        
+
         if (progress >= 100) {
             clearInterval(interval);
+            loadingProgress.style.width = '100%';
+            loadingPercent.textContent = '100%';
             loadingMessage.textContent = "Be Sure Thaw Sawii Loves U 💕";
             loadingStatus.textContent = "Ready To Say (Sorry) ✨";
-            loadingPercent.textContent = '100%';
-            
-            setTimeout(() => {
-                // Fade out loading page
-                loadingPage.classList.add('fade-out');
-                setTimeout(() => {
-                    loadingPage.style.display = 'none';
-                    // Show Press Me screen to unlock autoplay on iOS
-                    showPressMeScreen();
-                }, 800);
-            }, 800);
+            barDone = true;
+            tryFinishLoading();
         }
     }, 50);
+
+    // ── 5 ثوانٍ إضافية من لحظة بدء التحميل ──
+    setTimeout(() => {
+        extraDone = true;
+        tryFinishLoading();
+    }, 5000);
+
+    // ── تنتهي شاشة التحميل فقط إذا اكتمل الشريط وانتهت الـ 5 ثوانٍ معاً ──
+    function tryFinishLoading() {
+        if (!barDone || !extraDone) return;
+        setTimeout(() => {
+            loadingPage.classList.add('fade-out');
+            setTimeout(() => {
+                loadingPage.style.display = 'none';
+                showPressMeScreen();
+            }, 800);
+        }, 800);
+    }
 });
 
 // Auto-play background music — starts ONLY after cinema ends via endCinema()
