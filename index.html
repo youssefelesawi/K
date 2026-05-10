@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
 <title>دعوة زفاف — وليد & شيخة</title>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&family=Amiri:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
 <style>
@@ -31,26 +31,7 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
   object-fit:cover;
   display:block;
 }
-.video-message {
-  position:absolute;
-  bottom:12%;
-  left:0;
-  right:0;
-  text-align:center;
-  color:rgba(255,245,235,0.9);
-  font-family:'Amiri',serif;
-  font-size:1rem;
-  letter-spacing:2px;
-  text-shadow:0 2px 12px rgba(0,0,0,0.4);
-  pointer-events:none;
-  z-index:5;
-  opacity:0;
-  animation:fadeInText 1s forwards 3s;
-}
-@keyframes fadeInText {
-  from { opacity:0; transform:translateY(10px);}
-  to { opacity:0.9; transform:translateY(0);}
-}
+/* تم حذف نص "لحظات ويفتح الدعوة" نهائياً */
 
 /* ========== MUSIC BTN ========== */
 .music-btn {
@@ -92,28 +73,43 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
   visibility:visible;
 }
 
-/* ---- HERO SECTION (NOW FIRST VISIBLE CARD) ---- */
+/* ---- HERO SECTION: بدون مربع خلفية للأسماء، والأسماء تظهر مباشرة بخلفية شفافة ---- */
 .hero {
   min-height:100vh; position:relative;
   display:flex; flex-direction:column;
-  align-items:center; justify-content:center;
+  align-items:center;
+  justify-content:center;
   overflow:hidden;
-  background:linear-gradient(155deg,#fde8e0 0%,#f5ddd4 20%,#ecdad4 45%,#e0d0cc 70%,#d8cece 100%);
+  background: rgba(0,0,0,0.2);
 }
-.hero::before {
-  content:''; position:absolute; inset:0;
-  background:
-    radial-gradient(ellipse at 20% 25%, rgba(245,200,185,0.55) 0%,transparent 55%),
-    radial-gradient(ellipse at 80% 75%, rgba(205,180,205,0.45) 0%,transparent 55%);
-  animation:glow 8s ease-in-out infinite alternate;
-}
-@keyframes glow { from{opacity:0.7} to{opacity:1} }
 
-/* Floral corners using CSS + SVG (same elegant vibe) */
+/* فيديو الخلفية */
+.hero-bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  filter: brightness(0.6) contrast(1.05) saturate(1.1);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, rgba(0,0,0,0.2) 0%, rgba(60,30,20,0.3) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* الزوايا المزخرفة بدون ايموجي */
 .floral {
   position:absolute; width:230px; height:230px;
   pointer-events:none; opacity:0;
   animation:floralReveal 1.8s forwards;
+  z-index: 2;
 }
 .floral.tl { top:-15px; left:-15px; animation-delay:0.2s; }
 .floral.tr { top:-15px; right:-15px; transform:scaleX(-1); animation-delay:0.4s; }
@@ -121,215 +117,257 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
 .floral.br { bottom:-15px; right:-15px; transform:scale(-1,-1); animation-delay:0.8s; }
 @keyframes floralReveal { to{opacity:1} }
 
-/* Falling petals (decorative) */
-.petal {
-  position:absolute; left:var(--x); font-size:var(--s,14px);
-  animation:fallDown var(--d,13s) linear infinite var(--delay,0s);
-  pointer-events:none; opacity:0;
-}
-@keyframes fallDown {
-  0%{transform:translateY(-30px) rotate(0deg);opacity:0}
-  5%{opacity:0.75}
-  95%{opacity:0.4}
-  100%{transform:translateY(110vh) rotate(720deg);opacity:0}
+/* محتوى الهيرو: الأسماء بدون صندوق خلفية، فقط نص نقي مع تأثير بسيط */
+.hero-content {
+  position:relative; z-index:15;
+  text-align:center;
+  padding:20px 20px;
+  max-width:90%;
+  width:auto;
+  background: transparent; /* تم إزالة أي مربع خلفية */
+  backdrop-filter: none;
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
 }
 
-/* Hero main content - exactly as requested: first all data without button */
-.hero-content {
-  position:relative; z-index:10;
-  text-align:center; padding:50px 28px 40px;
-  max-width:480px; width:100%;
-  background:rgba(255,248,240,0.25);
-  backdrop-filter:blur(3px);
-  border-radius:48px;
-  margin:20px;
-}
 .bismillah {
-  font-family:'Amiri',serif; font-size:1.4rem;
-  color:#7a4a44; letter-spacing:2px; margin-bottom:22px;
+  font-family:'Amiri',serif; font-size:1.5rem;
+  color:#f8e6dc; 
+  text-shadow: 0 2px 15px rgba(0,0,0,0.5);
+  letter-spacing:2px; margin-bottom:24px;
   opacity:0; animation:slideUp 0.9s forwards 0.1s;
 }
+
 .names {
-  font-family:'Amiri',serif; color:#5a3030;
-  line-height:1.1; opacity:0; animation:slideUp 1s forwards 0.2s;
+  font-family:'Amiri',serif; 
+  color:#fff6ef;
+  text-shadow: 0 4px 25px rgba(0,0,0,0.6);
+  line-height:1.2; 
+  opacity:0; animation:slideUp 1s forwards 0.2s;
 }
-.names .groom { font-size:4.2rem; display:block; text-shadow:0 2px 25px rgba(140,60,60,0.15); }
+.names .groom { 
+  font-size:5rem; 
+  display:block; 
+  font-weight: 800;
+  letter-spacing: 3px;
+}
 .names .amp {
-  font-family:'Playfair Display',serif; font-style:italic;
-  font-size:2rem; color:#b07070; display:block; margin:2px 0;
+  font-family:'Playfair Display',serif; 
+  font-style:italic;
+  font-size:2.5rem; 
+  color:#ffddcc; 
+  display:block; 
+  margin:8px 0;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
 }
-.names .bride { font-size:4.2rem; display:block; text-shadow:0 2px 25px rgba(140,60,60,0.15); }
+.names .bride { 
+  font-size:5rem; 
+  display:block; 
+  font-weight: 800;
+  letter-spacing: 3px;
+}
 
 .divider {
   display:flex; align-items:center; justify-content:center; gap:14px;
-  margin:22px 0; opacity:0; animation:slideUp 1s forwards 0.35s;
+  margin:28px 0 20px;
+  opacity:0; animation:slideUp 1s forwards 0.35s;
 }
-.divider .ln { width:65px; height:1px; background:linear-gradient(90deg,transparent,#c9a0a0,transparent); }
-.divider .ic { font-size:1.2rem; }
+.divider .ln { width:80px; height:1.5px; background:linear-gradient(90deg,transparent,#f0cfc0,transparent); }
+/* رمز الزهرة تم إزالته، استبدلنا بخط بسيط */
+.divider .ic { display: none; }
 
 .tagline {
-  font-size:1rem; color:#8a5e5e; line-height:2.1; font-weight:500;
+  font-size:1.1rem; 
+  color:#fff0e6;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+  line-height:2; 
+  font-weight:500;
   opacity:0; animation:slideUp 1s forwards 0.5s;
 }
+
+/* التاريخ بتصميم Liquid Glass (زجاجي سائل) بدون ايموجي */
 .date-pill {
-  margin:26px auto 0; display:inline-flex; flex-direction:column; align-items:center;
-  background:rgba(255,255,255,0.72); backdrop-filter:blur(12px);
-  border:1px solid rgba(200,155,145,0.4); border-radius:30px; padding:18px 36px;
-  box-shadow:0 8px 30px rgba(180,110,100,0.12);
+  margin:32px auto 0; 
+  display:inline-flex; 
+  flex-direction:column; 
+  align-items:center;
+  background: rgba(255, 245, 235, 0.25);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,245,0.45);
+  border-radius: 56px;
+  padding: 16px 42px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2), inset 0 1px 1px rgba(255,255,255,0.3);
+  transition: all 0.3s ease;
   opacity:0; animation:slideUp 1s forwards 0.7s;
 }
-.date-pill .dd { font-size:3rem; font-weight:700; color:#7a4040; line-height:1; }
-.date-pill .dm { font-size:0.9rem; color:#a07070; letter-spacing:3px; text-transform:uppercase; margin-top:5px; }
+.date-pill .dd { 
+  font-size:3.2rem; 
+  font-weight:800; 
+  color:#fff6ea; 
+  line-height:1; 
+  letter-spacing:4px;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+.date-pill .dm { 
+  font-size:0.95rem; 
+  color:#fff0e0; 
+  letter-spacing:4px; 
+  text-transform:uppercase; 
+  margin-top:6px; 
+  font-weight:500;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
 
-/* subtle scroll hint but no button here */
+/* سهم التمرير (بدون ايموجي) */
 .scroll-hint {
   position:absolute; bottom:28px; left:50%; transform:translateX(-50%);
   display:flex; flex-direction:column; align-items:center; gap:8px;
   opacity:0; animation:slideUp 1s forwards 1.4s;
+  z-index: 15;
 }
-.scroll-hint span { font-size:0.68rem; color:#b09090; letter-spacing:3px; text-transform:uppercase; }
-.scroll-bar { width:1px; height:32px; background:linear-gradient(180deg,#c9a0a0,transparent); animation:scrollAnim 1.6s ease-in-out infinite; }
-@keyframes scrollAnim { 0%,100%{transform:scaleY(1);opacity:0.5} 50%{transform:scaleY(1.4);opacity:1} }
+.scroll-hint span { font-size:0.7rem; color:#f0e0da; text-shadow:0 1px 3px rgba(0,0,0,0.3); letter-spacing:3px; text-transform:uppercase; }
+.scroll-bar { width:1.5px; height:34px; background:linear-gradient(180deg,#f0cfc0,transparent); animation:scrollAnim 1.6s ease-in-out infinite; }
+@keyframes scrollAnim { 0%,100%{transform:scaleY(1);opacity:0.6} 50%{transform:scaleY(1.5);opacity:1} }
 
-/* ---- global sections (same refined style) ---- */
+/* باقي الأقسام (تمت إزالة كل الايموجيات من النصوص) */
 .sep {
   display:flex; align-items:center; justify-content:center; gap:16px;
-  padding:12px 24px; background:rgba(255,255,255,0.5);
+  padding:12px 24px; background:rgba(255,255,255,0.7);
 }
 .sep-line { flex:1; max-width:130px; height:1px; background:linear-gradient(90deg,transparent,#d4b0a8,transparent); }
-.sep-ic { font-size:1.15rem; }
+.sep-ic { display: none; } /* إخفاء الايموجي */
 
 .sec { padding:56px 24px; text-align:center; position:relative; overflow:hidden; }
 .sec-cream { background:linear-gradient(180deg,#fdf8f4,#faf3ee); }
 .sec-rose  { background:linear-gradient(180deg,#fdf0ec,#f5e8e2); }
-.sec-title { font-family:'Amiri',serif; font-size:1.85rem; color:#6a3030; margin-bottom:6px; }
+.sec-title { font-family:'Amiri',serif; font-size:1.9rem; color:#6a3030; margin-bottom:6px; }
 .sec-sub   { font-size:0.8rem; color:#b09090; letter-spacing:3px; text-transform:uppercase; margin-bottom:34px; }
 
-/* Cards Details */
+/* Cards تفاصيل بدون ايموجي */
 .cards { display:flex; flex-direction:column; gap:14px; max-width:400px; margin:0 auto; }
 .card {
-  background:white; border-radius:16px; padding:18px 22px;
+  background:white; border-radius:20px; padding:18px 22px;
   display:flex; align-items:center; gap:16px;
-  box-shadow:0 4px 22px rgba(180,110,100,0.07);
-  border:1px solid rgba(220,175,165,0.2);
+  box-shadow:0 8px 28px rgba(180,110,100,0.08);
+  border:1px solid rgba(220,175,165,0.25);
   opacity:0; transform:translateY(22px);
   transition:opacity 0.6s, transform 0.6s;
 }
 .card.vis { opacity:1; transform:translateY(0); }
-.card-ic { width:50px; height:50px; border-radius:50%; background:linear-gradient(135deg,#f5e0dc,#edd0ca); display:flex; align-items:center; justify-content:center; font-size:1.4rem; flex-shrink:0; }
+.card-ic { 
+  width:52px; height:52px; border-radius:50%; 
+  background:linear-gradient(135deg,#f5e0dc,#edd0ca); 
+  display:flex; align-items:center; justify-content:center; 
+  font-size:1.5rem; 
+  flex-shrink:0; 
+  font-family: 'Segoe UI', system-ui; 
+}
+/* نضيف أيقونات نصية بدل الايموجي */
 .card-txt { text-align:right; flex:1; }
 .card-lbl { font-size:0.72rem; color:#b09090; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px; }
-.card-val { font-family:'Amiri',serif; font-size:1.1rem; color:#5a3030; }
+.card-val { font-family:'Amiri',serif; font-size:1.2rem; color:#5a3030; font-weight:500; }
 
-/* Family */
-.family-wrap { display:flex; justify-content:center; max-width:400px; margin:0 auto; }
-.fam { flex:1; padding:24px 16px; text-align:center; opacity:0; transform:translateY(22px); transition:opacity 0.6s, transform 0.6s; }
+/* Family - بدون ايموجي */
+.family-wrap { display:flex; justify-content:center; max-width:400px; margin:0 auto; gap:20px; }
+.fam { flex:1; padding:24px 16px; text-align:center; opacity:0; transform:translateY(22px); transition:opacity 0.6s, transform 0.6s; background: rgba(255,250,245,0.8); border-radius: 32px; backdrop-filter: blur(4px);}
 .fam.vis { opacity:1; transform:translateY(0); }
-.fam:first-child { border-left:1px solid rgba(200,155,145,0.2); }
-.fam-ic { font-size:2.2rem; margin-bottom:12px; display:block; }
-.fam-lbl { font-size:0.72rem; color:#b09090; margin-bottom:6px; }
-.fam-name { font-family:'Amiri',serif; font-size:1.35rem; color:#6a3030; }
+.fam:first-child { border-left: none; }
+.fam-ic { font-size:2rem; margin-bottom:12px; display:block; font-weight:400; }
+.fam-lbl { font-size:0.74rem; color:#b09090; margin-bottom:6px; letter-spacing:1px; }
+.fam-name { font-family:'Amiri',serif; font-size:1.5rem; color:#6a3030; font-weight:700; }
 .fam-par { font-size:0.78rem; color:#a07575; margin-top:4px; }
 
 /* Countdown */
 .countdown { display:flex; justify-content:center; gap:14px; margin:0 auto 8px; opacity:0; transform:translateY(22px); transition:opacity 0.6s, transform 0.6s; }
 .countdown.vis { opacity:1; transform:translateY(0); }
-.cd-box { background:white; border-radius:14px; padding:16px 14px; min-width:68px; box-shadow:0 4px 18px rgba(180,110,100,0.09); border:1px solid rgba(220,175,165,0.2); text-align:center; }
-.cd-num { font-size:2rem; font-weight:700; color:#7a4040; display:block; line-height:1; }
-.cd-lbl { font-size:0.62rem; color:#b09090; letter-spacing:1.5px; text-transform:uppercase; margin-top:5px; display:block; }
+.cd-box { background:white; border-radius:20px; padding:16px 14px; min-width:72px; box-shadow:0 6px 20px rgba(180,110,100,0.1); border:1px solid rgba(220,175,165,0.3); text-align:center; }
+.cd-num { font-size:2rem; font-weight:800; color:#7a4040; display:block; line-height:1; }
+.cd-lbl { font-size:0.62rem; color:#b09090; letter-spacing:1.5px; text-transform:uppercase; margin-top:6px; display:block; }
 
 /* Map */
 .map-sec { background:#fdf8f4; }
 .map-header { padding:50px 24px 22px; text-align:center; }
-.map-wrap { width:100%; height:310px; position:relative; overflow:hidden; }
-.map-wrap iframe { width:100%; height:100%; border:none; filter:saturate(0.65) brightness(1.05); }
-.map-btn { position:absolute; bottom:20px; left:50%; transform:translateX(-50%); background:linear-gradient(135deg,#cc7070,#aa4848); color:white; border:none; border-radius:50px; padding:13px 32px; font-family:'Tajawal',sans-serif; font-size:0.88rem; cursor:pointer; box-shadow:0 8px 28px rgba(0,0,0,0.18); display:flex; align-items:center; gap:8px; white-space:nowrap; text-decoration:none; }
+.map-wrap { width:100%; height:310px; position:relative; overflow:hidden; border-radius: 28px; box-shadow: 0 12px 30px rgba(0,0,0,0.08); }
+.map-wrap iframe { width:100%; height:100%; border:none; filter:saturate(0.7) brightness(1.02); }
+.map-btn { position:absolute; bottom:20px; left:50%; transform:translateX(-50%); background:linear-gradient(135deg,#cc7070,#aa4848); color:white; border:none; border-radius:60px; padding:13px 32px; font-family:'Tajawal',sans-serif; font-size:0.88rem; cursor:pointer; box-shadow:0 8px 28px rgba(0,0,0,0.2); display:flex; align-items:center; gap:6px; white-space:nowrap; text-decoration:none; transition:0.2s; }
+.map-btn:hover { transform: translateX(-50%) translateY(-3px); background: #b54a4a; }
+/* ازالة الايموجي من زر الخريطة */
+.map-btn span { display: none; }
 
-/* Closing */
+/* Closing - بدون ايموجي */
 .closing { padding:64px 28px 90px; text-align:center; background:linear-gradient(155deg,#fce8e0,#f5ddd4 50%,#ecdad4 100%); position:relative; overflow:hidden; }
-.closing::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 110%,rgba(240,200,185,0.5) 0%,transparent 65%); }
-.quran-verse { font-family:'Amiri',serif; font-size:1.3rem; color:#6a3030; line-height:2; margin-bottom:30px; position:relative; }
-.closing-msg { font-size:0.9rem; color:#9a7070; line-height:2.1; margin-bottom:32px; position:relative; }
-.rsvp-btn { display:inline-flex; align-items:center; gap:10px; background:linear-gradient(135deg,#cc7070,#aa4848); color:white; border:none; border-radius:50px; padding:17px 46px; font-family:'Tajawal',sans-serif; font-size:1rem; font-weight:500; cursor:pointer; box-shadow:0 12px 32px rgba(165,65,65,0.3); transition:transform 0.2s, box-shadow 0.2s; text-decoration:none; position:relative; }
-.rsvp-btn:hover { transform:translateY(-3px); box-shadow:0 18px 42px rgba(165,65,65,0.4); }
-.closing-sig { margin-top:50px; opacity:0.4; font-size:0.7rem; color:#a08080; letter-spacing:2.5px; }
+.closing::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 110%,rgba(240,200,185,0.55) 0%,transparent 65%); }
+.quran-verse { font-family:'Amiri',serif; font-size:1.35rem; color:#6a3030; line-height:2; margin-bottom:30px; position:relative; font-weight:500; }
+.closing-msg { font-size:1rem; color:#9a7070; line-height:2.1; margin-bottom:32px; position:relative; }
+.rsvp-btn { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,#cc7070,#aa4848); color:white; border:none; border-radius:60px; padding:17px 46px; font-family:'Tajawal',sans-serif; font-size:1rem; font-weight:500; cursor:pointer; box-shadow:0 12px 32px rgba(165,65,65,0.3); transition:transform 0.2s, box-shadow 0.2s; text-decoration:none; position:relative; }
+.rsvp-btn:hover { transform:translateY(-4px); box-shadow:0 20px 40px rgba(165,65,65,0.4); }
+.closing-sig { margin-top:50px; opacity:0.5; font-size:0.75rem; color:#a08080; letter-spacing:2.5px; }
 
-/* Scroll reveal generic */
+/* Scroll reveal */
 .rev { opacity:0; transform:translateY(28px); transition:opacity 0.8s, transform 0.8s; }
 .rev.vis { opacity:1; transform:translateY(0); }
 
-@keyframes slideUp { from{opacity:0;transform:translateY(15px)} to{opacity:1;transform:translateY(0)} }
+@keyframes slideUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
 </style>
 </head>
 <body>
 
-<!-- VIDEO OVERLAY (5 секунд + переход) -->
+<!-- VIDEO OVERLAY (5 ثوانٍ) بدون أي نص -->
 <div id="videoOverlay">
   <div class="video-container">
     <video id="introVideo" autoplay muted playsinline>
-      <!-- استخدم مقطع فيديو من مجلد المشروع: background.mp4 أو أي اسم.
-           لضمان العرض، يمكن استخدام فيديو تجريبي قصير (blob) أو مسار مضمون. 
-           بما أن جميع المستندات في فولدر المشروع، نفترض اسم الملف: wedding-bg.mp4 
-           وسيتم وضعه بصيغة fallback إذا لم يوجد، لكنه موجود نظريًا.
-           سنستخدم مسار "background.mp4" كما هو مطلوب "جميع المستندات في فولدر المشروع" -->
       <source src="background.mp4" type="video/mp4">
-      Your browser does not support the video tag.
     </video>
-    <div class="video-message">✨ لحظات ويفتح الدعوة ✨</div>
+    <!-- تم حذف نص "لحظات ويفتح الدعوة" نهائياً -->
   </div>
 </div>
 
-<!-- زر الموسيقى (يظهر بعد اختفاء الفيديو) -->
 <button class="music-btn" id="musicBtn" onclick="toggleMusic()">🎵</button>
 
-<!-- INVITATION MAIN -->
 <div id="invitation">
-  <!-- HERO SECTION: بدون أي زر تفاصيل حفل, فقط المحتوى المطلوب -->
+  <!-- HERO SECTION: بدون مربع خلفية، بدون ايموجي -->
   <section class="hero">
-    <!-- بتلات متساقطة -->
-    <div class="petal" style="--x:8%;  --s:13px;--d:14s;--delay:0s">🌸</div>
-    <div class="petal" style="--x:22%; --s:10px;--d:11s;--delay:3s">🌷</div>
-    <div class="petal" style="--x:38%; --s:15px;--d:16s;--delay:1s">🌸</div>
-    <div class="petal" style="--x:55%; --s:11px;--d:13s;--delay:5s">✿</div>
-    <div class="petal" style="--x:70%; --s:13px;--d:12s;--delay:2s">🌸</div>
-    <div class="petal" style="--x:85%; --s:10px;--d:17s;--delay:4s">🌷</div>
-    <div class="petal" style="--x:48%; --s:12px;--d:10s;--delay:7s">🌺</div>
-    <div class="petal" style="--x:3%;  --s:9px; --d:15s;--delay:6s">🌸</div>
-    <div class="petal" style="--x:93%; --s:11px;--d:18s;--delay:9s">✿</div>
-
-    <!-- زوايا مزخرفة -->
+    <video class="hero-bg-video" autoplay loop muted playsinline>
+      <source src="bg.mp4" type="video/mp4">
+    </video>
+    
+    <!-- زوايا زخرفية محفوظة -->
     <div class="floral tl">
-      <svg viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="0.6"><ellipse cx="32" cy="85" rx="20" ry="9" fill="#e8a8a8" transform="rotate(-25 32 85)"/><ellipse cx="54" cy="62" rx="22" ry="8" fill="#d8b8b8" transform="rotate(-55 54 62)"/><ellipse cx="78" cy="46" rx="18" ry="7" fill="#ebc0c0" transform="rotate(-78 78 46)"/><circle cx="48" cy="52" r="11" fill="#c48888" opacity="0.65"/><ellipse cx="62" cy="74" rx="20" ry="7" fill="#c0d0ac" transform="rotate(-48 62 74)" opacity="0.45"/></g></svg>
+      <svg viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="0.65"><ellipse cx="32" cy="85" rx="20" ry="9" fill="#e8b0a0" transform="rotate(-25 32 85)"/><ellipse cx="54" cy="62" rx="22" ry="8" fill="#d8a8a0" transform="rotate(-55 54 62)"/><ellipse cx="78" cy="46" rx="18" ry="7" fill="#ebc0b5" transform="rotate(-78 78 46)"/><circle cx="48" cy="52" r="11" fill="#c48878" opacity="0.7"/></g></svg>
     </div>
     <div class="floral tr">
-      <svg viewBox="0 0 220 220" fill="none"><g opacity="0.6" transform="scale(-1,1) translate(-220,0)"><ellipse cx="32" cy="85" rx="20" ry="9" fill="#e8a8a8" transform="rotate(-25 32 85)"/><ellipse cx="54" cy="62" rx="22" ry="8" fill="#d8b8b8" transform="rotate(-55 54 62)"/><circle cx="48" cy="52" r="11" fill="#c48888" opacity="0.65"/></g></svg>
+      <svg viewBox="0 0 220 220" fill="none"><g opacity="0.65" transform="scale(-1,1) translate(-220,0)"><ellipse cx="32" cy="85" rx="20" ry="9" fill="#e8b0a0" transform="rotate(-25 32 85)"/><ellipse cx="54" cy="62" rx="22" ry="8" fill="#d8a8a0" transform="rotate(-55 54 62)"/><circle cx="48" cy="52" r="11" fill="#c48878" opacity="0.7"/></g></svg>
     </div>
     <div class="floral bl">
-      <svg viewBox="0 0 220 220" fill="none"><g opacity="0.6" transform="scale(1,-1) translate(0,-220)"><ellipse cx="32" cy="85" rx="20" ry="9" fill="#e8a8a8" transform="rotate(-25 32 85)"/><ellipse cx="54" cy="62" rx="22" ry="8" fill="#d8b8b8" transform="rotate(-55 54 62)"/></g></svg>
+      <svg viewBox="0 0 220 220" fill="none"><g opacity="0.65" transform="scale(1,-1) translate(0,-220)"><ellipse cx="32" cy="85" rx="20" ry="9" fill="#e8b0a0" transform="rotate(-25 32 85)"/><ellipse cx="54" cy="62" rx="22" ry="8" fill="#d8a8a0" transform="rotate(-55 54 62)"/></g></svg>
     </div>
     <div class="floral br">
-      <svg viewBox="0 0 220 220" fill="none"><g opacity="0.6" transform="scale(-1,-1) translate(-220,-220)"><ellipse cx="32" cy="85" rx="20" ry="9" fill="#e8a8a8" transform="rotate(-25 32 85)"/><circle cx="48" cy="52" r="11" fill="#c48888" opacity="0.65"/></g></svg>
+      <svg viewBox="0 0 220 220" fill="none"><g opacity="0.65" transform="scale(-1,-1) translate(-220,-220)"><ellipse cx="32" cy="85" rx="20" ry="9" fill="#e8b0a0" transform="rotate(-25 32 85)"/><circle cx="48" cy="52" r="11" fill="#c48878" opacity="0.7"/></g></svg>
     </div>
 
+    <!-- الأسماء بدون مربع خلفية، ونص التاريخ بنظام liquid glass -->
     <div class="hero-content">
       <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</div>
       <div class="names">
         <span class="groom">وليد</span>
-        <span class="amp">&amp;</span>
+        <span class="amp">&</span>
         <span class="bride">شيخة</span>
       </div>
       <div class="divider">
-        <div class="ln"></div><span class="ic">🌸</span><div class="ln"></div>
+        <div class="ln"></div>
+        <!-- تم إزالة رمز الزهرة -->
+        <div class="ln"></div>
       </div>
       <p class="tagline">
         يسعدنا دعوتكم لحضور حفل زفافنا<br>
         ومشاركتنا فرحة هذه الليلة المباركة
       </p>
+      <!-- التاريخ بتصميم زجاجي سائل (liquid glass) بدون ايموجي -->
       <div class="date-pill">
         <span class="dd">15</span>
         <span class="dm">يونيو · 2025</span>
       </div>
-      <!-- تم حذف زر "تفاصيل الحفل ↓" بالكامل كما طلبت -->
     </div>
 
     <div class="scroll-hint">
@@ -338,9 +376,9 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
     </div>
   </section>
 
-  <div class="sep"><div class="sep-line"></div><span class="sep-ic">🌹</span><div class="sep-line"></div></div>
+  <div class="sep"><div class="sep-line"></div><div class="sep-line"></div></div>
 
-  <!-- DETAILS SECTION (محتوى تفاصيل الحفل موجود لكن دون أي زر مكرر) -->
+  <!-- تفاصيل الحفل (بدون ايموجي) -->
   <section class="sec sec-cream" id="details">
     <div class="rev"><h2 class="sec-title">تفاصيل الحفل</h2><p class="sec-sub">Wedding Details</p></div>
     <div class="cards">
@@ -351,9 +389,9 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
     </div>
   </section>
 
-  <div class="sep"><div class="sep-line"></div><span class="sep-ic">✿</span><div class="sep-line"></div></div>
+  <div class="sep"><div class="sep-line"></div><div class="sep-line"></div></div>
 
-  <!-- COUNTDOWN -->
+  <!-- العد التنازلي -->
   <section class="sec sec-rose">
     <div class="rev"><h2 class="sec-title">العد التنازلي</h2><p class="sec-sub">Days Until The Big Day</p></div>
     <div class="countdown" id="cdWrap">
@@ -364,20 +402,20 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
     </div>
   </section>
 
-  <div class="sep"><div class="sep-line"></div><span class="sep-ic">🌸</span><div class="sep-line"></div></div>
+  <div class="sep"><div class="sep-line"></div><div class="sep-line"></div></div>
 
-  <!-- FAMILY -->
+  <!-- العائلة (بدون ايموجي) -->
   <section class="sec sec-cream">
     <div class="rev"><h2 class="sec-title">العائلة الكريمة</h2><p class="sec-sub">Our Families</p></div>
     <div class="family-wrap">
-      <div class="fam"><span class="fam-ic">🤵</span><div class="fam-lbl">العريس</div><div class="fam-name">وليد</div><div class="fam-par">نجل الأستاذ / محمد</div></div>
-      <div class="fam"><span class="fam-ic">👰</span><div class="fam-lbl">العروس</div><div class="fam-name">شيخة</div><div class="fam-par">كريمة الأستاذ / عبدالله</div></div>
+      <div class="fam"><div class="fam-ic">⚝</div><div class="fam-lbl">العريس</div><div class="fam-name">وليد</div><div class="fam-par">نجل الأستاذ / محمد</div></div>
+      <div class="fam"><div class="fam-ic">⚝</div><div class="fam-lbl">العروس</div><div class="fam-name">شيخة</div><div class="fam-par">كريمة الأستاذ / عبدالله</div></div>
     </div>
   </section>
 
-  <div class="sep"><div class="sep-line"></div><span class="sep-ic">📍</span><div class="sep-line"></div></div>
+  <div class="sep"><div class="sep-line"></div><div class="sep-line"></div></div>
 
-  <!-- MAP -->
+  <!-- الخريطة -->
   <section class="map-sec">
     <div class="map-header"><div class="rev"><h2 class="sec-title">موقع الحفل</h2><p class="sec-sub">Venue Location</p></div></div>
     <div class="map-wrap">
@@ -386,82 +424,52 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
     </div>
   </section>
 
-  <div class="sep"><div class="sep-line"></div><span class="sep-ic">💌</span><div class="sep-line"></div></div>
+  <div class="sep"><div class="sep-line"></div><div class="sep-line"></div></div>
 
-  <!-- CLOSING -->
+  <!-- الختام (بدون ايموجي) -->
   <section class="closing">
     <p class="quran-verse rev">﴿ وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا<br>لِّتَسْكُنُوا إِلَيْهَا ﴾</p>
-    <p class="closing-msg rev" style="transition-delay:.15s">حضوركم شرف لنا وفرحة تُضاف إلى فرحتنا 💕<br>نتطلع لرؤيتكم في هذه الليلة الجميلة</p>
-    <div class="rev" style="transition-delay:.3s"><a class="rsvp-btn" href="https://wa.me/966500000000" target="_blank">💬 تأكيد الحضور عبر واتساب</a></div>
-    <div class="closing-sig">🌸 وليد &amp; شيخة · 2025 🌸</div>
+    <p class="closing-msg rev" style="transition-delay:.15s">حضوركم شرف لنا وفرحة تُضاف إلى فرحتنا<br>نتطلع لرؤيتكم في هذه الليلة الجميلة</p>
+    <div class="rev" style="transition-delay:.3s"><a class="rsvp-btn" href="https://wa.me/966500000000" target="_blank">تأكيد الحضور عبر واتساب</a></div>
+    <div class="closing-sig">وليد و شيخة · 2025</div>
   </section>
 </div>
 
 <script>
-// 1) Video 5 seconds handling: remove overlay and show invitation
+// 1) فيديو الترحيب بدون أي نص
 const videoOverlay = document.getElementById('videoOverlay');
 const invitationDiv = document.getElementById('invitation');
 const musicBtn = document.getElementById('musicBtn');
+const introVideoElem = document.getElementById('introVideo');
 
-// نحاول تشغيل الفيديو
-const videoElem = document.getElementById('introVideo');
-if (videoElem) {
-  // التأكد من أن الفيديو يعمل تلقائيًا, وفي حال فشل (مشكلة المسار) يتم استخدام set timeout بديل
-  let videoEnded = false;
-  const transitionToSite = () => {
-    if (videoEnded) return;
-    videoEnded = true;
-    // إخفاء overlay بسلاسة وإظهار الدعوة
-    videoOverlay.style.opacity = '0';
-    setTimeout(() => {
-      videoOverlay.style.display = 'none';
-      invitationDiv.classList.add('show');
-      // إظهار زر الموسيقى بأناقة
-      musicBtn.classList.add('visible');
-    }, 800);
-  };
-  
-  videoElem.addEventListener('ended', () => {
-    transitionToSite();
-  });
-  
-  // Fallback: بعد 5 ثوانٍ حتى لو لم ينته الفيديو لأي سبب (لكن الفيديو مدته 5 ثوانٍ)
+let videoEndedFlag = false;
+const transitionToSite = () => {
+  if (videoEndedFlag) return;
+  videoEndedFlag = true;
+  videoOverlay.style.opacity = '0';
   setTimeout(() => {
-    if (!videoEnded) {
-      transitionToSite();
-    }
-  }, 5300);
-  
-  // إذا حدث خطأ في تحميل الفيديو، ننتقل بعد 0.5 ثانية احترازيًا
-  videoElem.addEventListener('error', () => {
-    console.warn("Video error, transitioning anyway");
-    if (!videoEnded) transitionToSite();
-  });
+    videoOverlay.style.display = 'none';
+    invitationDiv.classList.add('show');
+    musicBtn.classList.add('visible');
+  }, 800);
+};
+
+if (introVideoElem) {
+  introVideoElem.addEventListener('ended', () => transitionToSite());
+  setTimeout(() => { if (!videoEndedFlag) transitionToSite(); }, 5300);
+  introVideoElem.addEventListener('error', () => transitionToSite());
 } else {
-  // في حالة عدم وجود فيديو بشكل غير متوقع, الانتقال فوري ولكن بنفس الأسلوب
-  setTimeout(() => {
-    videoOverlay.style.opacity = '0';
-    setTimeout(() => {
-      videoOverlay.style.display = 'none';
-      invitationDiv.classList.add('show');
-      musicBtn.classList.add('visible');
-    }, 800);
-  }, 100);
+  setTimeout(() => transitionToSite(), 300);
 }
 
-// 2) Music Toggle (background audio لم يتم إدراجه تلقائيًا لأن user interaction required)
-// يوجد زر تفاعل, لتنبيه: يمكن إضافة مسار موسيقى, لكن طلبك فقط تعديل العناصر. 
-// نضيف وظيفة موسيقى اختيارية ولكن بدون ملف audio افتراضيًا (حفاظًا على هدوء المتصفح).
-// ولكن المستخدم يمكنه النقر, سنقوم بتشغيل ملف موسيقى من مجلد المشروع إن أردت: نضيف audio اختياري لكن بدون تحميل تلقائي.
+// 2) وظيفة الموسيقى
 let audioElement = null;
 let isPlaying = false;
-
 function toggleMusic() {
   if (!audioElement) {
-    // إنشاء كائن صوت باستخدام مسار من مجلد المشروع (مثلاً music.mp3)
-    audioElement = new Audio('background-music.mp3'); // يمكن تغيير الملف حسب الاسم
+    audioElement = new Audio('background-music.mp3');
     audioElement.loop = true;
-    audioElement.volume = 0.5;
+    audioElement.volume = 0.45;
   }
   if (isPlaying) {
     audioElement.pause();
@@ -470,44 +478,42 @@ function toggleMusic() {
     musicBtn.classList.remove('spin');
     musicBtn.style.animation = '';
   } else {
-    audioElement.play().catch(e => console.log("Audio play needs user interaction first", e));
+    audioElement.play().catch(e => console.log("User interaction required"));
     isPlaying = true;
     musicBtn.textContent = '🔊';
     musicBtn.classList.add('spin');
     musicBtn.style.animation = 'rotateMusic 3s linear infinite';
   }
 }
-// في حالة النقر على زر الموسيقى فقط يتم التعامل معه.
-// (لتفادي auto-policy, المستخدم يختار)
 
-// 3) Countdown
+// 3) العد التنازلي
 const weddingDate = new Date('2025-06-15T19:00:00');
-function tick() {
+function updateCountdown() {
   const diff = weddingDate - new Date();
   if (diff <= 0) {
     ['cdD','cdH','cdM','cdS'].forEach(id => document.getElementById(id).textContent='00');
     return;
   }
   document.getElementById('cdD').textContent = String(Math.floor(diff/86400000)).padStart(2,'0');
-  document.getElementById('cdH').textContent = String(Math.floor(diff%86400000/3600000)).padStart(2,'0');
-  document.getElementById('cdM').textContent = String(Math.floor(diff%3600000/60000)).padStart(2,'0');
-  document.getElementById('cdS').textContent = String(Math.floor(diff%60000/1000)).padStart(2,'0');
+  document.getElementById('cdH').textContent = String(Math.floor((diff%86400000)/3600000)).padStart(2,'0');
+  document.getElementById('cdM').textContent = String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
+  document.getElementById('cdS').textContent = String(Math.floor((diff%60000)/1000)).padStart(2,'0');
 }
-setInterval(tick, 1000); tick();
+setInterval(updateCountdown, 1000);
+updateCountdown();
 
-// 4) Scroll Reveal
-const io = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); io.unobserve(e.target); } });
+// 4) Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('vis');
+      observer.unobserve(entry.target);
+    }
+  });
 }, { threshold: 0.12 });
-
-document.querySelectorAll('.rev,.card,.fam,.countdown,.quran-verse,.closing-msg').forEach(el => io.observe(el));
-document.querySelectorAll('.card').forEach((c,i) => c.style.transitionDelay = i*0.1+'s');
-document.querySelectorAll('.fam').forEach((c,i) => c.style.transitionDelay = i*0.18+'s');
-
-// تأخير فوري لعناصر الـ hero لجعل ظهورها سلساً بعد إزالة الفيديو
-window.addEventListener('load', () => {
-  // إذا ظهرت الدعوة بعد الفيديو, ليس هنالك حاجة لتأثير إضافي.
-});
+document.querySelectorAll('.rev,.card,.fam,.countdown,.quran-verse,.closing-msg').forEach(el => observer.observe(el));
+document.querySelectorAll('.card').forEach((c, i) => c.style.transitionDelay = i*0.08+'s');
+document.querySelectorAll('.fam').forEach((c, i) => c.style.transitionDelay = i*0.15+'s');
 </script>
 </body>
 </html>
