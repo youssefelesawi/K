@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-<title>دعوة زفاف — وليد & شيخة</title>
+<title>Invitta Invitations — محمود & مريم</title>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&family=Amiri:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans-serif; }
 
-/* ========== VIDEO OVERLAY (SPLASH REPLACEMENT) ========== */
+/* ========== VIDEO OVERLAY (SPLASH) ========== */
 #videoOverlay {
   position:fixed; inset:0;
   background:#000;
@@ -31,17 +31,16 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
   object-fit:cover;
   display:block;
 }
-/* تم حذف نص "لحظات ويفتح الدعوة" نهائياً */
 
 /* ========== MUSIC BTN ========== */
 .music-btn {
-  position:fixed; top:20px; left:20px;
-  width:44px; height:44px; border-radius:50%;
-  background:rgba(255,255,255,0.85); backdrop-filter:blur(10px);
-  border:1px solid rgba(200,160,150,0.5);
+  position:fixed; bottom:24px; left:24px;
+  width:48px; height:48px; border-radius:50%;
+  background:rgba(255,255,255,0.9); backdrop-filter:blur(12px);
+  border:1px solid rgba(200,160,150,0.6);
   display:flex; align-items:center; justify-content:center;
-  cursor:pointer; z-index:600; font-size:1.2rem;
-  box-shadow:0 4px 15px rgba(0,0,0,0.15);
+  cursor:pointer; z-index:600; font-size:1.4rem;
+  box-shadow:0 6px 18px rgba(0,0,0,0.2);
   transition:transform 0.2s, background 0.2s;
   opacity:0;
   pointer-events:none;
@@ -49,13 +48,13 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
 .music-btn.visible {
   opacity:1;
   pointer-events:auto;
-  animation:fadeUpMusic 0.7s forwards;
+  animation:fadeUpMusic 0.6s forwards;
 }
 @keyframes fadeUpMusic {
-  from{opacity:0; transform:translateY(8px);}
+  from{opacity:0; transform:translateY(10px);}
   to{opacity:1; transform:translateY(0);}
 }
-.music-btn:hover { transform:scale(1.1); background:white; }
+.music-btn:hover { transform:scale(1.08); background:white; }
 .music-btn.spin { animation:rotateMusic 3s linear infinite; }
 @keyframes rotateMusic { to{transform:rotate(360deg)} }
 
@@ -73,7 +72,7 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
   visibility:visible;
 }
 
-/* ---- HERO SECTION: بدون مربع خلفية للأسماء، والأسماء تظهر مباشرة بخلفية شفافة ---- */
+/* ---- HERO SECTION ---- */
 .hero {
   min-height:100vh; position:relative;
   display:flex; flex-direction:column;
@@ -83,7 +82,7 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
   background: rgba(0,0,0,0.2);
 }
 
-/* فيديو الخلفية */
+/* فيديو الخلفية loop */
 .hero-bg-video {
   position: absolute;
   top: 0;
@@ -104,7 +103,7 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
   pointer-events: none;
 }
 
-/* الزوايا المزخرفة بدون ايموجي */
+/* الزوايا المزخرفة */
 .floral {
   position:absolute; width:230px; height:230px;
   pointer-events:none; opacity:0;
@@ -117,26 +116,25 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
 .floral.br { bottom:-15px; right:-15px; transform:scale(-1,-1); animation-delay:0.8s; }
 @keyframes floralReveal { to{opacity:1} }
 
-/* محتوى الهيرو: الأسماء بدون صندوق خلفية، فقط نص نقي مع تأثير بسيط */
+/* محتوى الهيرو */
 .hero-content {
   position:relative; z-index:15;
   text-align:center;
   padding:20px 20px;
   max-width:90%;
   width:auto;
-  background: transparent; /* تم إزالة أي مربع خلفية */
-  backdrop-filter: none;
-  border-radius: 0;
-  box-shadow: none;
-  border: none;
+  background: transparent;
 }
 
+/* العناصر التي تظهر بتسلسل fade in */
 .bismillah {
   font-family:'Amiri',serif; font-size:1.5rem;
   color:#f8e6dc; 
   text-shadow: 0 2px 15px rgba(0,0,0,0.5);
   letter-spacing:2px; margin-bottom:24px;
-  opacity:0; animation:slideUp 0.9s forwards 0.1s;
+  opacity:0;
+  animation:fadeInSeq 0.8s forwards;
+  animation-delay:0.1s;
 }
 
 .names {
@@ -144,13 +142,15 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
   color:#fff6ef;
   text-shadow: 0 4px 25px rgba(0,0,0,0.6);
   line-height:1.2; 
-  opacity:0; animation:slideUp 1s forwards 0.2s;
 }
 .names .groom { 
   font-size:5rem; 
   display:block; 
   font-weight: 800;
   letter-spacing: 3px;
+  opacity:0;
+  animation:fadeInSeq 0.8s forwards;
+  animation-delay:0.5s;
 }
 .names .amp {
   font-family:'Playfair Display',serif; 
@@ -160,22 +160,28 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
   display:block; 
   margin:8px 0;
   text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  opacity:0;
+  animation:fadeInSeq 0.8s forwards;
+  animation-delay:0.9s;
 }
 .names .bride { 
   font-size:5rem; 
   display:block; 
   font-weight: 800;
   letter-spacing: 3px;
+  opacity:0;
+  animation:fadeInSeq 0.8s forwards;
+  animation-delay:1.3s;
 }
 
 .divider {
   display:flex; align-items:center; justify-content:center; gap:14px;
   margin:28px 0 20px;
-  opacity:0; animation:slideUp 1s forwards 0.35s;
+  opacity:0;
+  animation:fadeInSeq 0.8s forwards;
+  animation-delay:1.6s;
 }
 .divider .ln { width:80px; height:1.5px; background:linear-gradient(90deg,transparent,#f0cfc0,transparent); }
-/* رمز الزهرة تم إزالته، استبدلنا بخط بسيط */
-.divider .ic { display: none; }
 
 .tagline {
   font-size:1.1rem; 
@@ -183,10 +189,13 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
   text-shadow: 0 1px 8px rgba(0,0,0,0.4);
   line-height:2; 
   font-weight:500;
-  opacity:0; animation:slideUp 1s forwards 0.5s;
+  margin-bottom:0;
+  opacity:0;
+  animation:fadeInSeq 0.8s forwards;
+  animation-delay:1.9s;
 }
 
-/* التاريخ بتصميم Liquid Glass (زجاجي سائل) بدون ايموجي */
+/* التاريخ بتصميم Liquid Glass */
 .date-pill {
   margin:32px auto 0; 
   display:inline-flex; 
@@ -199,7 +208,9 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
   padding: 16px 42px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.2), inset 0 1px 1px rgba(255,255,255,0.3);
   transition: all 0.3s ease;
-  opacity:0; animation:slideUp 1s forwards 0.7s;
+  opacity:0;
+  animation:fadeInSeq 0.8s forwards;
+  animation-delay:2.2s;
 }
 .date-pill .dd { 
   font-size:3.2rem; 
@@ -219,24 +230,45 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
   text-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }
 
-/* سهم التمرير (بدون ايموجي) */
-.scroll-hint {
-  position:absolute; bottom:28px; left:50%; transform:translateX(-50%);
-  display:flex; flex-direction:column; align-items:center; gap:8px;
-  opacity:0; animation:slideUp 1s forwards 1.4s;
-  z-index: 15;
+@keyframes fadeInSeq {
+  from { opacity:0; transform:translateY(15px); }
+  to { opacity:1; transform:translateY(0); }
 }
-.scroll-hint span { font-size:0.7rem; color:#f0e0da; text-shadow:0 1px 3px rgba(0,0,0,0.3); letter-spacing:3px; text-transform:uppercase; }
-.scroll-bar { width:1.5px; height:34px; background:linear-gradient(180deg,#f0cfc0,transparent); animation:scrollAnim 1.6s ease-in-out infinite; }
-@keyframes scrollAnim { 0%,100%{transform:scaleY(1);opacity:0.6} 50%{transform:scaleY(1.5);opacity:1} }
 
-/* باقي الأقسام (تمت إزالة كل الايموجيات من النصوص) */
+/* سهم التمرير */
+.scroll-hint {
+  position:absolute; bottom:28px; left:0; right:0; 
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+  opacity:0;
+  animation:fadeInSeq 0.8s forwards;
+  animation-delay:2.9s;
+  z-index: 15;
+  width:100%;
+  text-align:center;
+}
+.scroll-hint span { 
+  font-size:0.75rem; 
+  color:#f0e0da; 
+  text-shadow:0 1px 3px rgba(0,0,0,0.3); 
+  letter-spacing:3px; 
+  text-transform:uppercase; 
+  font-weight:500;
+}
+.scroll-bar { 
+  width:1.8px; 
+  height:38px; 
+  background:linear-gradient(180deg,#f0cfc0,transparent); 
+  animation:scrollAnim 1.6s ease-in-out infinite; 
+  margin:0 auto;
+}
+@keyframes scrollAnim { 0%,100%{transform:scaleY(1);opacity:0.5} 50%{transform:scaleY(1.6);opacity:1} }
+
+/* باقي الأقسام */
 .sep {
   display:flex; align-items:center; justify-content:center; gap:16px;
   padding:12px 24px; background:rgba(255,255,255,0.7);
 }
 .sep-line { flex:1; max-width:130px; height:1px; background:linear-gradient(90deg,transparent,#d4b0a8,transparent); }
-.sep-ic { display: none; } /* إخفاء الايموجي */
 
 .sec { padding:56px 24px; text-align:center; position:relative; overflow:hidden; }
 .sec-cream { background:linear-gradient(180deg,#fdf8f4,#faf3ee); }
@@ -244,43 +276,27 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
 .sec-title { font-family:'Amiri',serif; font-size:1.9rem; color:#6a3030; margin-bottom:6px; }
 .sec-sub   { font-size:0.8rem; color:#b09090; letter-spacing:3px; text-transform:uppercase; margin-bottom:34px; }
 
-/* Cards تفاصيل بدون ايموجي */
+/* Cards */
 .cards { display:flex; flex-direction:column; gap:14px; max-width:400px; margin:0 auto; }
 .card {
   background:white; border-radius:20px; padding:18px 22px;
   display:flex; align-items:center; gap:16px;
   box-shadow:0 8px 28px rgba(180,110,100,0.08);
   border:1px solid rgba(220,175,165,0.25);
-  opacity:0; transform:translateY(22px);
-  transition:opacity 0.6s, transform 0.6s;
 }
-.card.vis { opacity:1; transform:translateY(0); }
 .card-ic { 
   width:52px; height:52px; border-radius:50%; 
   background:linear-gradient(135deg,#f5e0dc,#edd0ca); 
   display:flex; align-items:center; justify-content:center; 
   font-size:1.5rem; 
   flex-shrink:0; 
-  font-family: 'Segoe UI', system-ui; 
 }
-/* نضيف أيقونات نصية بدل الايموجي */
 .card-txt { text-align:right; flex:1; }
 .card-lbl { font-size:0.72rem; color:#b09090; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px; }
 .card-val { font-family:'Amiri',serif; font-size:1.2rem; color:#5a3030; font-weight:500; }
 
-/* Family - بدون ايموجي */
-.family-wrap { display:flex; justify-content:center; max-width:400px; margin:0 auto; gap:20px; }
-.fam { flex:1; padding:24px 16px; text-align:center; opacity:0; transform:translateY(22px); transition:opacity 0.6s, transform 0.6s; background: rgba(255,250,245,0.8); border-radius: 32px; backdrop-filter: blur(4px);}
-.fam.vis { opacity:1; transform:translateY(0); }
-.fam:first-child { border-left: none; }
-.fam-ic { font-size:2rem; margin-bottom:12px; display:block; font-weight:400; }
-.fam-lbl { font-size:0.74rem; color:#b09090; margin-bottom:6px; letter-spacing:1px; }
-.fam-name { font-family:'Amiri',serif; font-size:1.5rem; color:#6a3030; font-weight:700; }
-.fam-par { font-size:0.78rem; color:#a07575; margin-top:4px; }
-
 /* Countdown */
-.countdown { display:flex; justify-content:center; gap:14px; margin:0 auto 8px; opacity:0; transform:translateY(22px); transition:opacity 0.6s, transform 0.6s; }
-.countdown.vis { opacity:1; transform:translateY(0); }
+.countdown { display:flex; justify-content:center; gap:14px; margin:0 auto 8px; }
 .cd-box { background:white; border-radius:20px; padding:16px 14px; min-width:72px; box-shadow:0 6px 20px rgba(180,110,100,0.1); border:1px solid rgba(220,175,165,0.3); text-align:center; }
 .cd-num { font-size:2rem; font-weight:800; color:#7a4040; display:block; line-height:1; }
 .cd-lbl { font-size:0.62rem; color:#b09090; letter-spacing:1.5px; text-transform:uppercase; margin-top:6px; display:block; }
@@ -292,47 +308,37 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
 .map-wrap iframe { width:100%; height:100%; border:none; filter:saturate(0.7) brightness(1.02); }
 .map-btn { position:absolute; bottom:20px; left:50%; transform:translateX(-50%); background:linear-gradient(135deg,#cc7070,#aa4848); color:white; border:none; border-radius:60px; padding:13px 32px; font-family:'Tajawal',sans-serif; font-size:0.88rem; cursor:pointer; box-shadow:0 8px 28px rgba(0,0,0,0.2); display:flex; align-items:center; gap:6px; white-space:nowrap; text-decoration:none; transition:0.2s; }
 .map-btn:hover { transform: translateX(-50%) translateY(-3px); background: #b54a4a; }
-/* ازالة الايموجي من زر الخريطة */
-.map-btn span { display: none; }
 
-/* Closing - بدون ايموجي */
+/* Closing */
 .closing { padding:64px 28px 90px; text-align:center; background:linear-gradient(155deg,#fce8e0,#f5ddd4 50%,#ecdad4 100%); position:relative; overflow:hidden; }
 .closing::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 110%,rgba(240,200,185,0.55) 0%,transparent 65%); }
 .quran-verse { font-family:'Amiri',serif; font-size:1.35rem; color:#6a3030; line-height:2; margin-bottom:30px; position:relative; font-weight:500; }
 .closing-msg { font-size:1rem; color:#9a7070; line-height:2.1; margin-bottom:32px; position:relative; }
 .rsvp-btn { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,#cc7070,#aa4848); color:white; border:none; border-radius:60px; padding:17px 46px; font-family:'Tajawal',sans-serif; font-size:1rem; font-weight:500; cursor:pointer; box-shadow:0 12px 32px rgba(165,65,65,0.3); transition:transform 0.2s, box-shadow 0.2s; text-decoration:none; position:relative; }
 .rsvp-btn:hover { transform:translateY(-4px); box-shadow:0 20px 40px rgba(165,65,65,0.4); }
-.closing-sig { margin-top:50px; opacity:0.5; font-size:0.75rem; color:#a08080; letter-spacing:2.5px; }
-
-/* Scroll reveal */
-.rev { opacity:0; transform:translateY(28px); transition:opacity 0.8s, transform 0.8s; }
-.rev.vis { opacity:1; transform:translateY(0); }
-
-@keyframes slideUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+.closing-sig { margin-top:50px; opacity:0.7; font-size:0.85rem; color:#a06060; letter-spacing:1.5px; font-weight:500; }
 </style>
 </head>
 <body>
 
-<!-- VIDEO OVERLAY (5 ثوانٍ) بدون أي نص -->
+<!-- VIDEO OVERLAY (5 ثوانٍ) -->
 <div id="videoOverlay">
   <div class="video-container">
     <video id="introVideo" autoplay muted playsinline>
       <source src="background.mp4" type="video/mp4">
     </video>
-    <!-- تم حذف نص "لحظات ويفتح الدعوة" نهائياً -->
   </div>
 </div>
 
 <button class="music-btn" id="musicBtn" onclick="toggleMusic()">🎵</button>
 
 <div id="invitation">
-  <!-- HERO SECTION: بدون مربع خلفية، بدون ايموجي -->
+  <!-- HERO SECTION -->
   <section class="hero">
     <video class="hero-bg-video" autoplay loop muted playsinline>
       <source src="bg.mp4" type="video/mp4">
     </video>
     
-    <!-- زوايا زخرفية محفوظة -->
     <div class="floral tl">
       <svg viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="0.65"><ellipse cx="32" cy="85" rx="20" ry="9" fill="#e8b0a0" transform="rotate(-25 32 85)"/><ellipse cx="54" cy="62" rx="22" ry="8" fill="#d8a8a0" transform="rotate(-55 54 62)"/><ellipse cx="78" cy="46" rx="18" ry="7" fill="#ebc0b5" transform="rotate(-78 78 46)"/><circle cx="48" cy="52" r="11" fill="#c48878" opacity="0.7"/></g></svg>
     </div>
@@ -346,27 +352,24 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
       <svg viewBox="0 0 220 220" fill="none"><g opacity="0.65" transform="scale(-1,-1) translate(-220,-220)"><ellipse cx="32" cy="85" rx="20" ry="9" fill="#e8b0a0" transform="rotate(-25 32 85)"/><circle cx="48" cy="52" r="11" fill="#c48878" opacity="0.7"/></g></svg>
     </div>
 
-    <!-- الأسماء بدون مربع خلفية، ونص التاريخ بنظام liquid glass -->
     <div class="hero-content">
       <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</div>
       <div class="names">
-        <span class="groom">وليد</span>
+        <span class="groom">محمود</span>
         <span class="amp">&</span>
-        <span class="bride">شيخة</span>
+        <span class="bride">مريم</span>
       </div>
       <div class="divider">
         <div class="ln"></div>
-        <!-- تم إزالة رمز الزهرة -->
         <div class="ln"></div>
       </div>
       <p class="tagline">
         يسعدنا دعوتكم لحضور حفل زفافنا<br>
         ومشاركتنا فرحة هذه الليلة المباركة
       </p>
-      <!-- التاريخ بتصميم زجاجي سائل (liquid glass) بدون ايموجي -->
       <div class="date-pill">
-        <span class="dd">15</span>
-        <span class="dm">يونيو · 2025</span>
+        <span class="dd">28</span>
+        <span class="dm">مايو · 2026</span>
       </div>
     </div>
 
@@ -378,14 +381,13 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
 
   <div class="sep"><div class="sep-line"></div><div class="sep-line"></div></div>
 
-  <!-- تفاصيل الحفل (بدون ايموجي) -->
+  <!-- تفاصيل الحفل -->
   <section class="sec sec-cream" id="details">
-    <div class="rev"><h2 class="sec-title">تفاصيل الحفل</h2><p class="sec-sub">Wedding Details</p></div>
+    <div><h2 class="sec-title">تفاصيل الحفل</h2><p class="sec-sub">Wedding Details</p></div>
     <div class="cards">
-      <div class="card"><div class="card-ic">📅</div><div class="card-txt"><div class="card-lbl">التاريخ</div><div class="card-val">الأحد ١٥ يونيو ٢٠٢٥</div></div></div>
+      <div class="card"><div class="card-ic">📅</div><div class="card-txt"><div class="card-lbl">التاريخ</div><div class="card-val">الخميس ٢٨ مايو ٢٠٢٦</div></div></div>
       <div class="card"><div class="card-ic">🕖</div><div class="card-txt"><div class="card-lbl">التوقيت</div><div class="card-val">٧:٠٠ مساءً</div></div></div>
-      <div class="card"><div class="card-ic">🏛️</div><div class="card-txt"><div class="card-lbl">القاعة</div><div class="card-val">قاعة الأميرة — فندق الريتز كارلتون</div></div></div>
-      <div class="card"><div class="card-ic">👗</div><div class="card-txt"><div class="card-lbl">كود الألوان</div><div class="card-val">أبيض · ذهبي · باودر</div></div></div>
+      <div class="card"><div class="card-ic">🏛️</div><div class="card-txt"><div class="card-lbl">القاعة</div><div class="card-val">G-Marriot — المنصورة</div></div></div>
     </div>
   </section>
 
@@ -393,7 +395,7 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
 
   <!-- العد التنازلي -->
   <section class="sec sec-rose">
-    <div class="rev"><h2 class="sec-title">العد التنازلي</h2><p class="sec-sub">Days Until The Big Day</p></div>
+    <div><h2 class="sec-title">العد التنازلي</h2><p class="sec-sub">Days Until The Big Day</p></div>
     <div class="countdown" id="cdWrap">
       <div class="cd-box"><span class="cd-num" id="cdD">--</span><span class="cd-lbl">يوم</span></div>
       <div class="cd-box"><span class="cd-num" id="cdH">--</span><span class="cd-lbl">ساعة</span></div>
@@ -404,39 +406,28 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
 
   <div class="sep"><div class="sep-line"></div><div class="sep-line"></div></div>
 
-  <!-- العائلة (بدون ايموجي) -->
-  <section class="sec sec-cream">
-    <div class="rev"><h2 class="sec-title">العائلة الكريمة</h2><p class="sec-sub">Our Families</p></div>
-    <div class="family-wrap">
-      <div class="fam"><div class="fam-ic">⚝</div><div class="fam-lbl">العريس</div><div class="fam-name">وليد</div><div class="fam-par">نجل الأستاذ / محمد</div></div>
-      <div class="fam"><div class="fam-ic">⚝</div><div class="fam-lbl">العروس</div><div class="fam-name">شيخة</div><div class="fam-par">كريمة الأستاذ / عبدالله</div></div>
-    </div>
-  </section>
-
-  <div class="sep"><div class="sep-line"></div><div class="sep-line"></div></div>
-
-  <!-- الخريطة -->
+  <!-- الخريطة - موقع المنصورة G-Marriot -->
   <section class="map-sec">
-    <div class="map-header"><div class="rev"><h2 class="sec-title">موقع الحفل</h2><p class="sec-sub">Venue Location</p></div></div>
+    <div class="map-header"><div><h2 class="sec-title">موقع الحفل</h2><p class="sec-sub">Venue Location</p></div></div>
     <div class="map-wrap">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.5!2d46.6852!3d24.6877!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f03890d489399%3A0xba974d1c98e79fd5!2sThe%20Ritz-Carlton%2C%20Riyadh!5e0!3m2!1sar!2ssa!4v1" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      <a class="map-btn" href="https://maps.google.com/?q=Ritz+Carlton+Riyadh" target="_blank">📍 فتح الخريطة</a>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d109247.473336767!2d31.292894310135344!3d31.040550511685904!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14f79dbd59d9a6b1%3A0x1a5d84c8f6e09eab!2z2YXYs9ix2YjYp9ipINmF2YjZhNin2KogLSBHIE1hcnJpb3QgRWwgTWFuc3VyYQ!5e0!3m2!1sar!2seg!4v1700000000000" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <a class="map-btn" href="https://maps.google.com/?q=G+Marriot+El+Mansoura" target="_blank">📍 فتح الخريطة</a>
     </div>
   </section>
 
   <div class="sep"><div class="sep-line"></div><div class="sep-line"></div></div>
 
-  <!-- الختام (بدون ايموجي) -->
+  <!-- الختام -->
   <section class="closing">
-    <p class="quran-verse rev">﴿ وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا<br>لِّتَسْكُنُوا إِلَيْهَا ﴾</p>
-    <p class="closing-msg rev" style="transition-delay:.15s">حضوركم شرف لنا وفرحة تُضاف إلى فرحتنا<br>نتطلع لرؤيتكم في هذه الليلة الجميلة</p>
-    <div class="rev" style="transition-delay:.3s"><a class="rsvp-btn" href="https://wa.me/966500000000" target="_blank">تأكيد الحضور عبر واتساب</a></div>
-    <div class="closing-sig">وليد و شيخة · 2025</div>
+    <p class="quran-verse">﴿ وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا<br>لِّتَسْكُنُوا إِلَيْهَا ﴾</p>
+    <p class="closing-msg">حضوركم شرف لنا وفرحة تُضاف إلى فرحتنا<br>نتطلع لرؤيتكم في هذه الليلة الجميلة</p>
+    <div><a class="rsvp-btn" href="https://wa.me/966500000000" target="_blank">تأكيد الحضور عبر واتساب</a></div>
+    <div class="closing-sig">Instagram : @Invitta</div>
   </section>
 </div>
 
 <script>
-// 1) فيديو الترحيب بدون أي نص
+// 1) فيديو الترحيب (ينتهي ويظهر الدعوة)
 const videoOverlay = document.getElementById('videoOverlay');
 const invitationDiv = document.getElementById('invitation');
 const musicBtn = document.getElementById('musicBtn');
@@ -462,9 +453,37 @@ if (introVideoElem) {
   setTimeout(() => transitionToSite(), 300);
 }
 
-// 2) وظيفة الموسيقى
+// 2) وظيفة الموسيقى - تبدأ بعد 4 ثوانٍ من بدء الصفحة
 let audioElement = null;
 let isPlaying = false;
+let musicStarted = false; // لمنع التشغيل المتكرر
+
+function startMusicAutomatically() {
+  if (musicStarted) return;
+  if (!audioElement) {
+    audioElement = new Audio('background-music.mp3');
+    audioElement.loop = true;
+    audioElement.volume = 0.45;
+  }
+  // تشغيل الموسيقى تلقائياً بعد 4 ثوانٍ
+  audioElement.play().then(() => {
+    isPlaying = true;
+    musicStarted = true;
+    musicBtn.textContent = '🔊';
+    musicBtn.classList.add('spin');
+    musicBtn.style.animation = 'rotateMusic 3s linear infinite';
+  }).catch(e => {
+    console.log("Autoplay prevented, user will need to click", e);
+    // إذا تم منع التشغيل التلقائي، نترك الزر يعمل يدوياً
+    musicStarted = false;
+  });
+}
+
+// جدولة بدء الموسيقى بعد 4 ثوانٍ من تحميل الصفحة
+setTimeout(() => {
+  startMusicAutomatically();
+}, 4000);
+
 function toggleMusic() {
   if (!audioElement) {
     audioElement = new Audio('background-music.mp3');
@@ -474,7 +493,7 @@ function toggleMusic() {
   if (isPlaying) {
     audioElement.pause();
     isPlaying = false;
-    musicBtn.textContent = '🎵';
+    musicBtn.textContent = '🔇';
     musicBtn.classList.remove('spin');
     musicBtn.style.animation = '';
   } else {
@@ -486,8 +505,8 @@ function toggleMusic() {
   }
 }
 
-// 3) العد التنازلي
-const weddingDate = new Date('2025-06-15T19:00:00');
+// 3) العد التنازلي (28 مايو 2026)
+const weddingDate = new Date('2026-05-28T19:00:00');
 function updateCountdown() {
   const diff = weddingDate - new Date();
   if (diff <= 0) {
@@ -502,18 +521,12 @@ function updateCountdown() {
 setInterval(updateCountdown, 1000);
 updateCountdown();
 
-// 4) Scroll reveal
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('vis');
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.12 });
-document.querySelectorAll('.rev,.card,.fam,.countdown,.quran-verse,.closing-msg').forEach(el => observer.observe(el));
-document.querySelectorAll('.card').forEach((c, i) => c.style.transitionDelay = i*0.08+'s');
-document.querySelectorAll('.fam').forEach((c, i) => c.style.transitionDelay = i*0.15+'s');
+// تشغيل فيديو الخلفية بشكل متكرر
+const heroBgVideo = document.querySelector('.hero-bg-video');
+if (heroBgVideo) {
+  heroBgVideo.loop = true;
+  heroBgVideo.play().catch(e => console.log("bg video autoplay blocked", e));
+}
 </script>
 </body>
 </html>
