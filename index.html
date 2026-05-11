@@ -453,37 +453,67 @@ if (introVideoElem) {
   setTimeout(() => transitionToSite(), 300);
 }
 
-// 2) وظيفة الموسيقى - تبدأ بعد 4 ثوانٍ من بدء الصفحة
+// 2) تشغيل الموسيقى بشكل إجباري تلقائي بعد 4 ثوانٍ
 let audioElement = null;
 let isPlaying = false;
-let musicStarted = false; // لمنع التشغيل المتكرر
+let musicStarted = false;
+let playAttempts = 0;
 
-function startMusicAutomatically() {
-  if (musicStarted) return;
+function forcePlayMusic() {
   if (!audioElement) {
     audioElement = new Audio('background-music.mp3');
     audioElement.loop = true;
     audioElement.volume = 0.45;
   }
-  // تشغيل الموسيقى تلقائياً بعد 4 ثوانٍ
-  audioElement.play().then(() => {
-    isPlaying = true;
-    musicStarted = true;
-    musicBtn.textContent = '🔊';
-    musicBtn.classList.add('spin');
-    musicBtn.style.animation = 'rotateMusic 3s linear infinite';
-  }).catch(e => {
-    console.log("Autoplay prevented, user will need to click", e);
-    // إذا تم منع التشغيل التلقائي، نترك الزر يعمل يدوياً
-    musicStarted = false;
-  });
+  
+  // محاولة تشغيل الموسيقى
+  const playPromise = audioElement.play();
+  
+  if (playPromise !== undefined) {
+    playPromise.then(() => {
+      // التشغيل نجح
+      isPlaying = true;
+      musicStarted = true;
+      musicBtn.textContent = '🔊';
+      musicBtn.classList.add('spin');
+      musicBtn.style.animation = 'rotateMusic 3s linear infinite';
+      console.log("Music started successfully");
+    }).catch(error => {
+      // فشل التشغيل بسبب سياسة المتصفح (مطلوب تفاعل المستخدم)
+      console.log("Auto-play blocked, retrying with user interaction fallback:", error);
+      playAttempts++;
+      
+      // محاولة ثانية بإضافة حدث نقر على أي مكان في الصفحة
+      if (playAttempts === 1) {
+        const playOnInteraction = () => {
+          if (!musicStarted && audioElement) {
+            audioElement.play().then(() => {
+              isPlaying = true;
+              musicStarted = true;
+              musicBtn.textContent = '🔊';
+              musicBtn.classList.add('spin');
+              musicBtn.style.animation = 'rotateMusic 3s linear infinite';
+            }).catch(e => console.log("Still blocked:", e));
+          }
+          document.removeEventListener('click', playOnInteraction);
+          document.removeEventListener('touchstart', playOnInteraction);
+        };
+        document.addEventListener('click', playOnInteraction);
+        document.addEventListener('touchstart', playOnInteraction);
+        
+        // إضافة رسالة صغيرة في console فقط
+        console.log("Tap anywhere to start music if auto-play was blocked");
+      }
+    });
+  }
 }
 
-// جدولة بدء الموسيقى بعد 4 ثوانٍ من تحميل الصفحة
+// بدء الموسيقى بعد 4 ثوانٍ من تحميل الصفحة
 setTimeout(() => {
-  startMusicAutomatically();
+  forcePlayMusic();
 }, 4000);
 
+// زر التحكم اليدوي في الموسيقى
 function toggleMusic() {
   if (!audioElement) {
     audioElement = new Audio('background-music.mp3');
