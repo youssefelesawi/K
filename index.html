@@ -18,6 +18,7 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
   align-items:center;
   justify-content:center;
   transition:opacity 0.8s ease;
+  cursor: pointer;
 }
 .video-container {
   position:relative;
@@ -129,7 +130,7 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
 /* العناصر التي تظهر بتسلسل fade in */
 .bismillah {
   font-family:'Amiri',serif; font-size:1.5rem;
-  color:#f8e6dc; 
+  color:#f8e6dc;
   text-shadow: 0 2px 15px rgba(0,0,0,0.5);
   letter-spacing:2px; margin-bottom:24px;
   opacity:0;
@@ -138,14 +139,14 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
 }
 
 .names {
-  font-family:'Amiri',serif; 
+  font-family:'Amiri',serif;
   color:#fff6ef;
   text-shadow: 0 4px 25px rgba(0,0,0,0.6);
-  line-height:1.2; 
+  line-height:1.2;
 }
-.names .groom { 
-  font-size:5rem; 
-  display:block; 
+.names .groom {
+  font-size:5rem;
+  display:block;
   font-weight: 800;
   letter-spacing: 3px;
   opacity:0;
@@ -153,20 +154,20 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
   animation-delay:0.5s;
 }
 .names .amp {
-  font-family:'Playfair Display',serif; 
+  font-family:'Playfair Display',serif;
   font-style:italic;
-  font-size:2.5rem; 
-  color:#ffddcc; 
-  display:block; 
+  font-size:2.5rem;
+  color:#ffddcc;
+  display:block;
   margin:8px 0;
   text-shadow: 0 2px 12px rgba(0,0,0,0.4);
   opacity:0;
   animation:fadeInSeq 0.8s forwards;
   animation-delay:0.9s;
 }
-.names .bride { 
-  font-size:5rem; 
-  display:block; 
+.names .bride {
+  font-size:5rem;
+  display:block;
   font-weight: 800;
   letter-spacing: 3px;
   opacity:0;
@@ -184,10 +185,10 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
 .divider .ln { width:80px; height:1.5px; background:linear-gradient(90deg,transparent,#f0cfc0,transparent); }
 
 .tagline {
-  font-size:1.1rem; 
+  font-size:1.1rem;
   color:#fff0e6;
   text-shadow: 0 1px 8px rgba(0,0,0,0.4);
-  line-height:2; 
+  line-height:2;
   font-weight:500;
   margin-bottom:0;
   opacity:0;
@@ -197,9 +198,9 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
 
 /* التاريخ بتصميم Liquid Glass */
 .date-pill {
-  margin:32px auto 0; 
-  display:inline-flex; 
-  flex-direction:column; 
+  margin:32px auto 0;
+  display:inline-flex;
+  flex-direction:column;
   align-items:center;
   background: rgba(255, 245, 235, 0.25);
   backdrop-filter: blur(12px);
@@ -212,20 +213,20 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
   animation:fadeInSeq 0.8s forwards;
   animation-delay:2.2s;
 }
-.date-pill .dd { 
-  font-size:3.2rem; 
-  font-weight:800; 
-  color:#fff6ea; 
-  line-height:1; 
+.date-pill .dd {
+  font-size:3.2rem;
+  font-weight:800;
+  color:#fff6ea;
+  line-height:1;
   letter-spacing:4px;
   text-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
-.date-pill .dm { 
-  font-size:0.95rem; 
-  color:#fff0e0; 
-  letter-spacing:4px; 
-  text-transform:uppercase; 
-  margin-top:6px; 
+.date-pill .dm {
+  font-size:0.95rem;
+  color:#fff0e0;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  margin-top:6px;
   font-weight:500;
   text-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }
@@ -237,7 +238,7 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
 
 /* سهم التمرير */
 .scroll-hint {
-  position:absolute; bottom:28px; left:0; right:0; 
+  position:absolute; bottom:28px; left:0; right:0;
   display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
   opacity:0;
   animation:fadeInSeq 0.8s forwards;
@@ -246,19 +247,19 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
   width:100%;
   text-align:center;
 }
-.scroll-hint span { 
-  font-size:0.75rem; 
-  color:#f0e0da; 
-  text-shadow:0 1px 3px rgba(0,0,0,0.3); 
-  letter-spacing:3px; 
-  text-transform:uppercase; 
+.scroll-hint span {
+  font-size:0.75rem;
+  color:#f0e0da;
+  text-shadow:0 1px 3px rgba(0,0,0,0.3);
+  letter-spacing:3px;
+  text-transform:uppercase;
   font-weight:500;
 }
-.scroll-bar { 
-  width:1.8px; 
-  height:38px; 
-  background:linear-gradient(180deg,#f0cfc0,transparent); 
-  animation:scrollAnim 1.6s ease-in-out infinite; 
+.scroll-bar {
+  width:1.8px;
+  height:38px;
+  background:linear-gradient(180deg,#f0cfc0,transparent);
+  animation:scrollAnim 1.6s ease-in-out infinite;
   margin:0 auto;
 }
 @keyframes scrollAnim { 0%,100%{transform:scaleY(1);opacity:0.5} 50%{transform:scaleY(1.6);opacity:1} }
@@ -284,12 +285,12 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
   box-shadow:0 8px 28px rgba(180,110,100,0.08);
   border:1px solid rgba(220,175,165,0.25);
 }
-.card-ic { 
-  width:52px; height:52px; border-radius:50%; 
-  background:linear-gradient(135deg,#f5e0dc,#edd0ca); 
-  display:flex; align-items:center; justify-content:center; 
-  font-size:1.5rem; 
-  flex-shrink:0; 
+.card-ic {
+  width:52px; height:52px; border-radius:50%;
+  background:linear-gradient(135deg,#f5e0dc,#edd0ca);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.5rem;
+  flex-shrink:0;
 }
 .card-txt { text-align:right; flex:1; }
 .card-lbl { font-size:0.72rem; color:#b09090; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px; }
@@ -321,10 +322,10 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
 </head>
 <body>
 
-<!-- VIDEO OVERLAY (5 ثوانٍ) -->
+<!-- VIDEO OVERLAY (يبدأ بpause، ينتظر اللمس) -->
 <div id="videoOverlay">
   <div class="video-container">
-    <video id="introVideo" autoplay muted playsinline>
+    <video id="introVideo" muted playsinline preload="auto">
       <source src="background.mp4" type="video/mp4">
     </video>
   </div>
@@ -335,7 +336,7 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
 <div id="invitation">
   <!-- HERO SECTION -->
   <section class="hero">
-    <video class="hero-bg-video" autoplay loop muted playsinline>
+    <video class="hero-bg-video" muted playsinline loop preload="auto">
       <source src="bg.mp4" type="video/mp4">
     </video>
     
@@ -427,115 +428,258 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
 </div>
 
 <script>
-// 1) فيديو الترحيب (ينتهي ويظهر الدعوة)
-const videoOverlay = document.getElementById('videoOverlay');
-const invitationDiv = document.getElementById('invitation');
-const musicBtn = document.getElementById('musicBtn');
+// مهم : جميع الفيديوهات والموسيقى تبدأ في حالة PAUSE (لاتشغيل تلقائي)
+// لن يتم تشغيل أي عنصر سمعي/بصري إلا بعد أول لمسة من المستخدم على الشاشة.
+// بدون أي تعليمات نصية للمستخدم.
+
+// عناصر الوسائط
 const introVideoElem = document.getElementById('introVideo');
+const heroBgVideo = document.querySelector('.hero-bg-video');
+let audioElement = null;
+let isPlaying = false;       // حالة الموسيقى
+let globalUserTapped = false; // هل تم لمس الشاشة؟
+let overlayRemoved = false;    // هل تم إزالة الفيديو التمهيدي؟
+let transitionComplete = false; // هل ظهرت الدعوة بالفعل؟
 
-let videoEndedFlag = false;
-const transitionToSite = () => {
-  if (videoEndedFlag) return;
-  videoEndedFlag = true;
-  videoOverlay.style.opacity = '0';
-  setTimeout(() => {
-    videoOverlay.style.display = 'none';
-    invitationDiv.classList.add('show');
-    musicBtn.classList.add('visible');
-  }, 800);
-};
-
+// إعدادات الوسائط: نأكد أن الفيديو التمهيدي لا يبدأ (pause)
 if (introVideoElem) {
-  introVideoElem.addEventListener('ended', () => transitionToSite());
-  setTimeout(() => { if (!videoEndedFlag) transitionToSite(); }, 9000);
-  introVideoElem.addEventListener('error', () => transitionToSite());
-} else {
-  setTimeout(() => transitionToSite(), 300);
+  introVideoElem.pause();
+  introVideoElem.currentTime = 0;
+  // للتأكد من أنه متوقف تماماً
+  introVideoElem.load(); // يضمن عدم التشغيل
 }
 
-// 2) تشغيل الموسيقى بشكل إجباري تلقائي بعد 4 ثوانٍ
-let audioElement = null;
-let isPlaying = false;
-let musicStarted = false;
-let playAttempts = 0;
+// فيديو الخلفية (hero) يكون في وضع PAUSE مسبقاً
+if (heroBgVideo) {
+  heroBgVideo.pause();
+  heroBgVideo.currentTime = 0;
+}
 
-function forcePlayMusic() {
+// إنشاء كائن الموسيقى لكن لا يتم تحميله بشكل تلقائي ثقيل، فقط لحين الطلب
+const createAudio = () => {
   if (!audioElement) {
     audioElement = new Audio('background-music.mp3');
     audioElement.loop = true;
     audioElement.volume = 0.45;
+    audioElement.pause(); // تأكيد التوقف
+  }
+};
+
+// وظيفة إزالة الفيديو التمهيدي وظهور الدعوة
+function revealInvitation() {
+  if (transitionComplete) return;
+  transitionComplete = true;
+  
+  // اخفاء الفيديو التمهيدي
+  const videoOverlay = document.getElementById('videoOverlay');
+  videoOverlay.style.opacity = '0';
+  setTimeout(() => {
+    videoOverlay.style.display = 'none';
+    document.getElementById('invitation').classList.add('show');
+    const musicBtnEl = document.getElementById('musicBtn');
+    if (musicBtnEl) musicBtnEl.classList.add('visible');
+  }, 800);
+}
+
+// تشغيل كل الوسائط بعد أول لمسة للمستخدم
+function startAllMediaOnUserTouch() {
+  if (globalUserTapped) return; // منع التكرار
+  globalUserTapped = true;
+  
+  // 1) بدء فيديو الترحيب (intro) - يبدأ من التوقف التام
+  if (introVideoElem && introVideoElem.paused && !overlayRemoved) {
+    introVideoElem.play().catch(e => console.log("intro video play blocked? will retry", e));
+    
+    // الاستماع لنهاية فيديو الترحيب لإظهار الدعوة (اذا انتهى قبل اللمس الثاني)
+    introVideoElem.addEventListener('ended', () => {
+      if (!overlayRemoved) {
+        overlayRemoved = true;
+        revealInvitation();
+        // بعد ظهور الدعوة نقوم بتشغيل فيديو الخلفية والموسيقى إذا لا زالت تنتظر
+        if (heroBgVideo && heroBgVideo.paused) heroBgVideo.play().catch(e=>console.log("hero bg start error"));
+        if (audioElement && !isPlaying) {
+          audioElement.play().then(() => {
+            isPlaying = true;
+            const btn = document.getElementById('musicBtn');
+            if (btn) {
+              btn.textContent = '🔊';
+              btn.classList.add('spin');
+              btn.style.animation = 'rotateMusic 3s linear infinite';
+            }
+          }).catch(e=>console.log("audio start after intro ended"));
+        }
+      }
+    });
+    
+    // مهلة أمان: بعد 9 ثوانٍ إذا لم ينته الفيديو لأي سبب نكمل الانتقال
+    setTimeout(() => {
+      if (!overlayRemoved) {
+        overlayRemoved = true;
+        revealInvitation();
+        if (heroBgVideo && heroBgVideo.paused) heroBgVideo.play().catch(e=>console.log("hero bg start timeout"));
+        if (audioElement && !isPlaying) {
+          audioElement.play().then(() => {
+            isPlaying = true;
+            const btn = document.getElementById('musicBtn');
+            if (btn) {
+              btn.textContent = '🔊';
+              btn.classList.add('spin');
+              btn.style.animation = 'rotateMusic 3s linear infinite';
+            }
+          }).catch(e=>console.log("audio start timeout"));
+        }
+      }
+    }, 9000);
+  } else if (!overlayRemoved) {
+    // في حالة عدم وجود فيديو أو حدث خطأ نزيل الفيديو فوراً
+    overlayRemoved = true;
+    revealInvitation();
   }
   
-  // محاولة تشغيل الموسيقى
-  const playPromise = audioElement.play();
+  // 2) تشغيل فيديو الخلفية للهيرو (لكن بعد ظهور الدعوة؟ ننتظر أو نشغله الآن ولكن قد يكون الدعوة لم تظهر)
+  // لكن لتجنب أي صوت، ننتظر قليلاً أو نتحقق من visibility، ولكن الأفضل تشغيله بعد أن تظهر الدعوة أو فوراً إذا كانت الدعوة ظهرت
+  const ensureBgVideoPlay = () => {
+    if (heroBgVideo && heroBgVideo.paused) {
+      heroBgVideo.play().catch(e => console.log("hero bg video could not auto play", e));
+    }
+  };
   
-  if (playPromise !== undefined) {
-    playPromise.then(() => {
-      // التشغيل نجح
+  if (transitionComplete) {
+    ensureBgVideoPlay();
+  } else {
+    // إذا لم تظهر الدعوة بعد، ننتظر حتى ظهورها ثم نشغل الفيديو
+    const checkInterval = setInterval(() => {
+      if (transitionComplete) {
+        clearInterval(checkInterval);
+        ensureBgVideoPlay();
+      }
+    }, 200);
+    setTimeout(() => clearInterval(checkInterval), 4000);
+  }
+  
+  // 3) تشغيل الموسيقى (بعد إنشاء الكائن إذا لم يتم إنشاؤه بعد)
+  createAudio();
+  if (audioElement && !isPlaying) {
+    audioElement.play().then(() => {
       isPlaying = true;
-      musicStarted = true;
-      musicBtn.textContent = '🔊';
-      musicBtn.classList.add('spin');
-      musicBtn.style.animation = 'rotateMusic 3s linear infinite';
-      console.log("Music started successfully");
-    }).catch(error => {
-      // فشل التشغيل بسبب سياسة المتصفح (مطلوب تفاعل المستخدم)
-      console.log("Auto-play blocked, retrying with user interaction fallback:", error);
-      playAttempts++;
-      
-      // محاولة ثانية بإضافة حدث نقر على أي مكان في الصفحة
-      if (playAttempts === 1) {
-        const playOnInteraction = () => {
-          if (!musicStarted && audioElement) {
-            audioElement.play().then(() => {
-              isPlaying = true;
-              musicStarted = true;
-              musicBtn.textContent = '🔊';
-              musicBtn.classList.add('spin');
-              musicBtn.style.animation = 'rotateMusic 3s linear infinite';
-            }).catch(e => console.log("Still blocked:", e));
-          }
-          document.removeEventListener('click', playOnInteraction);
-          document.removeEventListener('touchstart', playOnInteraction);
-        };
-        document.addEventListener('click', playOnInteraction);
-        document.addEventListener('touchstart', playOnInteraction);
-        
-        // إضافة رسالة صغيرة في console فقط
-        console.log("Tap anywhere to start music if auto-play was blocked");
+      const btn = document.getElementById('musicBtn');
+      if (btn) {
+        btn.textContent = '🔊';
+        btn.classList.add('spin');
+        btn.style.animation = 'rotateMusic 3s linear infinite';
+      }
+    }).catch(err => {
+      console.log("music autoplay blocked after tap? retry? will keep user gesture", err);
+      // في حال نادر فشل بسبب سياسة ما, نعيد المحاولة مع نفس الحدث لكن موسيقى تبدأ
+      if (audioElement && !isPlaying) {
+        setTimeout(() => {
+          audioElement.play().catch(e=>console.log("retry fail"));
+        }, 100);
       }
     });
   }
 }
 
-// بدء الموسيقى بعد 4 ثوانٍ من تحميل الصفحة
-setTimeout(() => {
-  forcePlayMusic();
-}, 0.1);
-
-// زر التحكم اليدوي في الموسيقى
-function toggleMusic() {
-  if (!audioElement) {
-    audioElement = new Audio('background-music.mp3');
-    audioElement.loop = true;
-    audioElement.volume = 0.45;
-  }
-  if (isPlaying) {
-    audioElement.pause();
-    isPlaying = false;
-    musicBtn.textContent = '🔇';
-    musicBtn.classList.remove('spin');
-    musicBtn.style.animation = '';
-  } else {
-    audioElement.play().catch(e => console.log("User interaction required"));
-    isPlaying = true;
-    musicBtn.textContent = '🔊';
-    musicBtn.classList.add('spin');
-    musicBtn.style.animation = 'rotateMusic 3s linear infinite';
+// تسجيل حدث اللمس الأول على الصفحة (أي لمسة في أي مكان)
+function onFirstUserInteraction(e) {
+  // نتأكد من أن اللمسة ليست على عنصر قد يتعارض معه ولكن نريد تفعيل كل شيء
+  if (!globalUserTapped) {
+    startAllMediaOnUserTouch();
+    // إزالة المستمعين بعد أول لمسة
+    document.removeEventListener('click', onFirstUserInteraction);
+    document.removeEventListener('touchstart', onFirstUserInteraction);
+    // أيضاً إزالة مستمع اللمس من الفيديو أوفرلاي
+    const videoOverlayDiv = document.getElementById('videoOverlay');
+    if (videoOverlayDiv) {
+      videoOverlayDiv.removeEventListener('click', onFirstUserInteraction);
+      videoOverlayDiv.removeEventListener('touchstart', onFirstUserInteraction);
+    }
   }
 }
 
-// 3) العد التنازلي (28 مايو 2026)
+// تطبيق الاستماع للأحداث على كامل المستند وأيضاً على طبقة الفيديو للتأكد من اللمسة الأولى
+document.addEventListener('click', onFirstUserInteraction);
+document.addEventListener('touchstart', onFirstUserInteraction);
+const videoOverlayDiv = document.getElementById('videoOverlay');
+if (videoOverlayDiv) {
+  videoOverlayDiv.addEventListener('click', onFirstUserInteraction);
+  videoOverlayDiv.addEventListener('touchstart', onFirstUserInteraction);
+}
+
+// إذا لم يحدث أي لمسة خلال 0.5 ثانية, نحافظ على التوقف التام. لا نضيف أي تعليمات.
+// لكن للتأكد من أن الفيديو التمهيدي لا يبدأ أبداً بدون لمسة، بالفعل تم ضبطه على pause
+
+// وظيفة زر الموسيقى اليدوي
+function toggleMusic() {
+  if (!globalUserTapped) {
+    // إذا لم يتم تفعيل الوسائط بعد, نقوم بتفعيل اللمسة أولاً ثم نعالج الموسيقى
+    startAllMediaOnUserTouch();
+    // نعيد محاولة تبديل الحالة بعد التفاعل قليلاً
+    setTimeout(() => {
+      if (audioElement) {
+        if (isPlaying) {
+          audioElement.pause();
+          isPlaying = false;
+          const btn = document.getElementById('musicBtn');
+          if (btn) {
+            btn.textContent = '🔇';
+            btn.classList.remove('spin');
+            btn.style.animation = '';
+          }
+        } else {
+          audioElement.play().then(() => {
+            isPlaying = true;
+            const btn = document.getElementById('musicBtn');
+            if (btn) {
+              btn.textContent = '🔊';
+              btn.classList.add('spin');
+              btn.style.animation = 'rotateMusic 3s linear infinite';
+            }
+          }).catch(e=>console.log("Manual start error"));
+        }
+      } else {
+        createAudio();
+        if (audioElement && !isPlaying) {
+          audioElement.play().then(()=>{
+            isPlaying = true;
+            const btn = document.getElementById('musicBtn');
+            if (btn) {
+              btn.textContent = '🔊';
+              btn.classList.add('spin');
+              btn.style.animation = 'rotateMusic 3s linear infinite';
+            }
+          }).catch(e=>console.log("manual create play error"));
+        }
+      }
+    }, 50);
+    return;
+  }
+  
+  // الوضع العادي بعد التفعيل
+  if (!audioElement) createAudio();
+  if (isPlaying) {
+    audioElement.pause();
+    isPlaying = false;
+    const btn = document.getElementById('musicBtn');
+    if (btn) {
+      btn.textContent = '🔇';
+      btn.classList.remove('spin');
+      btn.style.animation = '';
+    }
+  } else {
+    audioElement.play().then(() => {
+      isPlaying = true;
+      const btn = document.getElementById('musicBtn');
+      if (btn) {
+        btn.textContent = '🔊';
+        btn.classList.add('spin');
+        btn.style.animation = 'rotateMusic 3s linear infinite';
+      }
+    }).catch(err => console.log("toggle play error", err));
+  }
+}
+
+// العد التنازلي
 const weddingDate = new Date('2026-05-28T19:00:00');
 function updateCountdown() {
   const diff = weddingDate - new Date();
@@ -551,12 +695,16 @@ function updateCountdown() {
 setInterval(updateCountdown, 1000);
 updateCountdown();
 
-// تشغيل فيديو الخلفية بشكل متكرر
-const heroBgVideo = document.querySelector('.hero-bg-video');
-if (heroBgVideo) {
-  heroBgVideo.loop = true;
-  heroBgVideo.play().catch(e => console.log("bg video autoplay blocked", e));
-}
+// لا يوجد أي نص تعليمي للمستخدم، الوسائط كلها معلقة حتى اللمس.
+// مهم: نضمن عدم بدء فيديو الخلفية قبل اللمس (لقد تم استدعاء pause() مسبقاً)
+// لإعادة التأكيد نضيف ensure قبل أي شيء
+window.addEventListener('load', () => {
+  if (heroBgVideo) heroBgVideo.pause();
+  if (introVideoElem) introVideoElem.pause();
+  createAudio();
+  if (audioElement) audioElement.pause();
+  // لا حاجة لاي طباعة توجيهية
+});
 </script>
 </body>
 </html>
