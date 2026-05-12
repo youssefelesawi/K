@@ -18,7 +18,6 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
   align-items:center;
   justify-content:center;
   transition:opacity 0.8s ease;
-  cursor:pointer;
 }
 .video-container {
   position:relative;
@@ -31,50 +30,6 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
   height:100%;
   object-fit:cover;
   display:block;
-}
-
-/* ========== START SCREEN CUSTOM (تلميح اللمس) ========== */
-.start-overlay {
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,0.5);
-  backdrop-filter:blur(8px);
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  z-index:10;
-  transition:opacity 0.5s;
-}
-.start-prompt {
-  text-align:center;
-  color:#fff;
-  font-family:'Tajawal',sans-serif;
-  padding:24px;
-  background:rgba(255,245,235,0.2);
-  border-radius:80px;
-  backdrop-filter:blur(16px);
-  border:1px solid rgba(255,255,245,0.6);
-  letter-spacing:2px;
-}
-.start-prompt span {
-  display:block;
-  font-size:1.4rem;
-  font-weight:500;
-  margin-bottom:12px;
-}
-.start-prompt small {
-  font-size:0.8rem;
-  opacity:0.9;
-}
-.touch-icon {
-  font-size:3rem;
-  margin-bottom:16px;
-  animation:bounceTouch 1.4s infinite;
-}
-@keyframes bounceTouch {
-  0%,100%{transform:translateY(0px);}
-  50%{transform:translateY(12px);}
 }
 
 /* ========== MUSIC BTN ========== */
@@ -126,6 +81,8 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
   overflow:hidden;
   background: rgba(0,0,0,0.2);
 }
+
+/* فيديو الخلفية loop */
 .hero-bg-video {
   position: absolute;
   top: 0;
@@ -145,6 +102,8 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
   z-index: 1;
   pointer-events: none;
 }
+
+/* الزوايا المزخرفة */
 .floral {
   position:absolute; width:230px; height:230px;
   pointer-events:none; opacity:0;
@@ -157,6 +116,7 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
 .floral.br { bottom:-15px; right:-15px; transform:scale(-1,-1); animation-delay:0.8s; }
 @keyframes floralReveal { to{opacity:1} }
 
+/* محتوى الهيرو */
 .hero-content {
   position:relative; z-index:15;
   text-align:center;
@@ -165,6 +125,8 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
   width:auto;
   background: transparent;
 }
+
+/* العناصر التي تظهر بتسلسل fade in */
 .bismillah {
   font-family:'Amiri',serif; font-size:1.5rem;
   color:#f8e6dc; 
@@ -174,6 +136,7 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
   animation:fadeInSeq 0.8s forwards;
   animation-delay:0.1s;
 }
+
 .names {
   font-family:'Amiri',serif; 
   color:#fff6ef;
@@ -210,6 +173,7 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
   animation:fadeInSeq 0.8s forwards;
   animation-delay:1.3s;
 }
+
 .divider {
   display:flex; align-items:center; justify-content:center; gap:14px;
   margin:28px 0 20px;
@@ -218,6 +182,7 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
   animation-delay:1.6s;
 }
 .divider .ln { width:80px; height:1.5px; background:linear-gradient(90deg,transparent,#f0cfc0,transparent); }
+
 .tagline {
   font-size:1.1rem; 
   color:#fff0e6;
@@ -229,6 +194,8 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
   animation:fadeInSeq 0.8s forwards;
   animation-delay:1.9s;
 }
+
+/* التاريخ بتصميم Liquid Glass */
 .date-pill {
   margin:32px auto 0; 
   display:inline-flex; 
@@ -262,10 +229,13 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
   font-weight:500;
   text-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }
+
 @keyframes fadeInSeq {
   from { opacity:0; transform:translateY(15px); }
   to { opacity:1; transform:translateY(0); }
 }
+
+/* سهم التمرير */
 .scroll-hint {
   position:absolute; bottom:28px; left:0; right:0; 
   display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
@@ -293,16 +263,20 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
 }
 @keyframes scrollAnim { 0%,100%{transform:scaleY(1);opacity:0.5} 50%{transform:scaleY(1.6);opacity:1} }
 
+/* باقي الأقسام */
 .sep {
   display:flex; align-items:center; justify-content:center; gap:16px;
   padding:12px 24px; background:rgba(255,255,255,0.7);
 }
 .sep-line { flex:1; max-width:130px; height:1px; background:linear-gradient(90deg,transparent,#d4b0a8,transparent); }
+
 .sec { padding:56px 24px; text-align:center; position:relative; overflow:hidden; }
 .sec-cream { background:linear-gradient(180deg,#fdf8f4,#faf3ee); }
 .sec-rose  { background:linear-gradient(180deg,#fdf0ec,#f5e8e2); }
 .sec-title { font-family:'Amiri',serif; font-size:1.9rem; color:#6a3030; margin-bottom:6px; }
 .sec-sub   { font-size:0.8rem; color:#b09090; letter-spacing:3px; text-transform:uppercase; margin-bottom:34px; }
+
+/* Cards */
 .cards { display:flex; flex-direction:column; gap:14px; max-width:400px; margin:0 auto; }
 .card {
   background:white; border-radius:20px; padding:18px 22px;
@@ -320,16 +294,22 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
 .card-txt { text-align:right; flex:1; }
 .card-lbl { font-size:0.72rem; color:#b09090; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px; }
 .card-val { font-family:'Amiri',serif; font-size:1.2rem; color:#5a3030; font-weight:500; }
+
+/* Countdown */
 .countdown { display:flex; justify-content:center; gap:14px; margin:0 auto 8px; }
 .cd-box { background:white; border-radius:20px; padding:16px 14px; min-width:72px; box-shadow:0 6px 20px rgba(180,110,100,0.1); border:1px solid rgba(220,175,165,0.3); text-align:center; }
 .cd-num { font-size:2rem; font-weight:800; color:#7a4040; display:block; line-height:1; }
 .cd-lbl { font-size:0.62rem; color:#b09090; letter-spacing:1.5px; text-transform:uppercase; margin-top:6px; display:block; }
+
+/* Map */
 .map-sec { background:#fdf8f4; }
 .map-header { padding:50px 24px 22px; text-align:center; }
 .map-wrap { width:100%; height:310px; position:relative; overflow:hidden; border-radius: 28px; box-shadow: 0 12px 30px rgba(0,0,0,0.08); }
 .map-wrap iframe { width:100%; height:100%; border:none; filter:saturate(0.7) brightness(1.02); }
 .map-btn { position:absolute; bottom:20px; left:50%; transform:translateX(-50%); background:linear-gradient(135deg,#cc7070,#aa4848); color:white; border:none; border-radius:60px; padding:13px 32px; font-family:'Tajawal',sans-serif; font-size:0.88rem; cursor:pointer; box-shadow:0 8px 28px rgba(0,0,0,0.2); display:flex; align-items:center; gap:6px; white-space:nowrap; text-decoration:none; transition:0.2s; }
 .map-btn:hover { transform: translateX(-50%) translateY(-3px); background: #b54a4a; }
+
+/* Closing */
 .closing { padding:64px 28px 90px; text-align:center; background:linear-gradient(155deg,#fce8e0,#f5ddd4 50%,#ecdad4 100%); position:relative; overflow:hidden; }
 .closing::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 110%,rgba(240,200,185,0.55) 0%,transparent 65%); }
 .quran-verse { font-family:'Amiri',serif; font-size:1.35rem; color:#6a3030; line-height:2; margin-bottom:30px; position:relative; font-weight:500; }
@@ -341,20 +321,12 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
 </head>
 <body>
 
-<!-- VIDEO OVERLAY مع طبقة اللمس -->
+<!-- VIDEO OVERLAY (5 ثوانٍ) -->
 <div id="videoOverlay">
   <div class="video-container">
-    <video id="introVideo" muted playsinline style="width:100%; height:100%; object-fit:cover;">
+    <video id="introVideo" autoplay muted playsinline>
       <source src="background.mp4" type="video/mp4">
     </video>
-    <!-- طبقة البدء التي تنتظر اللمس -->
-    <div id="startTouchLayer" class="start-overlay">
-      <div class="start-prompt">
-        <div class="touch-icon">👆✨</div>
-        <span>المس الشاشة لبدء الحفل</span>
-        <small>سيبدأ الفيديو والموسيقى معاً</small>
-      </div>
-    </div>
   </div>
 </div>
 
@@ -363,7 +335,7 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
 <div id="invitation">
   <!-- HERO SECTION -->
   <section class="hero">
-    <video class="hero-bg-video" loop muted playsinline>
+    <video class="hero-bg-video" autoplay loop muted playsinline>
       <source src="bg.mp4" type="video/mp4">
     </video>
     
@@ -409,6 +381,7 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
 
   <div class="sep"><div class="sep-line"></div><div class="sep-line"></div></div>
 
+  <!-- تفاصيل الحفل -->
   <section class="sec sec-cream" id="details">
     <div><h2 class="sec-title">تفاصيل الحفل</h2><p class="sec-sub">Wedding Details</p></div>
     <div class="cards">
@@ -420,6 +393,7 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
 
   <div class="sep"><div class="sep-line"></div><div class="sep-line"></div></div>
 
+  <!-- العد التنازلي -->
   <section class="sec sec-rose">
     <div><h2 class="sec-title">العد التنازلي</h2><p class="sec-sub">Days Until The Big Day</p></div>
     <div class="countdown" id="cdWrap">
@@ -432,6 +406,7 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
 
   <div class="sep"><div class="sep-line"></div><div class="sep-line"></div></div>
 
+  <!-- الخريطة - موقع المنصورة G-Marriot -->
   <section class="map-sec">
     <div class="map-header"><div><h2 class="sec-title">موقع الحفل</h2><p class="sec-sub">Venue Location</p></div></div>
     <div class="map-wrap">
@@ -442,6 +417,7 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
 
   <div class="sep"><div class="sep-line"></div><div class="sep-line"></div></div>
 
+  <!-- الختام -->
   <section class="closing">
     <p class="quran-verse">﴿ وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا<br>لِّتَسْكُنُوا إِلَيْهَا ﴾</p>
     <p class="closing-msg">حضوركم شرف لنا وفرحة تُضاف إلى فرحتنا<br>نتطلع لرؤيتكم في هذه الليلة الجميلة</p>
@@ -451,133 +427,94 @@ html,body { width:100%; height:100%; overflow:hidden; font-family:'Tajawal',sans
 </div>
 
 <script>
-// -------------------------------
-// الحل: بدء كل شيء (فيديو انترو و الموسيقى) فقط عند أول لمس على الشاشة
-// -------------------------------
-
-let introStarted = false;     // هل بدأ الفيديو والانتقال؟
-let overlayHidden = false;
+// 1) فيديو الترحيب (ينتهي ويظهر الدعوة)
 const videoOverlay = document.getElementById('videoOverlay');
 const invitationDiv = document.getElementById('invitation');
 const musicBtn = document.getElementById('musicBtn');
 const introVideoElem = document.getElementById('introVideo');
-const startLayer = document.getElementById('startTouchLayer');
 
+let videoEndedFlag = false;
+const transitionToSite = () => {
+  if (videoEndedFlag) return;
+  videoEndedFlag = true;
+  videoOverlay.style.opacity = '0';
+  setTimeout(() => {
+    videoOverlay.style.display = 'none';
+    invitationDiv.classList.add('show');
+    musicBtn.classList.add('visible');
+  }, 800);
+};
+
+if (introVideoElem) {
+  introVideoElem.addEventListener('ended', () => transitionToSite());
+  setTimeout(() => { if (!videoEndedFlag) transitionToSite(); }, 9000);
+  introVideoElem.addEventListener('error', () => transitionToSite());
+} else {
+  setTimeout(() => transitionToSite(), 300);
+}
+
+// 2) تشغيل الموسيقى بشكل إجباري تلقائي بعد 4 ثوانٍ
 let audioElement = null;
 let isPlaying = false;
-let musicStartedByUser = false;   // تم بدء الموسيقى بناءً على اللمس
+let musicStarted = false;
+let playAttempts = 0;
 
-// دالة تشغيل الموسيقى نهائياً (يتم استدعائها بعد اللمس)
-function startMusicAfterTouch() {
-  if (musicStartedByUser) return;
+function forcePlayMusic() {
   if (!audioElement) {
     audioElement = new Audio('background-music.mp3');
     audioElement.loop = true;
     audioElement.volume = 0.45;
   }
-  audioElement.play().then(() => {
-    isPlaying = true;
-    musicStartedByUser = true;
-    musicBtn.textContent = '🔊';
-    musicBtn.classList.add('spin');
-    musicBtn.style.animation = 'rotateMusic 3s linear infinite';
-    console.log("Music started by user touch");
-  }).catch(err => {
-    console.warn("Music could not start even after touch:", err);
-    // في حالة فشل استثنائي، نجرب مرة اخرى ولكن عادة بعد اللمس يجب ان يعمل
-    if (audioElement) {
-      setTimeout(() => { if (!musicStartedByUser) audioElement.play().catch(e=>console.log); }, 200);
-    }
-  });
-}
-
-// دالة بدء الانترو (فيديو التشغيل + الانتقال)
-function startIntroAndTransition() {
-  if (introStarted) return;
-  introStarted = true;
   
-  // تشغيل الفيديو الترحيبي من البداية (بعد اللمس مباشرة)
-  if (introVideoElem) {
-    introVideoElem.currentTime = 0;
-    introVideoElem.play().catch(e => console.warn("Intro video play error:", e));
-  }
+  // محاولة تشغيل الموسيقى
+  const playPromise = audioElement.play();
   
-  // تعيين حدث انتهاء الفيديو للانتقال
-  const finishTransition = () => {
-    if (overlayHidden) return;
-    overlayHidden = true;
-    // إخفاء overlay تدريجياً وإظهار الدعوة
-    videoOverlay.style.opacity = '0';
-    setTimeout(() => {
-      videoOverlay.style.display = 'none';
-      invitationDiv.classList.add('show');
-      musicBtn.classList.add('visible');
-      // تشغيل فيديو الخلفية الرئيسي بعد ظهور الدعوة
-      const heroBgVideo = document.querySelector('.hero-bg-video');
-      if (heroBgVideo) heroBgVideo.play().catch(e => console.log("bg video play", e));
-    }, 800);
-  };
-  
-  if (introVideoElem) {
-    // إزالة المستمعين السابقين لتجنب التداخل
-    introVideoElem.removeEventListener('ended', finishTransition);
-    introVideoElem.addEventListener('ended', finishTransition, { once: true });
-    // مهلة أمان في حالة عدم تشغيل الفيديو أو عدم وجود حدث ended (بحد أقصى 9 ثوانٍ)
-    clearTimeout(window.transitionTimeout);
-    window.transitionTimeout = setTimeout(() => {
-      if (!overlayHidden) finishTransition();
-    }, 9000);
-  } else {
-    finishTransition();
+  if (playPromise !== undefined) {
+    playPromise.then(() => {
+      // التشغيل نجح
+      isPlaying = true;
+      musicStarted = true;
+      musicBtn.textContent = '🔊';
+      musicBtn.classList.add('spin');
+      musicBtn.style.animation = 'rotateMusic 3s linear infinite';
+      console.log("Music started successfully");
+    }).catch(error => {
+      // فشل التشغيل بسبب سياسة المتصفح (مطلوب تفاعل المستخدم)
+      console.log("Auto-play blocked, retrying with user interaction fallback:", error);
+      playAttempts++;
+      
+      // محاولة ثانية بإضافة حدث نقر على أي مكان في الصفحة
+      if (playAttempts === 1) {
+        const playOnInteraction = () => {
+          if (!musicStarted && audioElement) {
+            audioElement.play().then(() => {
+              isPlaying = true;
+              musicStarted = true;
+              musicBtn.textContent = '🔊';
+              musicBtn.classList.add('spin');
+              musicBtn.style.animation = 'rotateMusic 3s linear infinite';
+            }).catch(e => console.log("Still blocked:", e));
+          }
+          document.removeEventListener('click', playOnInteraction);
+          document.removeEventListener('touchstart', playOnInteraction);
+        };
+        document.addEventListener('click', playOnInteraction);
+        document.addEventListener('touchstart', playOnInteraction);
+        
+        // إضافة رسالة صغيرة في console فقط
+        console.log("Tap anywhere to start music if auto-play was blocked");
+      }
+    });
   }
 }
 
-// معالج اللمسة الأولى: مسؤول عن كل شيء (بدء الفيديو والموسيقى والانتقال)
-function onFirstTouch(event) {
-  if (introStarted) return;
-  
-  // 1) نزيل طبقة اللمس فوراً لمنع تكرار الضغط
-  if (startLayer) {
-    startLayer.style.opacity = '0';
-    setTimeout(() => { if(startLayer) startLayer.style.display = 'none'; }, 400);
-  }
-  
-  // 2) بدء الموسيقى (بعد التفاعل المباشر)
-  startMusicAfterTouch();
-  
-  // 3) بدء فيديو الإنترو والانتقال التدريجي
-  startIntroAndTransition();
-  
-  // إزالة جميع مستمعي الأحداث بعد أول لمسة ناجحة
-  document.removeEventListener('touchstart', onFirstTouch);
-  document.removeEventListener('click', onFirstTouch);
-  videoOverlay.removeEventListener('touchstart', onFirstTouch);
-  videoOverlay.removeEventListener('click', onFirstTouch);
-}
+// بدء الموسيقى بعد 4 ثوانٍ من تحميل الصفحة
+setTimeout(() => {
+  forcePlayMusic();
+}, 0.1);
 
-// ربط الحدث: الضغط على أي جزء من الفيديو او طبقة البداية
-if (videoOverlay) {
-  videoOverlay.addEventListener('touchstart', onFirstTouch);
-  videoOverlay.addEventListener('click', onFirstTouch);
-}
-// ضمان أيضاً على المستند بالكامل إذا لم يفلح (لأجهزة سطح المكتب)
-document.addEventListener('touchstart', onFirstTouch, { once: false });
-document.addEventListener('click', onFirstTouch, { once: false });
-
-// منع أي تشغيل تلقائي للموسيقى أو الفيديو بدون التفاعل (يتم تأمينه)
-// تعطيل أي محاولات سابقة لتشغيل الأوتو بلاي
-if (introVideoElem) {
-  introVideoElem.pause();
-  introVideoElem.currentTime = 0;
-}
-const heroBgVideoPre = document.querySelector('.hero-bg-video');
-if (heroBgVideoPre) {
-  heroBgVideoPre.pause();
-  heroBgVideoPre.currentTime = 0;
-}
-
-// زر الموسيقى اليدوي (يعمل بعد أن تظهر الدعوة والزر يصبح مرئياً)
-window.toggleMusic = function() {
+// زر التحكم اليدوي في الموسيقى
+function toggleMusic() {
   if (!audioElement) {
     audioElement = new Audio('background-music.mp3');
     audioElement.loop = true;
@@ -590,15 +527,15 @@ window.toggleMusic = function() {
     musicBtn.classList.remove('spin');
     musicBtn.style.animation = '';
   } else {
-    audioElement.play().catch(e => console.log("manual play error"));
+    audioElement.play().catch(e => console.log("User interaction required"));
     isPlaying = true;
     musicBtn.textContent = '🔊';
     musicBtn.classList.add('spin');
     musicBtn.style.animation = 'rotateMusic 3s linear infinite';
   }
-};
+}
 
-// العد التنازلي (يبدأ فوراً)
+// 3) العد التنازلي (28 مايو 2026)
 const weddingDate = new Date('2026-05-28T19:00:00');
 function updateCountdown() {
   const diff = weddingDate - new Date();
@@ -614,10 +551,12 @@ function updateCountdown() {
 setInterval(updateCountdown, 1000);
 updateCountdown();
 
-// عند ظهور الدعوة نحاول تشغيل فيديو الخلفية ولكن فقط إن كانت الدعوة ظاهرة وتم التفاعل مسبقاً.
-// لكن بما أن startIntroAndTransition ستقوم بتشغيله بعد الانتهاء من الانتقال و الفيديو الترحيبي، لا داعى لإضافة آخر.
-// التأكد من أن الخلفية لن تعمل بدون لمس: تم تعطيلها في البداية.
-// نضمن أيضاً أنه بعد الانتقال يحصل تشغيل bg video
+// تشغيل فيديو الخلفية بشكل متكرر
+const heroBgVideo = document.querySelector('.hero-bg-video');
+if (heroBgVideo) {
+  heroBgVideo.loop = true;
+  heroBgVideo.play().catch(e => console.log("bg video autoplay blocked", e));
+}
 </script>
 </body>
 </html>
